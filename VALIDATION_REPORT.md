@@ -1,51 +1,51 @@
-# VALIDATION REPORT — VES Studio v1.1
+# VALIDATION REPORT — VES Studio Core Beta v1.1
 
 **Data:** 2026-07-11
-**Werdykt:** PASS
+**Werdykt:** PASS (merge gate zielony)
 
 ## Zakres
 
-Walidacja semantyczna źródeł, zależności i Runtime Pack (nie tylko obecność
-plików). Uruchamiana lokalnie i w CI (`.github/workflows/validate.yml`).
+Walidacja strukturalna i **semantyczna** źródeł, rejestrów, polityk i Runtime
+Pack. Uruchamiana lokalnie (`scripts/run_merge_gate.sh`) i w CI
+(`.github/workflows/validate.yml`).
 
 ## Wyniki
 
 | Kontrola | Skrypt | Wynik |
 |---|---|---|
-| Frontmatter i metadane źródeł | `validate_sources.py` | PASS (67 źródeł, 67 unikalnych ID) |
+| Frontmatter, metadane, stany decyzji | `validate_sources.py` | PASS (67 źródeł, 67 ID) |
 | Graf zależności i cykle | `validate_dependencies.py` | PASS (67 węzłów, 91 krawędzi, 0 cykli) |
-| Sygnał duplikacji reguł | `detect_duplicate_rules.py` | REPORT (bez blokad) |
-| Runtime Pack | `validate_runtime.py` | PASS (8 plików) |
-| Testy | `pytest` | PASS (17 testów) |
+| Licencje assetów, źródła zewnętrzne, wskaźnik modeli | `validate_registries.py` | PASS |
+| Semantyka (eligibility, sync, statusy, rozliczenie, wersja) | `validate_policies.py` | PASS |
+| Duplikaty reguł normatywnych | `detect_duplicate_rules.py` | PASS (0 niezwolnionych) |
+| Runtime Pack (markery, wersja, checksum) | `validate_runtime.py` | PASS (8 plików) |
+| Świeżość runtime | `verify_runtime_freshness.py` | PASS |
+| Testy | `pytest` | PASS (34 testy) |
 
-## Statystyka źródeł
+## Statusy release (rozdzielone)
 
-| Status | Liczba |
-|---|---:|
-| ACTIVE | 35 |
-| PARTIAL | 4 |
-| DRAFT | 5 |
-| ARCHITECTURE_ONLY (placeholder) | 22 |
-| SUPERSEDED | 1 |
-| **Razem** | **67** |
+- `repository_status: ACTIVE`
+- `release_status: CORE_BETA`
+- `runtime_status: BETA`
 
-## Kontrole szczegółowe
+## Runtime Pack
 
-- [x] Każde aktywne źródło ma kompletny frontmatter (id, wersja, status, owner,
-      approved_by, updated, source_type, scope, canonical, dependencies).
-- [x] Wszystkie ID unikalne, wersje semantyczne.
-- [x] Wszystkie zależności to pełne, rozwiązywalne ścieżki `sources/…`.
-- [x] Brak cykli zależności (cykl PROJECT_TEMPLATE ↔ BRIEF_SYSTEM usunięty).
-- [x] Żaden plik ACTIVE nie zależy od ARCHITECTURE_ONLY.
-- [x] Systemy zależne od placeholderów oznaczone jako PARTIAL.
-- [x] Brak zależności ACTIVE/PARTIAL od SUPERSEDED.
-- [x] Placeholdery nie są `canonical: true`.
-- [x] Runtime Pack ≤ 8 plików, bez placeholderów i treści SUPERSEDED.
-- [x] Każdy runtime `.md` ma sekcję `## SOURCE MAP`.
-- [x] Brak nieaktualnych nazw modeli i wzorców sekretów w Runtime Pack.
-- [x] `VES_VISUAL_STUDIO.md` scalony i oznaczony SUPERSEDED.
+- 8 plików, wersja z manifestu (1.1.0), deterministyczny checksum źródeł.
+- Kompilowane wyłącznie źródła `ACTIVE` (27), 8 ACTIVE+canonical jawnie
+  wykluczonych z powodem i właścicielem.
+- Brak DRAFT/PARTIAL w runtime; brak wyjątków w tym wydaniu.
+
+## Kontrole polityk (dawne P0)
+
+- [x] Runtime kompiluje wyłącznie `ACTIVE` (P0-01).
+- [x] Decyzja pending-sync jest strukturalna i wykluczona z runtime (P0-02).
+- [x] `ACTIVE + UNKNOWN license` jest zablokowane; fonty PROVISIONAL (P0-03).
+- [x] Źródła EXTERNAL bez URI są BLOCKED/MISSING; null pointer nie jest usable (P0-04).
+- [x] Statusy repo/release/runtime rozdzielone i zgodne (P0-05).
+- [x] Wersja runtime z manifestu + checksum; brak stałej w kodzie (P0-06).
+- [x] Każde `ACTIVE + canonical` jest skompilowane lub jawnie wykluczone (P0-07).
 
 ## Decyzja
 
-PASS — źródła i Runtime Pack są gotowe do review przez Ves / VES CREATIVE
-DIRECTOR.
+PASS jako **Core Beta**. System nie jest opisywany jako production-ready.
+Otwarte ryzyka: patrz `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` sekcja 5.

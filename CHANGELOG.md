@@ -4,6 +4,47 @@ Ten changelog dotyczy **zmian systemowych** (źródeł i reguł). Wersje artefak
 i status projektów należą do *project delta*, nie tutaj
 (patrz `sources/05_DOCUMENT_SYSTEM/REVIEW_CHANGELOG_SYSTEM.md`).
 
+## [2026-07-11] — v1.1 CORE BETA (red-team fix pack)
+
+### Co zmieniono
+
+- runtime kompiluje wyłącznie źródła `ACTIVE`; kompozycja i wykluczenia jako dane
+  w `registries/RUNTIME_COMPOSITION.json` (schema), bez stałych w Pythonie (P0-01, P0-07),
+- strukturalny stan decyzji: `decision_status` + `external_sync_status`; decyzja
+  typografii AlterBake `ACCEPTED` + `PENDING`, wykluczona z runtime (P0-02),
+- polityka licencji assetów: `ACTIVE` wymaga `CONFIRMED`; Signage Grotesk i Google
+  Sans → `PROVISIONAL` z fallbackiem (P0-03),
+- walidacja rejestru źródeł zewnętrznych: `criticality`, `state`, `severity`;
+  AI Command Center `BLOCKED` (brak URI) (P0-04),
+- rozdzielone statusy `repository_status` / `release_status` (CORE_BETA) /
+  `runtime_status` (P0-05),
+- wersja runtime z manifestu + deterministyczny checksum źródeł (P0-06),
+- markery reguł `<!-- SOURCE ... -->` w runtime (P1-01), blokada duplikatów
+  normatywnych (P1-02), weryfikacja świeżości runtime (P1-03), semantyczny etap
+  CI (P1-04),
+- nowe walidatory: `validate_registries.py`, `validate_policies.py`,
+  `verify_runtime_freshness.py`; merge gate `scripts/run_merge_gate.sh`.
+
+### Dlaczego
+
+Architecture Review + Red Team: zielone CI potwierdzało spójność strukturalną,
+ale nie prawdziwość decyzji, licencji, źródeł zewnętrznych ani zgodności statusów.
+
+### Wpływ
+
+- runtime nie zawiera hipotez ani systemów PARTIAL,
+- niepotwierdzone licencje i źródła zewnętrzne są jawnie zablokowane,
+- release opisany prawdziwie jako Core Beta, nie production-ready.
+
+### Ryzyka
+
+Patrz `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` sekcja 5 (licencje fontów,
+AI Command Center, synchronizacja Drive, Dietanka, prompt injection).
+
+### Status
+
+ACTIVE
+
 ## [2026-07-11] — v1.1 SOURCE NORMALIZATION + RUNTIME PACK
 
 ### Co zmieniono
