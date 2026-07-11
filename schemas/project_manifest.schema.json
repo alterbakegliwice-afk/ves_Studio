@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VES Studio Project Manifest v1",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "domain",
+    "owner",
+    "status",
+    "problem",
+    "goal",
+    "audience",
+    "medium",
+    "constraints",
+    "sources",
+    "decisions",
+    "risks",
+    "artifacts",
+    "quality_gate",
+    "next_step"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_-]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "domain": {
+      "enum": [
+        "alterbake",
+        "dietanka",
+        "personal-os",
+        "ves-studio",
+        "other"
+      ]
+    },
+    "owner": {
+      "type": "string"
+    },
+    "operator": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "INTAKE",
+        "ACTIVE",
+        "REVIEW",
+        "BLOCKED",
+        "DONE",
+        "ARCHIVED"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "problem": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "audience": {
+      "type": "string"
+    },
+    "medium": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ACTIVE",
+              "DRAFT",
+              "SUPERSEDED",
+              "MISSING"
+            ]
+          },
+          "link": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "risk": {
+            "type": "string"
+          },
+          "probability": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "impact": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "response": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "quality_gate": {
+      "type": "object",
+      "required": [
+        "review",
+        "minimum_score"
+      ],
+      "properties": {
+        "review": {
+          "type": "string"
+        },
+        "minimum_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "hard_fails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "next_step": {
+      "type": "object",
+      "required": [
+        "action",
+        "owner"
+      ],
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "deadline": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

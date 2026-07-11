@@ -1,0 +1,35 @@
+{
+  "name": "VES Studio 2.0 — Source Repository",
+  "version": "1.1.0",
+  "status": "ACTIVE",
+  "date": "2026-07-11",
+  "source_first": true,
+  "repo_is_runtime": false,
+  "system_owner": "Piotrek",
+  "creative_owner": "Ves / VES CREATIVE DIRECTOR",
+  "operations_source_of_truth": "Claude",
+  "workspace_owner": "Gemini",
+  "model_capability_source": "AI Command Center",
+  "runtime_pack": {
+    "path": "runtime/",
+    "max_files": 8,
+    "generated_by": "scripts/build_runtime_pack.py"
+  },
+  "active_modules": [
+    "sources/01_MASTER_CONTEXT",
+    "sources/02_BRAND_SYSTEM",
+    "sources/03_VISUAL_LANGUAGE",
+    "sources/05_DOCUMENT_SYSTEM",
+    "sources/08_PROJECT_TEMPLATE",
+    "sources/09_REVIEW_SYSTEM",
+    "sources/10_CHANGELOG",
+    "sources/12_TESTS",
+    "sources/13_SHARED_HANDOFFS"
+  ],
+  "architecture_only_modules": [
+    "sources/04_COMPONENT_LIBRARY",
+    "sources/06_PROMPT_LIBRARY",
+    "sources/07_REFERENCE_LIBRARY",
+    "sources/11_AUTOMATION"
+  ]
+}

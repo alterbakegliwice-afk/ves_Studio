@@ -1,0 +1,58 @@
+{
+  "version": "1.1.0",
+  "updated": "2026-07-11",
+  "assets": [
+    {
+      "id": "ASSET-ALTERBAKE-LOGO",
+      "name": "AlterBake wordmark / znak",
+      "type": "logo",
+      "owner": "Piotrek",
+      "license_status": "UNKNOWN",
+      "canonical_uri": null,
+      "allowed_uses": [],
+      "restrictions": [
+        "Finalny znak wyłącznie wektorowy; bitmapa AI nie jest masterem.",
+        "Wordmark pozostaje otwartą decyzją (patrz ALTERBAKE_BRAND.md sekcja 11)."
+      ],
+      "status": "MISSING"
+    },
+    {
+      "id": "ASSET-ALTERBAKE-FONT-SIGNAGE",
+      "name": "Signage Grotesk",
+      "type": "font",
+      "owner": "Piotrek",
+      "license_status": "UNKNOWN",
+      "canonical_uri": null,
+      "allowed_uses": [
+        "szyld",
+        "display",
+        "ekspresja marki"
+      ],
+      "restrictions": [
+        "Plik fontu nie jest commitowany do repo.",
+        "Licencja wymaga potwierdzenia dla druku i digital."
+      ],
+      "status": "ACTIVE"
+    },
+    {
+      "id": "ASSET-ALTERBAKE-FONT-GOOGLE-SANS",
+      "name": "Google Sans",
+      "type": "font",
+      "owner": "Piotrek",
+      "license_status": "UNKNOWN",
+      "canonical_uri": null,
+      "allowed_uses": [
+        "UI",
+        "menu",
+        "cenniki",
+        "etykiety systemowe",
+        "dłuższe treści"
+      ],
+      "restrictions": [
+        "Plik fontu nie jest commitowany do repo.",
+        "Zweryfikować prawo do użycia poza produktami Google."
+      ],
+      "status": "ACTIVE"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "version": "1.1.0",
+  "updated": "2026-07-11",
+  "sources": [
+    {
+      "id": "SRC-STATUS-ALTERBAKE",
+      "name": "STATUS_ALTERBAKE",
+      "type": "external-state",
+      "domain": "alterbake",
+      "owner": "Piotrek",
+      "status": "EXTERNAL",
+      "uri": "https://drive.google.com/file/d/13MxzoNH4VDyb7eDgN8bFtZuXmP_kxyaQUvbvfPXffRQ",
+      "last_verified": "2026-07-11",
+      "refresh_policy": "before strategic work",
+      "write_access": "manual-or-connector",
+      "known_conflicts": [
+        "Typography Signage Grotesk vs Google Sans: repo przyjął decyzję DEC-ALTERBAKE-TYPOGRAPHY-001 (Signage Grotesk = szyld/ekspresja, Google Sans = UI/system); dokument Drive nadal pokazuje konflikt i wymaga synchronizacji."
+      ]
+    },
+    {
+      "id": "SRC-AI-COMMAND-CENTER",
+      "name": "AI Command Center",
+      "type": "external-registry",
+      "domain": "ves-studio",
+      "owner": "Piotrek",
+      "status": "EXTERNAL",
+      "uri": null,
+      "last_verified": null,
+      "refresh_policy": "before model routing",
+      "write_access": "external",
+      "known_conflicts": []
+    },
+    {
+      "id": "SRC-DIETANKA-BRAND",
+      "name": "Dietanka brandbook (kanoniczny)",
+      "type": "external-state",
+      "domain": "dietanka",
+      "owner": "właścicielka marki + Piotrek",
+      "status": "MISSING",
+      "uri": null,
+      "last_verified": null,
+      "refresh_policy": "after brand workshop",
+      "write_access": "manual",
+      "known_conflicts": [
+        "Brak zatwierdzonego brandbooka; repo utrzymuje wyłącznie DIETANKA_BRAND_HYPOTHESES.md."
+      ]
+    }
+  ],
+  "generated": "runtime"
+}

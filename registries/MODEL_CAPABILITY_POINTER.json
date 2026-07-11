@@ -1,0 +1,30 @@
+{
+  "canonical_source": "AI Command Center",
+  "repository": "TO_BE_CONFIRMED",
+  "status": "EXTERNAL",
+  "last_verified": null,
+  "rule": "VES Studio defines task requirements; AI Command Center selects the current model.",
+  "task_characteristics": [
+    "photorealism",
+    "text_accuracy",
+    "reference_fidelity",
+    "series_consistency",
+    "world_knowledge",
+    "precise_edit",
+    "art_direction",
+    "vector_editability",
+    "batch_scale",
+    "time_pressure"
+  ],
+  "roles": [
+    "VES CREATIVE DIRECTOR",
+    "GENERATYWNY MODEL OBRAZU (koncept)",
+    "GENERATYWNY MODEL OBRAZU (seria)",
+    "NARZĘDZIE WEKTOROWE / UI",
+    "NARZĘDZIE SZABLONÓW",
+    "NARZĘDZIE RETUSZU",
+    "INŻYNIER AUTOMATYZACJI",
+    "OPERATOR WORKSPACE",
+    "ŹRÓDŁO OPERACYJNE"
+  ]
+}

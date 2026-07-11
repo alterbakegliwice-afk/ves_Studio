@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+*.swp
+
+# Local review archive output
+VES_STUDIO_SOURCE_v1.1_REVIEW.zip
+
+# Never commit secrets or asset binaries
+*.env
+.env
+*.key
+*.pem
+*.ttf
+*.otf
+*.woff
+*.woff2

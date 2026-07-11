@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VES Studio Decision Record v1",
+  "type": "object",
+  "required": [
+    "id",
+    "project",
+    "date",
+    "status",
+    "decider",
+    "problem",
+    "decision"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^DEC-[A-Z0-9-]+$"
+    },
+    "project": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "status": {
+      "enum": [
+        "PROPOSED",
+        "ACCEPTED",
+        "ACCEPTED_PENDING_SOURCE_SYNC",
+        "SUPERSEDED",
+        "REJECTED"
+      ]
+    },
+    "decider": {
+      "type": "string"
+    },
+    "problem": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "supersedes": {
+      "type": "string"
+    },
+    "superseded_by": {
+      "type": "string"
+    }
+  }
+}
