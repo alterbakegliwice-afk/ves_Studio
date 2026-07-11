@@ -2,8 +2,13 @@
   "canonical_source": "AI Command Center",
   "repository": "TO_BE_CONFIRMED",
   "status": "EXTERNAL",
+  "state": "BLOCKED",
+  "criticality": "critical",
+  "usable": false,
   "last_verified": null,
   "rule": "VES Studio defines task requirements; AI Command Center selects the current model.",
+  "blocked_reason": "Brak potwierdzonego URI repozytorium AI Command Center. Do czasu potwierdzenia routing modeli używa cech zadania i ról, bez rozstrzygania konkretnej nazwy modelu.",
+  "next_step": "Piotrek potwierdza URI/ID repozytorium AI Command Center; wtedy state -> AVAILABLE.",
   "task_characteristics": [
     "photorealism",
     "text_accuracy",
