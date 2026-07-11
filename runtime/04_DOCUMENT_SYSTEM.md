@@ -1,5 +1,6 @@
 # VES STUDIO — DOCUMENT SYSTEM (runtime)
 
+<!-- SOURCE id=VES-BRIEF-001 path=sources/05_DOCUMENT_SYSTEM/BRIEF_SYSTEM.md status=ACTIVE version=1.0.0 -->
 # BRIEF SYSTEM v1
 
 ## Minimalny brief
@@ -31,44 +32,7 @@ Inna osoba lub model może rozpocząć pracę bez odtwarzania rozmowy.
 
 ---
 
-# PDF SYSTEM v1
-
-## Warstwy
-
-1. treść,
-2. struktura informacji,
-3. grid,
-4. typografia,
-5. komponenty,
-6. branding,
-7. eksport.
-
-## Standard
-
-- tekst pozostaje tekstem,
-- tabele nie są obrazkami,
-- każda strona ma cel,
-- długi dokument ma nawigację,
-- wykresy mają źródła i jednostki,
-- obrazy mają wystarczającą rozdzielczość,
-- materiał przechodzi PDF Review.
-
-## Produkcja
-
-Sprawdź:
-
-- format strony,
-- spady,
-- margines bezpieczeństwa,
-- osadzenie fontów,
-- linki,
-- numerację,
-- kontrast,
-- wydruk w skali szarości, jeśli wymagany,
-- render każdej strony przed oddaniem.
-
----
-
+<!-- SOURCE id=VES-PRESENTATION-001 path=sources/05_DOCUMENT_SYSTEM/PRESENTATION_SYSTEM.md status=ACTIVE version=1.0.0 -->
 # PRESENTATION SYSTEM v1
 
 ## Zasada
@@ -95,27 +59,7 @@ Jedna główna idea na slajd.
 
 ---
 
-# REPORT SYSTEM v1
-
-## Struktura
-
-1. TL;DR
-2. Pytanie / zakres
-3. Metoda
-4. Fakty
-5. Wnioski
-6. Ryzyka i ograniczenia
-7. Rekomendacja
-8. Następny ruch
-9. Źródła
-10. Aneks
-
-## Zasada
-
-Fakt, wniosek i rekomendacja nie mogą być wizualnie ani językowo pomieszane.
-
----
-
+<!-- SOURCE id=VES-BATON-001 path=sources/05_DOCUMENT_SYSTEM/AI_BATON_SYSTEM.md status=ACTIVE version=1.0.0 -->
 # AI BATON SYSTEM v1
 
 ## Cel
@@ -144,6 +88,7 @@ Baton nie może zawierać ukrytej decyzji. Założenia, fakty i polecenia muszą
 
 ---
 
+<!-- SOURCE id=VES-ARTIFACT-NAMING-001 path=sources/05_DOCUMENT_SYSTEM/ARTIFACT_NAMING.md status=ACTIVE version=1.0.0 -->
 # ARTIFACT NAMING v1
 
 ## 1. Wzorzec nazwy
@@ -182,11 +127,38 @@ Wersja artefaktu należy do **project delta**, nie do systemowego changelogu
 
 ---
 
+<!-- SOURCE id=VES-REVIEW-CHANGELOG-001 path=sources/05_DOCUMENT_SYSTEM/REVIEW_CHANGELOG_SYSTEM.md status=ACTIVE version=1.0.0 -->
+# REVIEW & CHANGELOG SYSTEM v1
+
+## Review
+
+Każdy review zapisuje:
+
+- wersję,
+- kryteria,
+- wynik,
+- hard fails,
+- trzy największe problemy,
+- jedną instrukcję następnej rundy,
+- decyzję PASS / REVISE / REJECT.
+
+## Changelog
+
+Każda zmiana systemowa zapisuje:
+
+- co,
+- dlaczego,
+- wpływ,
+- pliki zależne,
+- rollback,
+- status.
+
+---
+
 ## SOURCE MAP
 
 - `VES-BRIEF-001` — `sources/05_DOCUMENT_SYSTEM/BRIEF_SYSTEM.md` (status: ACTIVE)
-- `VES-PDF-001` — `sources/05_DOCUMENT_SYSTEM/PDF_SYSTEM.md` (status: PARTIAL)
 - `VES-PRESENTATION-001` — `sources/05_DOCUMENT_SYSTEM/PRESENTATION_SYSTEM.md` (status: ACTIVE)
-- `VES-REPORT-001` — `sources/05_DOCUMENT_SYSTEM/REPORT_SYSTEM.md` (status: PARTIAL)
 - `VES-BATON-001` — `sources/05_DOCUMENT_SYSTEM/AI_BATON_SYSTEM.md` (status: ACTIVE)
 - `VES-ARTIFACT-NAMING-001` — `sources/05_DOCUMENT_SYSTEM/ARTIFACT_NAMING.md` (status: ACTIVE)
+- `VES-REVIEW-CHANGELOG-001` — `sources/05_DOCUMENT_SYSTEM/REVIEW_CHANGELOG_SYSTEM.md` (status: ACTIVE)

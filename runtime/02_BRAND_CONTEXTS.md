@@ -1,5 +1,6 @@
 # VES STUDIO — BRAND CONTEXTS (runtime)
 
+<!-- SOURCE id=VES-BRAND-ALTERBAKE-001 path=sources/02_BRAND_SYSTEM/ALTERBAKE_BRAND.md status=ACTIVE version=1.0.0 -->
 # ALTERBAKE — BRAND SYSTEM v1
 
 **Status:** ACTIVE z otwartym systemem logo  
@@ -208,194 +209,73 @@ Do zamknięcia tych decyzji wymagany jest osobny Project Manifest i Brand Review
 
 ---
 
-# DIETANKA — BRAND HYPOTHESES v0.1
+<!-- SOURCE id=VES-ASSET-POLICY-001 path=sources/02_BRAND_SYSTEM/ASSET_POLICY.md status=ACTIVE version=1.0.0 -->
+# ASSET POLICY v1
 
-**Status:** DRAFT / do potwierdzenia  
-**Właściciel decyzji:** właścicielka marki + Piotrek  
-**Właściciel kreatywny:** Ves
+## 1. Klasy assetów
 
-## 1. Ważne zastrzeżenie
+- logo i znaki,
+- fonty,
+- fotografie własne,
+- fotografie licencjonowane,
+- ilustracje,
+- ikony,
+- mockupy,
+- materiały AI,
+- materiały archiwalne.
 
-Nie istnieje jeszcze kompletny, kanoniczny kontekst marki Dietanka.
+## 2. Minimalne metadane
 
-Ten plik jest fundamentem roboczym. Rozdziela:
+Każdy asset produkcyjny powinien mieć:
 
-- bezpieczne założenia,
-- zakazy,
-- decyzje wymagające warsztatu.
+- nazwę,
+- właściciela,
+- źródło,
+- status licencji,
+- datę,
+- wersję,
+- dozwolone zastosowania,
+- ograniczenia.
 
-Nie jest finalnym brandbookiem.
+## 3. AI
 
+Asset AI musi mieć zapisane:
 
+- model,
+- datę,
+- prompt lub brief,
+- obrazy referencyjne,
+- zakres ręcznej obróbki,
+- informację, czy przedstawia dane lub produkt wymagający wierności.
 
-## 0. Legenda oznaczeń
+## 4. Fonty
 
-Każdy blok tej marki ma jeden ze statusów:
+- nie udostępniaj plików fontów przez repo,
+- zapisuj nazwę, licencję i źródło zakupu/pobrania,
+- finalny plik musi używać legalnej licencji dla danego medium.
 
-- `CONFIRMED` — bezpieczne ograniczenie, obowiązuje.
-- `HYPOTHESIS` — robocza hipoteza, nie traktować jako reguły.
-- `TO_VALIDATE` — pole wymagające warsztatu i decyzji.
+### 4.1. Polityka licencji i fallback
 
-Dopóki plik nie awansuje do `ACTIVE`, żaden `HYPOTHESIS` nie jest kanoniczną zasadą marki.
+- font o statusie `license_status: UNKNOWN` nie może być `ACTIVE` w
+  `ASSET_REGISTRY.json`; pozostaje `PROVISIONAL` lub `BLOCKED`,
+- font `PROVISIONAL`/`BLOCKED` wolno stosować wyłącznie do makiet i eksploracji,
+  nigdy do finalnego druku ani publikacji,
+- do czasu potwierdzenia licencji materiały produkcyjne używają **fallbacku**
+  z jawnie otwartą licencją (np. krój OFL/Apache),
+- awans do `ACTIVE` wymaga potwierdzonej licencji zgodnej z deklarowanym użyciem.
 
-## 2. Obszar marki  `HYPOTHESIS`
+Bieżące fallbacki są zapisane w `registries/ASSET_REGISTRY.json` (pole
+`fallback`). Walidator rejestrów blokuje `ACTIVE + UNKNOWN license`.
 
-Dietanka działa na styku:
+## 5. Logo
 
-- dietetyki,
-- psychodietetyki,
-- codziennego funkcjonowania,
-- relacji z jedzeniem,
-- możliwego kontekstu ADHD,
-- edukacji i pracy klient–specjalistka.
-
-## 3. Cel komunikacji  `HYPOTHESIS`
-
-Pomagać odbiorczyni:
-
-- rozumieć swoje zachowania bez moralizowania,
-- podejmować wykonalne decyzje,
-- zmniejszać wstyd i chaos,
-- pracować z realnym życiem, a nie idealnym planem.
-
-## 4. Ton roboczy  `HYPOTHESIS`
-
-Preferuj:
-
-- kompetencję bez akademickiego dystansu,
-- ciepło bez infantylizacji,
-- konkret bez wojskowej dyscypliny,
-- humor bez wyśmiewania,
-- normalizowanie trudności bez banalizowania problemów,
-- język partnerski.
-
-Unikaj:
-
-- języka winy,
-- „silnej woli” jako głównego rozwiązania,
-- fit-wellness klisz,
-- estetyki coachingu sukcesu,
-- pastelowej infantylności,
-- medycznego chłodu,
-- generycznego „self-care”.
-
-## 5. Odbiorca roboczy  `TO_VALIDATE`
-
-Prawdopodobny rdzeń:
-
-- kobiety przeciążone decyzjami,
-- osoby z trudną relacją z jedzeniem,
-- osoby potrzebujące wykonalnych narzędzi zamiast kolejnego planu idealnego,
-- część odbiorców z ADHD lub trudnościami wykonawczymi.
-
-Dokładne segmenty wymagają potwierdzenia badaniem i ofertą.
-
-## 6. Kierunek wizualny — ograniczenia  `CONFIRMED`
-
-System ma być:
-
-- czytelny,
-- inteligentny,
-- przyjazny,
-- lekko editorial,
-- użyteczny w social i materiałach roboczych,
-- możliwy do drukowania także w skali szarości, gdy wymaga tego materiał.
-
-Nie wolno zakładać, że marka musi być:
-
-- różowa,
-- pastelowa,
-- „kobieca” przez ornament,
-- wellness-minimalistyczna,
-- medycznie sterylna.
-
-## 7. Materiały  `HYPOTHESIS`
-
-Priorytet:
-
-- karty ćwiczeń,
-- edukacyjne karuzele,
-- materiały warsztatowe,
-- lead magnety,
-- raporty dla klientek,
-- produkty cyfrowe,
-- strona i landing pages.
-
-Materiały mają robić wrażenie przez klarowność, strukturę i jakość pracy, nie przez dekoracyjność.
-
-## 8. Fotografia i ilustracja  `CONFIRMED`
-
-Preferuj:
-
-- prawdziwe sytuacje,
-- codzienność bez stockowej doskonałości,
-- gest, relację i kontekst,
-- ilustracje objaśniające mechanizm.
-
-Unikaj:
-
-- misek smoothie jako skrótu dietetyki,
-- centymetrów krawieckich i wagi,
-- kobiety śmiejącej się do sałaty,
-- przed/po,
-- estetyki kary lub transformacji ciała.
-
-## 9. Pola wymagające decyzji  `TO_VALIDATE`
-
-- pozycjonowanie i główna obietnica,
-- jednoznaczny odbiorca główny,
-- architektura oferty,
-- osobowość marki,
-- system logo,
-- typografia,
-- paleta,
-- styl ilustracji,
-- styl fotografii,
-- ton CTA,
-- relacja marki osobistej i nazwy Dietanka.
-
-## 10. Warunek awansu do ACTIVE
-
-Potrzebne:
-
-1. krótki warsztat strategiczny,
-2. analiza obecnych materiałów,
-3. 3 kierunki wizualne,
-4. test z odbiorcami lub realnym materiałem,
-5. zatwierdzone tokeny,
-6. Decision Record.
-
----
-
-# PERSONAL OS — BRAND BASELINE v1
-
-## Cel
-
-Artefakty Personal OS mają redukować tarcie poznawcze, a nie wyglądać jak kokpit z gry.
-
-## Zasady
-
-- jedna dominująca informacja,
-- jeden najbliższy ruch,
-- krótka skala stanu,
-- neutralny język bez moralizowania,
-- wysoki kontrast,
-- minimum dekoracji,
-- brak fałszywych metryk,
-- widoczna wersja minimum.
-
-## Anti-style
-
-- dekoracyjny HUD,
-- czerwone alerty dla zwykłego zmęczenia,
-- dashboard z dziesięcioma wskaźnikami,
-- gamifikacja wstydu,
-- produktywność jako ocena człowieka.
+- kanoniczne logo istnieje jako plik wektorowy,
+- bitmapa AI nie jest masterem znaku,
+- warianty mają kontrolowane pole ochronne i minimalny rozmiar.
 
 ---
 
 ## SOURCE MAP
 
 - `VES-BRAND-ALTERBAKE-001` — `sources/02_BRAND_SYSTEM/ALTERBAKE_BRAND.md` (status: ACTIVE)
-- `VES-BRAND-DIETANKA-001` — `sources/02_BRAND_SYSTEM/DIETANKA_BRAND_HYPOTHESES.md` (status: DRAFT)
-- `VES-BRAND-PERSONAL-OS-001` — `sources/02_BRAND_SYSTEM/PERSONAL_OS_BRAND.md` (status: DRAFT)
+- `VES-ASSET-POLICY-001` — `sources/02_BRAND_SYSTEM/ASSET_POLICY.md` (status: ACTIVE)

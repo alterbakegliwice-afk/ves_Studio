@@ -1,5 +1,6 @@
 # VES STUDIO — REVIEW SYSTEM (runtime)
 
+<!-- SOURCE id=VES-REVIEW-INDEX-001 path=sources/09_REVIEW_SYSTEM/REVIEW_INDEX.md status=ACTIVE version=1.0.0 -->
 # REVIEW INDEX
 
 | Review | Stosuj do |
@@ -16,6 +17,7 @@ Każdy review stosuje nadrzędny Quality Gate oraz kryteria domenowe.
 
 ---
 
+<!-- SOURCE id=VES-REVIEW-BRAND-001 path=sources/09_REVIEW_SYSTEM/BRAND_REVIEW.md status=ACTIVE version=1.0.0 -->
 # BRAND REVIEW
 
 ## Strategia
@@ -50,6 +52,7 @@ Każdy review stosuje nadrzędny Quality Gate oraz kryteria domenowe.
 
 ---
 
+<!-- SOURCE id=VES-REVIEW-UI-001 path=sources/09_REVIEW_SYSTEM/UI_REVIEW.md status=ACTIVE version=1.0.0 -->
 # UI REVIEW
 
 ## Cel i przepływ
@@ -83,38 +86,7 @@ Każdy review stosuje nadrzędny Quality Gate oraz kryteria domenowe.
 
 ---
 
-# DASHBOARD REVIEW
-
-## Decyzja
-
-- [ ] Dashboard wspiera konkretną decyzję.
-- [ ] Każda metryka ma właściciela i źródło.
-- [ ] Widać stan wymagający działania.
-- [ ] Nie ma metryk próżności.
-
-## Dane
-
-- [ ] Jednostki i zakres czasu są jawne.
-- [ ] Aktualność danych jest widoczna.
-- [ ] Brak danych jest odróżniony od zera.
-- [ ] Alert ma próg i reakcję.
-
-## Layout
-
-- [ ] Najważniejsza informacja jest pierwsza.
-- [ ] Karty nie są równorzędnym murem.
-- [ ] Wykres ma właściwy typ.
-- [ ] Kolor ma funkcję semantyczną.
-- [ ] Widok działa na docelowym urządzeniu.
-
-## Produkcja
-
-- [ ] Źródła danych istnieją.
-- [ ] Błędy i opóźnienia są obsłużone.
-- [ ] Dashboard nie udaje automatyzacji, której nie ma.
-
----
-
+<!-- SOURCE id=VES-REVIEW-PDF-001 path=sources/09_REVIEW_SYSTEM/PDF_REVIEW.md status=ACTIVE version=1.0.0 -->
 # PDF REVIEW
 
 ## Treść
@@ -143,6 +115,7 @@ Każdy review stosuje nadrzędny Quality Gate oraz kryteria domenowe.
 
 ---
 
+<!-- SOURCE id=VES-REVIEW-PHOTO-001 path=sources/09_REVIEW_SYSTEM/PHOTO_REVIEW.md status=ACTIVE version=1.0.0 -->
 # PHOTO REVIEW
 
 ## Produkt
@@ -177,6 +150,7 @@ Każdy review stosuje nadrzędny Quality Gate oraz kryteria domenowe.
 
 ---
 
+<!-- SOURCE id=VES-REVIEW-PRESENTATION-001 path=sources/09_REVIEW_SYSTEM/PRESENTATION_REVIEW.md status=ACTIVE version=1.0.0 -->
 # PRESENTATION REVIEW
 
 - [ ] Jedna główna idea na slajd.
@@ -190,32 +164,7 @@ Każdy review stosuje nadrzędny Quality Gate oraz kryteria domenowe.
 
 ---
 
-# PROMPT REVIEW
-
-## Zastosowanie
-
-- [ ] Wiadomo, kiedy prompt uruchomić.
-- [ ] Wiadomo, kiedy go nie używać.
-- [ ] Prompt wskazuje wymagane źródła.
-- [ ] Nie kopiuje całego Master Context.
-
-## Konstrukcja
-
-- [ ] Cel jest jednoznaczny.
-- [ ] Dane wejściowe są rozdzielone od instrukcji.
-- [ ] Elementy niezmienne są jawne.
-- [ ] Expected output jest określony.
-- [ ] Quality Gate jest wskazany.
-
-## Utrzymanie
-
-- [ ] Prompt ma wersję.
-- [ ] Ma właściciela.
-- [ ] Ma test pozytywny i negatywny.
-- [ ] Nie zawiera trwałej reguły istniejącej tylko w promptcie.
-
----
-
+<!-- SOURCE id=VES-REVIEW-FINAL-001 path=sources/09_REVIEW_SYSTEM/FINAL_REVIEW.md status=ACTIVE version=1.0.0 -->
 # FINAL REVIEW — RAPORT KOŃCOWY
 
 Migrowane z `VES_VISUAL_STUDIO.md` (v1, SUPERSEDED). Kanoniczny format raportu
@@ -235,13 +184,11 @@ Do gotowego rezultatu dołącz krótko:
 
 ## Metryki jakości wizualnej
 
-Raportuj wartości metryk zdefiniowanych w `QUALITY_GATE.md`:
-
-- `grid_adherence` — udział kluczowych krawędzi zgodnych z siatką ±2%,
-- `brand_fidelity` — zgodność obowiązkowych atrybutów marki,
-- `text_accuracy` — liczba poprawnych znaków / liczba znaków,
-- `series_consistency` — zgodność stałych cech w całej serii,
-- `editability` — procent elementów wymagających ponownego zbudowania.
+Raportuj wartości metryk. Kanoniczna definicja metryk (`grid_adherence`,
+`brand_fidelity`, `text_accuracy`, `series_consistency`, `editability`) znajduje
+się wyłącznie w `sources/01_MASTER_CONTEXT/QUALITY_GATE.md`, sekcja „Metryki
+jakości wizualnej”. Tu ich nie powielaj — odwołaj się do źródła
+(`ONE OWNER PER RULE`).
 
 ## Zasada
 
@@ -255,9 +202,7 @@ niezależny recenzent bez znajomości promptu.
 - `VES-REVIEW-INDEX-001` — `sources/09_REVIEW_SYSTEM/REVIEW_INDEX.md` (status: ACTIVE)
 - `VES-REVIEW-BRAND-001` — `sources/09_REVIEW_SYSTEM/BRAND_REVIEW.md` (status: ACTIVE)
 - `VES-REVIEW-UI-001` — `sources/09_REVIEW_SYSTEM/UI_REVIEW.md` (status: ACTIVE)
-- `VES-REVIEW-DASHBOARD-001` — `sources/09_REVIEW_SYSTEM/DASHBOARD_REVIEW.md` (status: PARTIAL)
 - `VES-REVIEW-PDF-001` — `sources/09_REVIEW_SYSTEM/PDF_REVIEW.md` (status: ACTIVE)
 - `VES-REVIEW-PHOTO-001` — `sources/09_REVIEW_SYSTEM/PHOTO_REVIEW.md` (status: ACTIVE)
 - `VES-REVIEW-PRESENTATION-001` — `sources/09_REVIEW_SYSTEM/PRESENTATION_REVIEW.md` (status: ACTIVE)
-- `VES-REVIEW-PROMPT-001` — `sources/09_REVIEW_SYSTEM/PROMPT_REVIEW.md` (status: PARTIAL)
 - `VES-REVIEW-FINAL-001` — `sources/09_REVIEW_SYSTEM/FINAL_REVIEW.md` (status: ACTIVE)

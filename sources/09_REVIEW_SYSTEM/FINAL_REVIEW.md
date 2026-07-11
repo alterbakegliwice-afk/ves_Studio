@@ -32,13 +32,11 @@ Do gotowego rezultatu dołącz krótko:
 
 ## Metryki jakości wizualnej
 
-Raportuj wartości metryk zdefiniowanych w `QUALITY_GATE.md`:
-
-- `grid_adherence` — udział kluczowych krawędzi zgodnych z siatką ±2%,
-- `brand_fidelity` — zgodność obowiązkowych atrybutów marki,
-- `text_accuracy` — liczba poprawnych znaków / liczba znaków,
-- `series_consistency` — zgodność stałych cech w całej serii,
-- `editability` — procent elementów wymagających ponownego zbudowania.
+Raportuj wartości metryk. Kanoniczna definicja metryk (`grid_adherence`,
+`brand_fidelity`, `text_accuracy`, `series_consistency`, `editability`) znajduje
+się wyłącznie w `sources/01_MASTER_CONTEXT/QUALITY_GATE.md`, sekcja „Metryki
+jakości wizualnej”. Tu ich nie powielaj — odwołaj się do źródła
+(`ONE OWNER PER RULE`).
 
 ## Zasada
 

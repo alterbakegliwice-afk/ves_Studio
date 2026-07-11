@@ -14,6 +14,10 @@ import yaml
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SOURCES_DIR = os.path.join(REPO_ROOT, "sources")
 RUNTIME_DIR = os.path.join(REPO_ROOT, "runtime")
+REGISTRIES_DIR = os.path.join(REPO_ROOT, "registries")
+SCHEMAS_DIR = os.path.join(REPO_ROOT, "schemas")
+MANIFEST_PATH = os.path.join(REPO_ROOT, "ves-studio.manifest.json")
+COMPOSITION_PATH = os.path.join(REGISTRIES_DIR, "RUNTIME_COMPOSITION.json")
 
 PLACEHOLDER_STATUS = "ARCHITECTURE_ONLY"
 ACTIVE_LIKE = {"ACTIVE", "PARTIAL"}
@@ -79,3 +83,63 @@ def load_json(path):
     import json
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def schema_errors(instance, schema_filename):
+    """Return a list of human-readable schema violation messages.
+
+    Returns [] if jsonschema is not installed (structural fallback), so the
+    validators still run in minimal environments; CI installs jsonschema.
+    """
+    try:
+        import jsonschema  # noqa: F401
+    except ImportError:
+        return []
+    from jsonschema import Draft202012Validator
+    schema = load_json(os.path.join(SCHEMAS_DIR, schema_filename))
+    validator = Draft202012Validator(schema)
+    return [f"{'/'.join(str(p) for p in e.path)}: {e.message}"
+            for e in sorted(validator.iter_errors(instance), key=lambda e: list(e.path))]
+
+
+def manifest():
+    return load_json(MANIFEST_PATH)
+
+
+def composition():
+    return load_json(COMPOSITION_PATH)
+
+
+def sources_by_id():
+    return {s.sid: s for s in load_sources()}
+
+
+def runtime_checksum(items):
+    """Deterministic checksum over an ordered list of (id, version, status, body).
+
+    Independent of filesystem ordering: the caller supplies the canonical order
+    (composition order). Body whitespace is stripped so trivial trailing-newline
+    changes do not spuriously invalidate the checksum.
+    """
+    import hashlib
+    h = hashlib.sha256()
+    for sid, version, status, body in items:
+        h.update(f"{sid}\x1f{version}\x1f{status}\x1f".encode("utf-8"))
+        h.update(body.strip().encode("utf-8"))
+        h.update(b"\x1e")
+    return "sha256:" + h.hexdigest()
+
+
+def compiled_items():
+    """Return the ordered (id, version, status, body) tuples that the runtime
+    composition compiles, in canonical composition order. Raises KeyError if a
+    composition source id is unknown."""
+    comp = composition()
+    by_id = sources_by_id()
+    items = []
+    for target in comp["targets"]:
+        for sid in target["sources"]:
+            s = by_id[sid]
+            items.append((sid, str(s.meta.get("version", "")), s.status, s.body))
+    return items
+
