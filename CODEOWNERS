@@ -1,0 +1,10 @@
+# VES Studio — code owners
+# Piotrek zatwierdza trwałe decyzje marki i zmiany krytyczne.
+
+*                       @alterbakegliwice-afk
+
+# Trwałe decyzje marki i governance wymagają szczególnej uwagi.
+/sources/01_MASTER_CONTEXT/   @alterbakegliwice-afk
+/sources/02_BRAND_SYSTEM/     @alterbakegliwice-afk
+/sources/10_CHANGELOG/        @alterbakegliwice-afk
+/registries/                  @alterbakegliwice-afk
