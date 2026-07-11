@@ -4,7 +4,7 @@
 - **Runtime status:** BETA
 - **Release:** VES Studio Core Beta v1.1
 - **Build date:** 2026-07-11
-- **Source commit:** e7bd728745218c883274c9a0bc717b8c752ff269
+- **Source commit:** 27fedacf388596d9b61ce9bb94640d623491e740
 - **Source checksum:** sha256:106444e2e21b6cc7b26a1350bdf531430f7076c86c063482c6cdab05a09ed7fb
 
 ## Files
