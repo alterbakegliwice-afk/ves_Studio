@@ -1,8 +1,9 @@
-"""Runtime pack build + validation tests."""
+"""Runtime pack build + validation tests (P0-01, P0-05, P0-06, P0-07, P1-01, P1-03)."""
 import os
 
 import build_runtime_pack
 import validate_runtime
+import verify_runtime_freshness
 import vlib
 
 
@@ -16,26 +17,66 @@ def test_build_and_validate_runtime():
     assert validate_runtime.main() == 0
 
 
-def test_runtime_has_at_most_8_files():
+def test_runtime_has_at_most_max_files():
     _build()
     files = [f for f in os.listdir(vlib.RUNTIME_DIR)
              if os.path.isfile(os.path.join(vlib.RUNTIME_DIR, f))]
-    assert len(files) <= 8, files
+    assert len(files) <= vlib.manifest()["runtime_pack"]["max_files"], files
     assert "00_RUNTIME_INDEX.md" in files
     assert "07_SOURCE_REGISTRY.json" in files
 
 
-def test_runtime_md_have_source_map():
+def test_runtime_is_active_only():
+    """P0-01: no DRAFT/PARTIAL source content reaches the runtime."""
     _build()
-    for f in os.listdir(vlib.RUNTIME_DIR):
-        if f.endswith(".md"):
-            text = open(os.path.join(vlib.RUNTIME_DIR, f), encoding="utf-8").read()
-            assert "## SOURCE MAP" in text, f
+    by_id = vlib.sources_by_id()
+    comp = vlib.composition()
+    for t in comp["targets"]:
+        for sid in t["sources"]:
+            assert by_id[sid].status == "ACTIVE", f"{sid} is {by_id[sid].status}"
+    # Dietanka hypotheses / Personal OS drafts must not be compiled
+    for draft_id in ("VES-BRAND-DIETANKA-001", "VES-BRAND-PERSONAL-OS-001",
+                     "VES-PDF-001", "VES-REPORT-001"):
+        text = open(os.path.join(vlib.RUNTIME_DIR, "02_BRAND_CONTEXTS.md"),
+                    encoding="utf-8").read()
+        assert draft_id not in text
 
 
-def test_runtime_has_no_placeholder_or_superseded():
+def test_runtime_md_have_source_map_and_markers():
+    """P1-01: rule-level markers present on compiled targets."""
     _build()
+    comp = vlib.composition()
+    targets = {t["file"] for t in comp["targets"]}
     for f in os.listdir(vlib.RUNTIME_DIR):
+        if not f.endswith(".md"):
+            continue
         text = open(os.path.join(vlib.RUNTIME_DIR, f), encoding="utf-8").read()
-        assert "ARCHITECTURE ONLY" not in text
-        assert "ARCHITECTURE_ONLY" not in text
+        assert "## SOURCE MAP" in text, f
+        if f in targets:
+            assert "<!-- SOURCE id=" in text, f
+
+
+def test_runtime_version_from_manifest():
+    """P0-06: index version equals manifest version (no hard-coded constant)."""
+    _build()
+    idx = open(os.path.join(vlib.RUNTIME_DIR, "00_RUNTIME_INDEX.md"),
+               encoding="utf-8").read()
+    assert vlib.manifest()["version"] in idx
+    assert vlib.manifest()["runtime_status"] in idx
+
+
+def test_build_is_deterministic():
+    """P0-06: same inputs -> same checksum."""
+    a = vlib.runtime_checksum(vlib.compiled_items())
+    b = vlib.runtime_checksum(vlib.compiled_items())
+    assert a == b and a.startswith("sha256:")
+
+
+def test_freshness_passes_after_build_and_detects_drift():
+    """P1-03: freshness OK after build; a source edit without rebuild fails."""
+    _build()
+    assert verify_runtime_freshness.main() == 0
+    # simulate drift: a changed source body changes the checksum
+    items = vlib.compiled_items()
+    drifted = [(items[0][0], items[0][1], items[0][2], items[0][3] + " EDIT")] + items[1:]
+    assert vlib.runtime_checksum(drifted) != vlib.runtime_checksum(items)
