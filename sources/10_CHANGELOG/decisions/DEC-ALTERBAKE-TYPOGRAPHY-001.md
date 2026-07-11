@@ -8,6 +8,8 @@ updated: "2026-07-11"
 source_type: decision
 scope: brand-alterbake
 canonical: true
+decision_status: ACCEPTED
+external_sync_status: PENDING
 dependencies: []
 ---
 

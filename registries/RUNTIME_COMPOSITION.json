@@ -1,0 +1,81 @@
+{
+  "version_source": "ves-studio.manifest.json#version",
+  "default_allowed_status": ["ACTIVE"],
+  "runtime_status": "BETA",
+  "targets": [
+    {
+      "file": "01_VES_STUDIO_CORE.md",
+      "title": "VES STUDIO — CORE (runtime)",
+      "sources": [
+        "VES-MASTER-CONTEXT-001",
+        "VES-ROUTING-001",
+        "VES-SOURCE-OF-TRUTH-001",
+        "VES-QUALITY-GATE-001",
+        "VES-PRIVACY-001"
+      ]
+    },
+    {
+      "file": "02_BRAND_CONTEXTS.md",
+      "title": "VES STUDIO — BRAND CONTEXTS (runtime)",
+      "sources": [
+        "VES-BRAND-ALTERBAKE-001",
+        "VES-ASSET-POLICY-001"
+      ]
+    },
+    {
+      "file": "03_VISUAL_SYSTEM.md",
+      "title": "VES STUDIO — VISUAL SYSTEM (runtime)",
+      "sources": [
+        "VES-VISUAL-LANGUAGE-001",
+        "VES-LAYOUT-001",
+        "VES-PHOTO-001",
+        "VES-STUDIO-WORKFLOW-001",
+        "VES-PROMPT-FRAME12-001"
+      ]
+    },
+    {
+      "file": "04_DOCUMENT_SYSTEM.md",
+      "title": "VES STUDIO — DOCUMENT SYSTEM (runtime)",
+      "sources": [
+        "VES-BRIEF-001",
+        "VES-PRESENTATION-001",
+        "VES-BATON-001",
+        "VES-ARTIFACT-NAMING-001",
+        "VES-REVIEW-CHANGELOG-001"
+      ]
+    },
+    {
+      "file": "05_PROJECT_SYSTEM.md",
+      "title": "VES STUDIO — PROJECT SYSTEM (runtime)",
+      "sources": [
+        "VES-TEMPLATE-PROJECT-001",
+        "VES-TEMPLATE-STATUS-001",
+        "VES-TEMPLATE-DECISION-001"
+      ]
+    },
+    {
+      "file": "06_REVIEW_SYSTEM.md",
+      "title": "VES STUDIO — REVIEW SYSTEM (runtime)",
+      "sources": [
+        "VES-REVIEW-INDEX-001",
+        "VES-REVIEW-BRAND-001",
+        "VES-REVIEW-UI-001",
+        "VES-REVIEW-PDF-001",
+        "VES-REVIEW-PHOTO-001",
+        "VES-REVIEW-PRESENTATION-001",
+        "VES-REVIEW-FINAL-001"
+      ]
+    }
+  ],
+  "exceptions": [],
+  "exclusions": [
+    {"id": "VES-BRAND-INDEX-001", "owner": "Ves", "reason": "Indeks nawigacyjny Brand System, nie reguła runtime."},
+    {"id": "VES-CHANGELOG-001", "owner": "Piotrek", "reason": "Systemowy changelog (historia), nie instrukcja dla modelu."},
+    {"id": "VES-ROLLBACK-001", "owner": "Piotrek", "reason": "Polityka rollbacku repo, poza runtime projektu ChatGPT."},
+    {"id": "DEC-ALTERBAKE-TYPOGRAPHY-001", "owner": "Piotrek", "reason": "Decyzja z external_sync_status=PENDING; nie może być bezwarunkową regułą runtime do czasu synchronizacji Drive."},
+    {"id": "VES-GOLDEN-CASES-001", "owner": "Ves", "reason": "Materiał testowy/regresyjny, nie reguła runtime."},
+    {"id": "VES-TEST-MATRIX-001", "owner": "Ves", "reason": "Macierz testów, nie reguła runtime."},
+    {"id": "VES-HANDOFF-CLAUDE-001", "owner": "Piotrek", "reason": "Handoff międzymodelowy, poza rdzeniem runtime STUDIO."},
+    {"id": "VES-HANDOFF-GEMINI-001", "owner": "Piotrek", "reason": "Handoff międzymodelowy, poza rdzeniem runtime STUDIO."}
+  ]
+}

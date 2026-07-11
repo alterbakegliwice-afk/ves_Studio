@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VES Studio Asset Registry v1",
+  "type": "object",
+  "required": ["version", "updated", "assets"],
+  "properties": {
+    "version": {"type": "string"},
+    "updated": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "owner", "license_status", "status"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "type": {"enum": ["logo", "font", "photo", "illustration", "mockup"]},
+          "owner": {"type": "string"},
+          "license_status": {"enum": ["CONFIRMED", "UNKNOWN", "RESTRICTED"]},
+          "canonical_uri": {"type": ["string", "null"]},
+          "allowed_uses": {"type": "array", "items": {"type": "string"}},
+          "restrictions": {"type": "array", "items": {"type": "string"}},
+          "fallback": {"type": ["string", "null"]},
+          "next_step": {"type": "string"},
+          "status": {"enum": ["ACTIVE", "PROVISIONAL", "BLOCKED", "MISSING", "SUPERSEDED"]}
+        }
+      }
+    }
+  }
+}

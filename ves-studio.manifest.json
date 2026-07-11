@@ -1,8 +1,11 @@
 {
   "name": "VES Studio 2.0 — Source Repository",
   "version": "1.1.0",
-  "status": "ACTIVE",
+  "release_label": "VES Studio Core Beta v1.1",
   "date": "2026-07-11",
+  "repository_status": "ACTIVE",
+  "release_status": "CORE_BETA",
+  "runtime_status": "BETA",
   "source_first": true,
   "repo_is_runtime": false,
   "system_owner": "Piotrek",
@@ -13,7 +16,9 @@
   "runtime_pack": {
     "path": "runtime/",
     "max_files": 8,
-    "generated_by": "scripts/build_runtime_pack.py"
+    "generated_by": "scripts/build_runtime_pack.py",
+    "composition": "registries/RUNTIME_COMPOSITION.json",
+    "default_allowed_status": ["ACTIVE"]
   },
   "active_modules": [
     "sources/01_MASTER_CONTEXT",
