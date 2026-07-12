@@ -20,7 +20,7 @@ Pack. Uruchamiana lokalnie (`scripts/run_merge_gate.sh`) i w CI
 | Duplikaty reguł normatywnych | `detect_duplicate_rules.py` | PASS (0 niezwolnionych) |
 | Runtime Pack (markery, wersja, checksum) | `validate_runtime.py` | PASS (8 plików) |
 | Świeżość runtime | `verify_runtime_freshness.py` | PASS |
-| Testy | `pytest` | PASS (34 testy) |
+| Testy | `pytest` | PASS (38 testów) |
 
 ## Statusy release (rozdzielone)
 

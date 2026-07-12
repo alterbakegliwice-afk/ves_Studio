@@ -4,6 +4,31 @@ Ten changelog dotyczy **zmian systemowych** (źródeł i reguł). Wersje artefak
 i status projektów należą do *project delta*, nie tutaj
 (patrz `sources/05_DOCUMENT_SYSTEM/REVIEW_CHANGELOG_SYSTEM.md`).
 
+## [2026-07-12] — v1.1.1 CORE BETA (VES review response)
+
+### Co zmieniono
+
+- freshness gate: weryfikacja przed buildem + `git diff` po buildzie; builder
+  nie maskuje stale runtime; deterministyczny commit (P0-01),
+- decyzja `ACCEPTED`+`PENDING` jest runtime-eligible z ostrzeżeniem (nie pozorne
+  wykluczenie); `PROPOSED`/`REJECTED` blokowane (P0-02),
+- `07_RUNTIME_REGISTRY.json` zamiast `07_SOURCE_REGISTRY.json` + wykrywanie
+  dangling references w runtime (P0-03),
+- honest approval model: `authored_by`/`review_status`/`reviewed_by`/
+  `approved_by`(nullable)/`approval_date`/`approval_scope`; koniec hurtowego
+  `approved_by: Piotrek` (P0-04),
+- domain capabilities, changelog policy, split registry state
+  (availability/freshness/integrity), single-owner runtime_status, version
+  consistency, CI permissions (P1-01…P1-08).
+
+### Dlaczego
+
+VES review PR #2: `REQUEST_CHANGES` — luki semantyczne i proceduralne w merge gate.
+
+### Status
+
+ACTIVE
+
 ## [2026-07-11] — v1.1 CORE BETA (red-team fix pack)
 
 ### Co zmieniono

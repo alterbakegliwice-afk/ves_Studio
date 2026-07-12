@@ -31,18 +31,32 @@ def test_current_fonts_are_not_active_with_unknown_license():
 def test_external_source_missing_uri_must_be_blocked_or_missing():
     """P0-04: EXTERNAL + null URI + AVAILABLE fails."""
     bad = {"sources": [{"id": "SRC-X", "status": "EXTERNAL", "uri": None,
-                        "state": "AVAILABLE"}]}
+                        "availability_state": "AVAILABLE",
+                        "freshness_state": "UNKNOWN", "integrity_state": "CONSISTENT"}]}
     assert vr.source_registry_errors(bad)
     ok = {"sources": [{"id": "SRC-X", "status": "EXTERNAL", "uri": None,
-                       "state": "BLOCKED"}]}
+                       "availability_state": "BLOCKED",
+                       "freshness_state": "UNKNOWN", "integrity_state": "CONSISTENT"}]}
     assert not vr.source_registry_errors(ok)
 
 
 def test_available_source_with_blocking_conflict_fails():
+    """P1-05: availability AVAILABLE cannot carry a BLOCKING conflict."""
     bad = {"sources": [{"id": "SRC-X", "status": "EXTERNAL",
-                        "uri": "https://x", "state": "AVAILABLE",
+                        "uri": "https://x", "availability_state": "AVAILABLE",
+                        "freshness_state": "CURRENT", "integrity_state": "CONFLICTED",
                         "last_verified": "2026-07-11",
                         "known_conflicts": [{"summary": "c", "severity": "BLOCKING"}]}]}
+    assert vr.source_registry_errors(bad)
+
+
+def test_conflict_requires_conflicted_integrity():
+    """P1-05: freshness and integrity are separate — fresh but conflicted is OK,
+    but a conflict must be reflected in integrity_state."""
+    bad = {"sources": [{"id": "SRC-X", "status": "EXTERNAL", "uri": "https://x",
+                        "availability_state": "AVAILABLE", "freshness_state": "CURRENT",
+                        "integrity_state": "CONSISTENT", "last_verified": "2026-07-11",
+                        "known_conflicts": [{"summary": "c", "severity": "WARNING"}]}]}
     assert vr.source_registry_errors(bad)
 
 

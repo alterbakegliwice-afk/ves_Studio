@@ -1,5 +1,8 @@
 """Runtime pack build + validation tests (P0-01, P0-05, P0-06, P0-07, P1-01, P1-03)."""
 import os
+import shutil
+import subprocess
+import sys
 
 import build_runtime_pack
 import validate_runtime
@@ -23,7 +26,7 @@ def test_runtime_has_at_most_max_files():
              if os.path.isfile(os.path.join(vlib.RUNTIME_DIR, f))]
     assert len(files) <= vlib.manifest()["runtime_pack"]["max_files"], files
     assert "00_RUNTIME_INDEX.md" in files
-    assert "07_SOURCE_REGISTRY.json" in files
+    assert "07_RUNTIME_REGISTRY.json" in files
 
 
 def test_runtime_is_active_only():
@@ -72,11 +75,32 @@ def test_build_is_deterministic():
     assert a == b and a.startswith("sha256:")
 
 
-def test_freshness_passes_after_build_and_detects_drift():
-    """P1-03: freshness OK after build; a source edit without rebuild fails."""
+def test_freshness_passes_after_build():
     _build()
     assert verify_runtime_freshness.main() == 0
-    # simulate drift: a changed source body changes the checksum
-    items = vlib.compiled_items()
-    drifted = [(items[0][0], items[0][1], items[0][2], items[0][3] + " EDIT")] + items[1:]
-    assert vlib.runtime_checksum(drifted) != vlib.runtime_checksum(items)
+
+
+def test_stale_committed_runtime_fails_freshness(tmp_path):
+    """P0-01: modifying an ACTIVE runtime source WITHOUT rebuilding must make the
+    freshness validator exit 1 — verified end-to-end in an isolated repo copy."""
+    _build()
+    repo = vlib.REPO_ROOT
+    dst = tmp_path / "repo"
+
+    def ignore(d, names):
+        return [n for n in names if n in (".git", "__pycache__") or n.endswith(".zip")]
+    shutil.copytree(repo, dst, ignore=ignore)
+
+    # sanity: fresh copy passes
+    r0 = subprocess.run([sys.executable, "scripts/verify_runtime_freshness.py"],
+                        cwd=dst, capture_output=True, text=True)
+    assert r0.returncode == 0, r0.stdout + r0.stderr
+
+    # mutate a compiled ACTIVE source WITHOUT rebuilding runtime
+    target = dst / "sources/01_MASTER_CONTEXT/MASTER_CONTEXT.md"
+    target.write_text(target.read_text(encoding="utf-8") + "\n\nEDYCJA BEZ REBUILDU\n",
+                      encoding="utf-8")
+    r1 = subprocess.run([sys.executable, "scripts/verify_runtime_freshness.py"],
+                        cwd=dst, capture_output=True, text=True)
+    assert r1.returncode == 1, "stale committed runtime must fail freshness"
+    assert "STALE" in r1.stdout

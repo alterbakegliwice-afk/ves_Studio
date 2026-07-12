@@ -19,10 +19,27 @@ def test_all_sources_have_unique_ids():
 
 def test_required_fields_present():
     for s in vlib.load_sources():
-        for field in ("id", "version", "status", "owner", "approved_by",
-                      "updated", "source_type", "scope", "canonical",
-                      "dependencies"):
+        for field in ("id", "version", "status", "owner", "authored_by",
+                      "review_status", "updated", "source_type", "scope",
+                      "canonical", "dependencies"):
             assert field in s.meta, f"{s.rel} missing {field}"
+
+
+def test_honest_approval_model():
+    """P0-04: no blanket approved_by; draft/partial/arch never APPROVED."""
+    for s in vlib.load_sources():
+        review = s.meta.get("review_status")
+        assert review in ("UNREVIEWED", "REVIEWED", "APPROVED"), s.rel
+        if s.status in ("DRAFT", "PARTIAL", "ARCHITECTURE_ONLY"):
+            assert review != "APPROVED", f"{s.rel} draft/partial/arch is APPROVED"
+        if s.meta.get("approved_by"):
+            assert review == "APPROVED", f"{s.rel} approved_by set without APPROVED"
+
+
+def test_only_decision_is_piotrek_approved():
+    approved = [s.sid for s in vlib.load_sources()
+               if s.meta.get("approved_by") == "Piotrek"]
+    assert approved == ["DEC-ALTERBAKE-TYPOGRAPHY-001"], approved
 
 
 def test_placeholders_never_active():
@@ -48,8 +65,9 @@ def test_visual_studio_superseded():
 def test_parser_flags_incomplete_frontmatter():
     src = vlib.parse_source(os.path.join(FIXTURES, "invalid_missing_fields.md"))
     assert not src.errors, "frontmatter block itself is well-formed"
-    missing = [f for f in ("version", "owner", "approved_by", "updated",
-                           "source_type", "scope", "canonical", "dependencies")
+    missing = [f for f in ("version", "owner", "authored_by", "review_status",
+                           "updated", "source_type", "scope", "canonical",
+                           "dependencies")
                if f not in src.meta]
     assert missing, "fixture should be missing required fields"
 
