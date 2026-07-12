@@ -18,13 +18,17 @@ echo "==> detect duplicate rules"; python scripts/detect_duplicate_rules.py
 echo "==> verify committed runtime is fresh"; python scripts/verify_runtime_freshness.py
 echo "==> validate runtime";       python scripts/validate_runtime.py
 
-echo "==> rebuild runtime and assert no diff"
+echo "==> rebuild runtime and assert no diff (git-optional; works on a .git-less snapshot)"
+SNAP="$(mktemp -d)"
+cp -r runtime/. "$SNAP/"
 python scripts/build_runtime_pack.py
-if ! git diff --quiet -- runtime/ 2>/dev/null; then
+if ! diff -r "$SNAP" runtime >/dev/null 2>&1; then
   echo "ERROR: committed runtime/ differs from a fresh build — rebuild and commit."
-  git --no-pager diff -- runtime/ || true
+  diff -r "$SNAP" runtime || true
+  rm -rf "$SNAP"
   exit 1
 fi
+rm -rf "$SNAP"
 
 echo "==> pytest";                 python -m pytest -q
 

@@ -1,6 +1,6 @@
-# VALIDATION REPORT — VES Studio Core Beta v1.1
+# VALIDATION REPORT — VES Studio Core Beta v1.1.1
 
-**Data:** 2026-07-11
+**Data:** 2026-07-12
 **Werdykt:** PASS (merge gate zielony)
 
 ## Zakres
@@ -37,8 +37,10 @@ Pack. Uruchamiana lokalnie (`scripts/run_merge_gate.sh`) i w CI
 
 ## Kontrole polityk (dawne P0)
 
-- [x] Runtime kompiluje wyłącznie `ACTIVE` (P0-01).
-- [x] Decyzja pending-sync jest strukturalna i wykluczona z runtime (P0-02).
+- [x] Runtime kompiluje wyłącznie `ACTIVE` + `review_status ∈ {REVIEWED, APPROVED}` (P0-01/04).
+- [x] Decyzja pending-sync jest **runtime-eligible z ostrzeżeniem** (latest Piotrek decision wins), nie wykluczona; konflikt widoczny w registry (P0-02).
+- [x] Runtime samodzielny: `07_RUNTIME_REGISTRY.json`, brak dangling references (P0-03).
+- [x] Wersja release spójna (manifest = rejestry = runtime index = 1.1.1); fallbacki nie są fałszywie „approved” (P0-05/07).
 - [x] `ACTIVE + UNKNOWN license` jest zablokowane; fonty PROVISIONAL (P0-03).
 - [x] Źródła EXTERNAL bez URI są BLOCKED/MISSING; null pointer nie jest usable (P0-04).
 - [x] Statusy repo/release/runtime rozdzielone i zgodne (P0-05).

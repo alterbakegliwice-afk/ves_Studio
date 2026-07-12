@@ -108,6 +108,16 @@ def main() -> int:
                     errors.append(f"decision sync: {s.sid} compiled with PENDING sync "
                                   f"but SOURCE_REGISTRY no longer shows the conflict")
 
+    # top-level release version consistency (P0-05): manifest == registries
+    mver = manifest.get("version")
+    for reg in ("SOURCE_REGISTRY.json", "ASSET_REGISTRY.json"):
+        rv = vlib.load_json(os.path.join(vlib.REGISTRIES_DIR, reg)).get("version")
+        if rv != mver:
+            errors.append(f"version drift: {reg} version {rv} != manifest {mver}")
+    label = manifest.get("release_label", "")
+    if mver and mver not in label:
+        errors.append(f"version drift: release_label '{label}' does not contain {mver}")
+
     # status coherence
     for field in ("repository_status", "release_status", "runtime_status"):
         if field not in manifest:

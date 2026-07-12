@@ -25,9 +25,18 @@ def asset_policy_errors(data) -> list:
     """Pure policy check for ASSET_REGISTRY data. Returns error strings."""
     errors = []
     for a in data.get("assets", []):
+        aid = a.get("id")
         if a.get("status") == "ACTIVE" and a.get("license_status") != "CONFIRMED":
-            errors.append(f"asset {a.get('id')} is ACTIVE with license_status "
+            errors.append(f"asset {aid} is ACTIVE with license_status "
                           f"{a.get('license_status')} (must be CONFIRMED)")
+        # fallback approval provenance (P0-07)
+        fs = a.get("fallback_status", "NONE")
+        if fs == "APPROVED" and not a.get("fallback_approved_by"):
+            errors.append(f"asset {aid} fallback_status APPROVED without fallback_approved_by")
+        if a.get("fallback_approved_by") and fs != "APPROVED":
+            errors.append(f"asset {aid} fallback_approved_by set but fallback_status {fs}")
+        if fs in ("PROPOSED", "APPROVED") and not a.get("fallback_candidate"):
+            errors.append(f"asset {aid} fallback_status {fs} without fallback_candidate")
     return errors
 
 

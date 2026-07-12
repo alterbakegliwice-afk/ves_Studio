@@ -59,6 +59,23 @@ def test_runtime_md_have_source_map_and_markers():
             assert "<!-- SOURCE id=" in text, f
 
 
+def test_runtime_registry_no_fake_approved_fallback():
+    """P0-07: runtime registry never publishes a proposed fallback as approved."""
+    _build()
+    reg = vlib.load_json(os.path.join(vlib.RUNTIME_DIR, "07_RUNTIME_REGISTRY.json"))
+    for a in reg["asset_constraints"]:
+        if a.get("fallback_status") != "APPROVED":
+            assert a["approved_fallback"] == "NO_APPROVED_FALLBACK", a["id"]
+
+
+def test_runtime_registry_personal_os_not_loaded():
+    """P1-02: personal-os domain rule does not reference an unloaded context as usable."""
+    _build()
+    reg = vlib.load_json(os.path.join(vlib.RUNTIME_DIR, "07_RUNTIME_REGISTRY.json"))
+    dom = {d["domain"]: d for d in reg["domain_capabilities"]}
+    assert dom["personal-os"]["state"] == "SOURCE_NOT_LOADED"
+
+
 def test_runtime_version_from_manifest():
     """P0-06: index version equals manifest version (no hard-coded constant)."""
     _build()

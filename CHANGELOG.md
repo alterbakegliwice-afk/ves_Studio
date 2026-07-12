@@ -4,9 +4,24 @@ Ten changelog dotyczy **zmian systemowych** (źródeł i reguł). Wersje artefak
 i status projektów należą do *project delta*, nie tutaj
 (patrz `sources/05_DOCUMENT_SYSTEM/REVIEW_CHANGELOG_SYSTEM.md`).
 
-## [2026-07-12] — v1.1.1 CORE BETA (VES review response)
+## [2026-07-12] — v1.1.1 CORE BETA (VES review round 2)
 
 ### Co zmieniono
+
+- ujednolicono wersję release do `1.1.1` (manifest, rejestry, runtime, STATUS,
+  README) + walidator zgodności wersji top-level (P0-05),
+- zaktualizowano `VALIDATION_REPORT.md`; stary raport implementacyjny przeniesiono
+  do `history/reports/...SUPERSEDED.md` (P0-06),
+- fallbacki assetów: `fallback_candidate`/`fallback_status`/`fallback_approved_by`;
+  runtime publikuje `approved_fallback` tylko dla `APPROVED` (P0-07),
+- proweniencja decyzji: `record_created`/`decision_date`/`approval_date`(null)/
+  `approval_evidence`; walidator nie pozwala kopiować `updated` do `approval_date` (P0-08),
+- merge gate działa na snapshot bez `.git` (porównanie katalogów) (P1-01),
+- domena `personal-os` → `SOURCE_NOT_LOADED` (P1-02),
+- `integrity_state` rozszerzony o `UNKNOWN`/`NOT_APPLICABLE`; brak źródła ≠ konflikt (P1-03),
+- docstring buildera zgodny z implementacją (P1-04).
+
+### Poprzednio (round 1)
 
 - freshness gate: weryfikacja przed buildem + `git diff` po buildzie; builder
   nie maskuje stale runtime; deterministyczny commit (P0-01),
@@ -36,7 +51,8 @@ ACTIVE
 - runtime kompiluje wyłącznie źródła `ACTIVE`; kompozycja i wykluczenia jako dane
   w `registries/RUNTIME_COMPOSITION.json` (schema), bez stałych w Pythonie (P0-01, P0-07),
 - strukturalny stan decyzji: `decision_status` + `external_sync_status`; decyzja
-  typografii AlterBake `ACCEPTED` + `PENDING`, wykluczona z runtime (P0-02),
+  typografii AlterBake `ACCEPTED` + `PENDING`, wykluczona z runtime (P0-02)
+  — **zmienione w v1.1.1: runtime-eligible z ostrzeżeniem**,
 - polityka licencji assetów: `ACTIVE` wymaga `CONFIRMED`; Signage Grotesk i Google
   Sans → `PROVISIONAL` z fallbackiem (P0-03),
 - walidacja rejestru źródeł zewnętrznych: `criticality`, `state`, `severity`;

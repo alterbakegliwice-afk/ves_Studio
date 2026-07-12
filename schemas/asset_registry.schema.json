@@ -20,7 +20,10 @@
           "canonical_uri": {"type": ["string", "null"]},
           "allowed_uses": {"type": "array", "items": {"type": "string"}},
           "restrictions": {"type": "array", "items": {"type": "string"}},
-          "fallback": {"type": ["string", "null"]},
+          "fallback_candidate": {"type": ["string", "null"]},
+          "fallback_status": {"enum": ["NONE", "PROPOSED", "APPROVED"]},
+          "fallback_approved_by": {"type": ["string", "null"]},
+          "fallback_approval_date": {"type": ["string", "null"]},
           "next_step": {"type": "string"},
           "status": {"enum": ["ACTIVE", "PROVISIONAL", "BLOCKED", "MISSING", "SUPERSEDED"]}
         }

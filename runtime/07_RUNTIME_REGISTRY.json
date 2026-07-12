@@ -1,5 +1,5 @@
 {
-  "runtime_version": "1.1.0",
+  "runtime_version": "1.1.1",
   "generated": "runtime",
   "external_sources": [
     {
@@ -23,14 +23,9 @@
       "domain": "ves-studio",
       "availability_state": "BLOCKED",
       "freshness_state": "UNKNOWN",
-      "integrity_state": "CONFLICTED",
+      "integrity_state": "UNKNOWN",
       "criticality": "critical",
-      "conflicts": [
-        {
-          "summary": "Brak potwierdzonego URI repozytorium AI Command Center; routing modeli nie może polegać na tym źródle do czasu potwierdzenia wskaźnika.",
-          "severity": "BLOCKING"
-        }
-      ]
+      "conflicts": []
     },
     {
       "id": "SRC-DIETANKA-BRAND",
@@ -38,14 +33,9 @@
       "domain": "dietanka",
       "availability_state": "MISSING",
       "freshness_state": "UNKNOWN",
-      "integrity_state": "CONFLICTED",
+      "integrity_state": "NOT_APPLICABLE",
       "criticality": "medium",
-      "conflicts": [
-        {
-          "summary": "Brak zatwierdzonego brandbooka; repo utrzymuje wyłącznie DIETANKA_BRAND_HYPOTHESES.md.",
-          "severity": "INFO"
-        }
-      ]
+      "conflicts": []
     }
   ],
   "asset_constraints": [
@@ -56,6 +46,8 @@
       "license_status": "UNKNOWN",
       "status": "MISSING",
       "approved_fallback": "NO_APPROVED_FALLBACK",
+      "fallback_candidate": null,
+      "fallback_status": "NONE",
       "restriction": "Finalny znak wyłącznie wektorowy; bitmapa AI nie jest masterem."
     },
     {
@@ -64,7 +56,9 @@
       "type": "font",
       "license_status": "UNKNOWN",
       "status": "PROVISIONAL",
-      "approved_fallback": "system grotesk display (np. bezpieczny bezszeryfowy krój systemowy) do czasu potwierdzenia licencji",
+      "approved_fallback": "NO_APPROVED_FALLBACK",
+      "fallback_candidate": "Archivo (OFL) lub Anton (OFL) jako display grotesk",
+      "fallback_status": "PROPOSED",
       "restriction": "Plik fontu nie jest commitowany do repo."
     },
     {
@@ -73,7 +67,9 @@
       "type": "font",
       "license_status": "UNKNOWN",
       "status": "PROVISIONAL",
-      "approved_fallback": "Roboto / Inter lub inny krój z jawnie otwartą licencją (OFL/Apache) jako font systemowy UI",
+      "approved_fallback": "NO_APPROVED_FALLBACK",
+      "fallback_candidate": "Inter (OFL)",
+      "fallback_status": "PROPOSED",
       "restriction": "Plik fontu nie jest commitowany do repo."
     }
   ],
@@ -96,8 +92,8 @@
     },
     {
       "domain": "personal-os",
-      "state": "DRAFT",
-      "rule": "Użyj zasad ogólnych Personal OS i oznacz założenia jako robocze."
+      "state": "SOURCE_NOT_LOADED",
+      "rule": "Kontekst Personal OS nie jest załadowany do Runtime Packa. Nie deklaruj zgodności z Personal OS; załaduj dodatkowe źródło albo oznacz wynik jako roboczy."
     }
   ]
 }

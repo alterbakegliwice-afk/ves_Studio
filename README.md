@@ -2,7 +2,7 @@
 
 Kanoniczne, prywatne repozytorium źródeł systemu **VES Studio 2.0**.
 
-**Release:** VES Studio Core Beta v1.1 — rdzeń governance, brand AlterBake,
+**Release:** VES Studio Core Beta v1.1.1 — rdzeń governance, brand AlterBake,
 visual system, document/project/review systems i Runtime Pack są gotowe.
 To **nie jest** system production-ready: część modułów (Component/Prompt/
 Reference Library, Automation) pozostaje `ARCHITECTURE_ONLY` i poza runtime.

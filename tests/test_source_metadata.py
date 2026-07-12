@@ -42,6 +42,15 @@ def test_only_decision_is_piotrek_approved():
     assert approved == ["DEC-ALTERBAKE-TYPOGRAPHY-001"], approved
 
 
+def test_decision_approval_date_provenance():
+    """P0-08: approval_date is not the record timestamp; evidence is required."""
+    dec = vlib.sources_by_id()["DEC-ALTERBAKE-TYPOGRAPHY-001"]
+    m = dec.meta
+    assert m.get("approval_date") in (None, "null") or m.get("approval_date") != m.get("updated")
+    assert m.get("approval_evidence"), "APPROVED decision needs approval_evidence"
+    assert "record_created" in m
+
+
 def test_placeholders_never_active():
     for s in vlib.load_sources():
         if s.status == "ARCHITECTURE_ONLY":

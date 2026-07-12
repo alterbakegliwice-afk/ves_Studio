@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "updated": "2026-07-11",
   "sources": [
     {
@@ -35,18 +35,13 @@
       "criticality": "critical",
       "availability_state": "BLOCKED",
       "freshness_state": "UNKNOWN",
-      "integrity_state": "CONFLICTED",
+      "integrity_state": "UNKNOWN",
+      "blocked_reason": "Brak potwierdzonego URI repozytorium AI Command Center; routing modeli nie może polegać na tym źródle do czasu potwierdzenia wskaźnika.",
       "uri": null,
       "last_verified": null,
       "refresh_policy": "before model routing",
       "write_access": "external",
-      "known_conflicts": [
-        {
-          "summary": "Brak potwierdzonego URI repozytorium AI Command Center; routing modeli nie może polegać na tym źródle do czasu potwierdzenia wskaźnika.",
-          "severity": "BLOCKING",
-          "blocks_workflow": "model-routing"
-        }
-      ]
+      "known_conflicts": []
     },
     {
       "id": "SRC-DIETANKA-BRAND",
@@ -58,18 +53,13 @@
       "criticality": "medium",
       "availability_state": "MISSING",
       "freshness_state": "UNKNOWN",
-      "integrity_state": "CONFLICTED",
+      "integrity_state": "NOT_APPLICABLE",
+      "blocked_reason": "Brak zatwierdzonego brandbooka; repo utrzymuje wyłącznie DIETANKA_BRAND_HYPOTHESES.md.",
       "uri": null,
       "last_verified": null,
       "refresh_policy": "after brand workshop",
       "write_access": "manual",
-      "known_conflicts": [
-        {
-          "summary": "Brak zatwierdzonego brandbooka; repo utrzymuje wyłącznie DIETANKA_BRAND_HYPOTHESES.md.",
-          "severity": "INFO",
-          "blocks_workflow": "dietanka-brand-activation"
-        }
-      ]
+      "known_conflicts": []
     }
   ]
 }

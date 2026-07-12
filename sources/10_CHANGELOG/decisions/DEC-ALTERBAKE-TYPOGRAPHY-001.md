@@ -7,7 +7,10 @@ authored_by: Ves
 review_status: APPROVED
 reviewed_by: Ves
 approved_by: Piotrek
-approval_date: "2026-07-11"
+record_created: "2026-07-11"
+decision_date: null
+approval_date: null
+approval_evidence: "AI Baton VES Studio (decyzja Piotrka) + treść Decision Record; dokładna data biznesowa niepotwierdzona"
 approval_scope: decision
 updated: "2026-07-11"
 source_type: decision
@@ -22,7 +25,8 @@ dependencies: []
 
 - **ID:** DEC-ALTERBAKE-TYPOGRAPHY-001
 - **Projekt:** AlterBake — Brand System
-- **Data:** 2026-07-11
+- **Data utworzenia rekordu:** 2026-07-11
+- **Data decyzji / akceptacji:** niepotwierdzona (patrz `approval_evidence`)
 - **Status:** ACCEPTED_PENDING_SOURCE_SYNC
 - **Decydent:** Piotrek
 - **Autor rekomendacji:** Ves

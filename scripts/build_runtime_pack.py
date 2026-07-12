@@ -12,7 +12,10 @@ Composition, exclusions and non-ACTIVE exceptions live in
   constant), and the index records a deterministic source checksum.
 
 Build date comes from $BUILD_DATE (fallback: manifest date, then today) so CI
-stays reproducible; source commit comes from $SOURCE_COMMIT or `git rev-parse`.
+stays reproducible. The committed runtime is deterministic: source commit is
+stamped only from $SOURCE_COMMIT (release/handoff); otherwise it is left "n/a"
+and the source checksum is the canonical runtime identity (never a live
+`git rev-parse`, which would make the tracked file self-referential).
 """
 from __future__ import annotations
 
@@ -71,9 +74,12 @@ def build_runtime_registry(manifest, comp, version) -> dict:
     asset_constraints = [{
         "id": a["id"], "name": a["name"], "type": a["type"],
         "license_status": a["license_status"], "status": a["status"],
-        "approved_fallback": (a.get("fallback") if a["status"] == "ACTIVE"
-                              and a["license_status"] == "CONFIRMED"
-                              else a.get("fallback") or "NO_APPROVED_FALLBACK"),
+        # only a genuinely APPROVED fallback is published as approved (P0-07)
+        "approved_fallback": (a.get("fallback_candidate")
+                              if a.get("fallback_status") == "APPROVED"
+                              else "NO_APPROVED_FALLBACK"),
+        "fallback_candidate": a.get("fallback_candidate"),
+        "fallback_status": a.get("fallback_status", "NONE"),
         "restriction": (a.get("restrictions") or [None])[0],
     } for a in assets.get("assets", [])]
     return {

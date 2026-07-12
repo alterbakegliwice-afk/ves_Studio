@@ -1,11 +1,11 @@
 # 00 RUNTIME INDEX
 
-- **Runtime version:** 1.1.0
+- **Runtime version:** 1.1.1
 - **Runtime status:** BETA
-- **Release:** VES Studio Core Beta v1.1
+- **Release:** VES Studio Core Beta v1.1.1
 - **Build date:** 2026-07-11
 - **Source commit:** n/a (nie stemplowany; użyj SOURCE_COMMIT w release/handoff)
-- **Source checksum:** sha256:01915260635ca2f0b797b62236ef94868902c40617c75ed772c2aee365cc069b  (kanoniczna identyfikacja runtime)
+- **Source checksum:** sha256:16ae38b443cee4621b92dd8b1bcfd37c4f08228e1c4cb2b733d79e00ebe2975a  (kanoniczna identyfikacja runtime)
 
 ## Files
 
@@ -31,7 +31,7 @@
 
 - `alterbake` — ACTIVE: Kanoniczny kontekst marki dostępny; stosuj bezpośrednio.
 - `dietanka` — HYPOTHESES_ONLY: Brak zatwierdzonego brandbooka. Nie przedstawiaj wyniku jako zgodnego z finalnym brandbookiem; oznacz założenia.
-- `personal-os` — DRAFT: Użyj zasad ogólnych Personal OS i oznacz założenia jako robocze.
+- `personal-os` — SOURCE_NOT_LOADED: Kontekst Personal OS nie jest załadowany do Runtime Packa. Nie deklaruj zgodności z Personal OS; załaduj dodatkowe źródło albo oznacz wynik jako roboczy.
 
 ## Explicitly excluded ACTIVE canonical sources
 

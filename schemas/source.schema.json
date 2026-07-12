@@ -56,6 +56,17 @@
       "type": ["string", "null"],
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
     },
+    "record_created": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "decision_date": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "approval_evidence": {
+      "type": ["string", "null"]
+    },
     "updated": {
       "type": "string",
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"

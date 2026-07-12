@@ -60,6 +60,42 @@ def test_conflict_requires_conflicted_integrity():
     assert vr.source_registry_errors(bad)
 
 
+def test_fallback_approval_provenance():
+    """P0-07: a proposed fallback cannot be presented as approved."""
+    bad = {"assets": [{"id": "A", "status": "PROVISIONAL", "license_status": "UNKNOWN",
+                       "fallback_status": "APPROVED", "fallback_candidate": "Inter",
+                       "fallback_approved_by": None}]}
+    assert vr.asset_policy_errors(bad)
+    ok = {"assets": [{"id": "A", "status": "PROVISIONAL", "license_status": "UNKNOWN",
+                      "fallback_status": "PROPOSED", "fallback_candidate": "Inter",
+                      "fallback_approved_by": None}]}
+    assert not vr.asset_policy_errors(ok)
+
+
+def test_current_fonts_have_no_approved_fallback():
+    data = vlib.load_json(os.path.join(REG, "ASSET_REGISTRY.json"))
+    for a in data["assets"]:
+        if a["type"] == "font":
+            assert a["fallback_status"] != "APPROVED"
+            assert a["fallback_approved_by"] is None
+
+
+def test_release_version_consistency():
+    """P0-05: manifest version matches registry versions."""
+    mver = vlib.manifest()["version"]
+    for reg in ("SOURCE_REGISTRY.json", "ASSET_REGISTRY.json"):
+        assert vlib.load_json(os.path.join(REG, reg))["version"] == mver
+
+
+def test_missing_source_is_not_conflicted():
+    """P1-03: a missing/blocked external source uses UNKNOWN/NOT_APPLICABLE, not CONFLICTED."""
+    data = vlib.load_json(os.path.join(REG, "SOURCE_REGISTRY.json"))
+    by = {s["id"]: s for s in data["sources"]}
+    assert by["SRC-AI-COMMAND-CENTER"]["integrity_state"] == "UNKNOWN"
+    assert by["SRC-DIETANKA-BRAND"]["integrity_state"] == "NOT_APPLICABLE"
+    assert by["SRC-STATUS-ALTERBAKE"]["integrity_state"] == "CONFLICTED"
+
+
 def test_null_model_pointer_cannot_be_usable():
     """P0-04: null routing pointer presented as usable fails."""
     bad = {"repository": "TO_BE_CONFIRMED", "uri": None,

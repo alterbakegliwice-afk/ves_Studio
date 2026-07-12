@@ -97,6 +97,14 @@ def main() -> int:
         if stype == "decision" and m.get("decision_status") == "ACCEPTED" \
                 and m.get("approved_by") != "Piotrek":
             errors.append(f"{s.rel}: ACCEPTED decision requires approved_by: Piotrek")
+        # decision approval provenance (P0-08): don't pass off the record date as
+        # the business approval date; require evidence for an approved decision
+        if stype == "decision":
+            if m.get("approval_date") and m.get("approval_date") == m.get("updated"):
+                errors.append(f"{s.rel}: approval_date equals 'updated' — use the real "
+                              f"decision date or null, not the record timestamp")
+            if review == "APPROVED" and not m.get("approval_evidence"):
+                errors.append(f"{s.rel}: APPROVED decision requires approval_evidence")
 
         if not isinstance(m.get("canonical"), bool):
             errors.append(f"{s.rel}: canonical must be a boolean")

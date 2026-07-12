@@ -216,7 +216,8 @@ Do zamknięcia tych decyzji wymagany jest osobny Project Manifest i Brand Review
 
 - **ID:** DEC-ALTERBAKE-TYPOGRAPHY-001
 - **Projekt:** AlterBake — Brand System
-- **Data:** 2026-07-11
+- **Data utworzenia rekordu:** 2026-07-11
+- **Data decyzji / akceptacji:** niepotwierdzona (patrz `approval_evidence`)
 - **Status:** ACCEPTED_PENDING_SOURCE_SYNC
 - **Decydent:** Piotrek
 - **Autor rekomendacji:** Ves

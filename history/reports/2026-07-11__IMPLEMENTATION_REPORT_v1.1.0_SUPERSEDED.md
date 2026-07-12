@@ -1,3 +1,5 @@
+> **STATUS: SUPERSEDED (historyczny).** Opisuje fix pack v1.1.0. Aktualny stan (v1.1.1, 38 testów, decyzja pending-sync obowiązuje w runtime z ostrzeżeniem) opisuje `CLAUDE_CODE_REVIEW_RESPONSE.md`. Nie traktować jako aktualnej reguły.
+
 # CLAUDE CODE — IMPLEMENTATION REPORT (Fix Pack v1.1)
 
 **Data:** 2026-07-11

@@ -83,7 +83,7 @@
      "rule": "Kanoniczny kontekst marki dostępny; stosuj bezpośrednio."},
     {"domain": "dietanka", "state": "HYPOTHESES_ONLY",
      "rule": "Brak zatwierdzonego brandbooka. Nie przedstawiaj wyniku jako zgodnego z finalnym brandbookiem; oznacz założenia."},
-    {"domain": "personal-os", "state": "DRAFT",
-     "rule": "Użyj zasad ogólnych Personal OS i oznacz założenia jako robocze."}
+    {"domain": "personal-os", "state": "SOURCE_NOT_LOADED",
+     "rule": "Kontekst Personal OS nie jest załadowany do Runtime Packa. Nie deklaruj zgodności z Personal OS; załaduj dodatkowe źródło albo oznacz wynik jako roboczy."}
   ]
 }

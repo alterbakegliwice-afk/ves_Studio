@@ -1,8 +1,8 @@
 # PROJECT STATUS
 
 **Projekt:** VES Studio 2.0 — Source Repository & Runtime Pack
-**Wersja:** 1.1.0
-**Release:** VES Studio Core Beta v1.1 (`release_status: CORE_BETA`)
+**Wersja:** 1.1.1
+**Release:** VES Studio Core Beta v1.1.1 (`release_status: CORE_BETA`)
 **Aktualizacja:** 2026-07-11
 **Właściciel:** Piotrek (system) / Ves (kreatywny)
 

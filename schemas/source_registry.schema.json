@@ -66,8 +66,9 @@
             "enum": ["CURRENT", "STALE", "UNKNOWN"]
           },
           "integrity_state": {
-            "enum": ["CONSISTENT", "CONFLICTED"]
+            "enum": ["CONSISTENT", "CONFLICTED", "UNKNOWN", "NOT_APPLICABLE"]
           },
+          "blocked_reason": {"type": "string"},
           "uri": {
             "type": [
               "string",

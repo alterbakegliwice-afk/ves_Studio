@@ -67,6 +67,28 @@
 - **P1-07** walidacja zgodności wersji frontmatter vs nagłówek treści.
 - **P1-08** `permissions: contents: read` w GitHub Actions.
 
+## Runda 2 — VES review v1.1.1 (P0-05…P0-08, P1-01…P1-04)
+
+- **P0-05** wersja release ujednolicona do `1.1.1` (manifest = rejestry = runtime
+  index = STATUS = README); walidator `validate_policies` blokuje dryf.
+- **P0-06** `VALIDATION_REPORT.md` zaktualizowany; usunięto twierdzenie „pending-sync
+  wykluczona z runtime”; stary `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` → 
+  `history/reports/2026-07-11__..._SUPERSEDED.md` z bannerem. Top-level ma jeden
+  aktualny raport (ten plik).
+- **P0-07** fallbacki: `fallback_candidate` + `fallback_status`
+  (`NONE`/`PROPOSED`/`APPROVED`) + `fallback_approved_by`. Runtime publikuje
+  `approved_fallback` tylko przy `APPROVED`; inaczej `NO_APPROVED_FALLBACK`
+  (fonty PROVISIONAL → brak approved fallbacku). Walidator wymusza semantykę.
+- **P0-08** proweniencja: `record_created` (data pliku), `decision_date`/
+  `approval_date` = `null` (niepotwierdzone), `approval_evidence` wskazuje AI Baton.
+  Walidator zabrania `approval_date == updated` i wymaga evidence dla APPROVED.
+- **P1-01** merge gate porównuje katalogi (bez `git diff`) — działa na snapshot
+  bez `.git`; handoff jest realnie samodzielnie weryfikowalny.
+- **P1-02** `personal-os` → `SOURCE_NOT_LOADED` z regułą „nie deklaruj zgodności”.
+- **P1-03** `integrity_state`: dodano `UNKNOWN`/`NOT_APPLICABLE`; AI Command Center
+  i Dietanka nie są już fałszywie `CONFLICTED` (brak źródła ≠ konflikt treści).
+- **P1-04** docstring buildera zgodny z kodem (tylko `$SOURCE_COMMIT`).
+
 ## Pozostałe ryzyka (jawne)
 
 - Licencje fontów, URI AI Command Center, synchronizacja Drive, tokeny i Dietanka
