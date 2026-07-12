@@ -11,7 +11,7 @@ i status projektów należą do *project delta*, nie tutaj
 - ujednolicono wersję release do `1.1.1` (manifest, rejestry, runtime, STATUS,
   README) + walidator zgodności wersji top-level (P0-05),
 - zaktualizowano `VALIDATION_REPORT.md`; stary raport implementacyjny przeniesiono
-  do `history/reports/...SUPERSEDED.md` (P0-06),
+  do `history/reports/2026-07-11__IMPLEMENTATION_REPORT_v1.1.0_SUPERSEDED.md` (P0-06),
 - fallbacki assetów: `fallback_candidate`/`fallback_status`/`fallback_approved_by`;
   runtime publikuje `approved_fallback` tylko dla `APPROVED` (P0-07),
 - proweniencja decyzji: `record_created`/`decision_date`/`approval_date`(null)/
@@ -79,7 +79,7 @@ ale nie prawdziwość decyzji, licencji, źródeł zewnętrznych ani zgodności 
 
 ### Ryzyka
 
-Patrz `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` sekcja 5 (licencje fontów,
+Patrz `history/reports/2026-07-11__IMPLEMENTATION_REPORT_v1.1.0_SUPERSEDED.md` (licencje fontów,
 AI Command Center, synchronizacja Drive, Dietanka, prompt injection).
 
 ### Status

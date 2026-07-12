@@ -14,7 +14,7 @@ Statusy (rozdzielone, patrz `ves-studio.manifest.json`):
 
 ## TERAZ
 
-Rdzeń governance, walidatory semantyczne, testy regresyjne (38) i Runtime Pack
+Rdzeń governance, walidatory semantyczne, testy regresyjne i Runtime Pack
 (ACTIVE-only, 8 plików) są gotowe jako **Core Beta**. Zamknięto fix pack red-team
 oraz VES review PR #2 (`REQUEST_CHANGES` → P0-01…04, P1-01…08). System nie jest
 opisywany jako production-ready.
@@ -52,8 +52,8 @@ opisywany jako production-ready.
 
 ## ARTEFAKTY AKTYWNE
 
-- `runtime/` — Runtime Pack v1.1.0 Core Beta (8 plików, ACTIVE-only),
-- `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` — raport fix packa,
+- `runtime/` — Runtime Pack v1.1.1 Core Beta (8 plików, ACTIVE-only),
+- `CLAUDE_CODE_IMPLEMENTATION_REPORT_v1.1.1.md` — aktualny raport implementacyjny,
 - `VALIDATION_REPORT.md`, `MIGRATION_REPORT.md`.
 
 ## NASTĘPNY RUCH

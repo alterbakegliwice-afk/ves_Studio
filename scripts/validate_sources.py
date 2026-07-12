@@ -28,14 +28,18 @@ REQUIRED = ["id", "version", "status", "owner", "authored_by", "review_status",
 SEMVER = __import__("re").compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
 
 
-def _schema_validator():
+def _validator(schema_name):
     try:
         import jsonschema  # noqa: F401
     except ImportError:
         return None
-    schema = load_json(os.path.join(REPO_ROOT, "schemas", "source.schema.json"))
+    schema = load_json(os.path.join(REPO_ROOT, "schemas", schema_name))
     from jsonschema import Draft202012Validator
     return Draft202012Validator(schema)
+
+
+def _schema_validator():
+    return _validator("source.schema.json")
 
 
 def main() -> int:
@@ -43,6 +47,7 @@ def main() -> int:
     errors: list[str] = []
     ids: dict[str, str] = {}
     validator = _schema_validator()
+    decision_validator = _validator("decision_record.schema.json")
 
     for s in sources:
         for e in s.errors:
@@ -127,6 +132,10 @@ def main() -> int:
         if validator is not None:
             for err in sorted(validator.iter_errors(m), key=lambda e: e.path):
                 errors.append(f"{s.rel}: schema: {err.message}")
+
+        if stype == "decision" and decision_validator is not None:
+            for err in sorted(decision_validator.iter_errors(m), key=lambda e: e.path):
+                errors.append(f"{s.rel}: decision-schema: {err.message}")
 
     print(f"validate_sources: scanned {len(sources)} source files, "
           f"{len(ids)} unique ids")

@@ -13,6 +13,7 @@ echo "==> validate sources";       python scripts/validate_sources.py
 echo "==> validate dependencies";  python scripts/validate_dependencies.py
 echo "==> validate registries";    python scripts/validate_registries.py
 echo "==> validate policies";      python scripts/validate_policies.py
+echo "==> validate release docs";  python scripts/validate_release_docs.py
 echo "==> detect duplicate rules"; python scripts/detect_duplicate_rules.py
 
 echo "==> verify committed runtime is fresh"; python scripts/verify_runtime_freshness.py

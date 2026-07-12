@@ -1,9 +1,10 @@
-# ODPOWIEDŹ NA VES REVIEW — PR #2 / Core Beta v1.1
+# IMPLEMENTATION REPORT — VES Studio Core Beta v1.1.1
 
 **Data:** 2026-07-12
-**Werdykt wejściowy:** `REQUEST_CHANGES`
-**Zakres:** zamknięcie P0-01…P0-04 (wymagane) + P1-01…P1-08.
-**Merge gate:** PASSED (38 testów).
+**Snapshot:** branch `claude/new-session-fokyyp` (PR #3)
+**Zakres:** VES review PR #2 (P0-01…04, P1-01…08) + review v1.1.1 round 2
+(P0-05…08, P1-01…04) + docs/truth fix (P0-09/10).
+**Merge gate:** PASSED (`bash scripts/run_merge_gate.sh`).
 
 ## P0 — wymagane przed merge
 
@@ -72,8 +73,8 @@
 - **P0-05** wersja release ujednolicona do `1.1.1` (manifest = rejestry = runtime
   index = STATUS = README); walidator `validate_policies` blokuje dryf.
 - **P0-06** `VALIDATION_REPORT.md` zaktualizowany; usunięto twierdzenie „pending-sync
-  wykluczona z runtime”; stary `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` → 
-  `history/reports/2026-07-11__..._SUPERSEDED.md` z bannerem. Top-level ma jeden
+  wykluczona z runtime”; stary raport implementacyjny → 
+  `history/reports/2026-07-11__IMPLEMENTATION_REPORT_v1.1.0_SUPERSEDED.md` z bannerem. Top-level ma jeden
   aktualny raport (ten plik).
 - **P0-07** fallbacki: `fallback_candidate` + `fallback_status`
   (`NONE`/`PROPOSED`/`APPROVED`) + `fallback_approved_by`. Runtime publikuje

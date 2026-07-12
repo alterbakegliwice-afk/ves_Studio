@@ -20,7 +20,7 @@ Pack. Uruchamiana lokalnie (`scripts/run_merge_gate.sh`) i w CI
 | Duplikaty reguł normatywnych | `detect_duplicate_rules.py` | PASS (0 niezwolnionych) |
 | Runtime Pack (markery, wersja, checksum) | `validate_runtime.py` | PASS (8 plików) |
 | Świeżość runtime | `verify_runtime_freshness.py` | PASS |
-| Testy | `pytest` | PASS (38 testów) |
+| Testy | `pytest` | PASS |
 
 ## Statusy release (rozdzielone)
 
@@ -30,7 +30,7 @@ Pack. Uruchamiana lokalnie (`scripts/run_merge_gate.sh`) i w CI
 
 ## Runtime Pack
 
-- 8 plików, wersja z manifestu (1.1.0), deterministyczny checksum źródeł.
+- 8 plików, wersja z manifestu, deterministyczny checksum źródeł.
 - Kompilowane wyłącznie źródła `ACTIVE` (27), 8 ACTIVE+canonical jawnie
   wykluczonych z powodem i właścicielem.
 - Brak DRAFT/PARTIAL w runtime; brak wyjątków w tym wydaniu.
@@ -50,4 +50,4 @@ Pack. Uruchamiana lokalnie (`scripts/run_merge_gate.sh`) i w CI
 ## Decyzja
 
 PASS jako **Core Beta**. System nie jest opisywany jako production-ready.
-Otwarte ryzyka: patrz `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` sekcja 5.
+Otwarte ryzyka: patrz `CLAUDE_CODE_IMPLEMENTATION_REPORT_v1.1.1.md`.

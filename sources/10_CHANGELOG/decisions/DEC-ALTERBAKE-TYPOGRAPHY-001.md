@@ -10,7 +10,12 @@ approved_by: Piotrek
 record_created: "2026-07-11"
 decision_date: null
 approval_date: null
-approval_evidence: "AI Baton VES Studio (decyzja Piotrka) + treść Decision Record; dokładna data biznesowa niepotwierdzona"
+approval_evidence:
+  type: user_statement
+  date: null
+  quote: null
+  source_ref: "AI Baton VES Studio — polecenie Piotrka (poza repo; dokładny cytat i data niepotwierdzone)"
+  verification_status: PENDING
 approval_scope: decision
 updated: "2026-07-11"
 source_type: decision

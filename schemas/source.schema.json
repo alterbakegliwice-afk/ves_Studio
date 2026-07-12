@@ -65,7 +65,14 @@
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
     },
     "approval_evidence": {
-      "type": ["string", "null"]
+      "type": ["object", "string", "null"],
+      "properties": {
+        "type": {"type": "string"},
+        "date": {"type": ["string", "null"]},
+        "quote": {"type": ["string", "null"]},
+        "source_ref": {"type": ["string", "null"]},
+        "verification_status": {"enum": ["PENDING", "VERIFIED", "UNVERIFIABLE"]}
+      }
     },
     "updated": {
       "type": "string",

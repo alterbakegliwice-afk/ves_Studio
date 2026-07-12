@@ -37,6 +37,9 @@ jobs:
       - name: Validate policies (eligibility, decision sync, status, accounting)
         run: python scripts/validate_policies.py
 
+      - name: Validate release docs (version / report / test-count coherence)
+        run: python scripts/validate_release_docs.py
+
       - name: Detect duplicate rules (blocks unexempted normative duplicates)
         run: python scripts/detect_duplicate_rules.py
 
