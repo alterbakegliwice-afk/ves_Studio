@@ -3,7 +3,12 @@ id: VES-ASSET-POLICY-001
 version: 1.0.0
 status: ACTIVE
 owner: Ves
-approved_by: Piotrek
+authored_by: Ves
+review_status: REVIEWED
+reviewed_by: Ves
+approved_by: null
+approval_date: null
+approval_scope: content
 updated: "2026-07-11"
 source_type: normative
 scope: brand-system
@@ -66,8 +71,10 @@ Asset AI musi mieć zapisane:
   z jawnie otwartą licencją (np. krój OFL/Apache),
 - awans do `ACTIVE` wymaga potwierdzonej licencji zgodnej z deklarowanym użyciem.
 
-Bieżące fallbacki są zapisane w `registries/ASSET_REGISTRY.json` (pole
-`fallback`). Walidator rejestrów blokuje `ACTIVE + UNKNOWN license`.
+Bieżące ograniczenia i fallbacki assetów są w Runtime Packu w
+`07_RUNTIME_REGISTRY.json` (`asset_constraints`, pole `approved_fallback`;
+wartość `NO_APPROVED_FALLBACK` oznacza brak zatwierdzonego fallbacku). Walidator
+rejestrów blokuje `ACTIVE + UNKNOWN license`.
 
 ## 5. Logo
 

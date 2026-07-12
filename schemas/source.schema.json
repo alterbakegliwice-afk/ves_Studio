@@ -7,7 +7,8 @@
     "version",
     "status",
     "owner",
-    "approved_by",
+    "authored_by",
+    "review_status",
     "updated",
     "source_type",
     "scope",
@@ -39,9 +40,21 @@
       "type": "string",
       "minLength": 1
     },
+    "authored_by": {
+      "enum": ["Claude Code", "Ves", "Piotrek"]
+    },
+    "review_status": {
+      "enum": ["UNREVIEWED", "REVIEWED", "APPROVED"]
+    },
+    "reviewed_by": {
+      "type": ["string", "null"]
+    },
     "approved_by": {
-      "type": "string",
-      "minLength": 1
+      "type": ["string", "null"]
+    },
+    "approval_date": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
     },
     "updated": {
       "type": "string",
@@ -78,10 +91,7 @@
       "enum": ["NOT_REQUIRED", "PENDING", "SYNCED"]
     },
     "approval_scope": {
-      "enum": ["content", "hypothesis", "provisional"]
-    },
-    "reviewed_by": {
-      "type": "string"
+      "enum": ["content", "hypothesis", "provisional", "architecture", "decision"]
     },
     "dependencies": {
       "type": "array",

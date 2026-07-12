@@ -3,7 +3,12 @@ id: DEC-ALTERBAKE-TYPOGRAPHY-001
 version: 1.0.0
 status: ACTIVE
 owner: Ves
+authored_by: Ves
+review_status: APPROVED
+reviewed_by: Ves
 approved_by: Piotrek
+approval_date: "2026-07-11"
+approval_scope: decision
 updated: "2026-07-11"
 source_type: decision
 scope: brand-alterbake
@@ -57,7 +62,7 @@ konflikt. Ryzyko rozbieżności między repo a Drive.
 ## WPŁYW NA ŹRÓDŁA
 
 - `sources/02_BRAND_SYSTEM/ALTERBAKE_BRAND.md` — sekcja Typografia (kanoniczna),
-- `registries/SOURCE_REGISTRY.json` — wpis konfliktu STATUS_ALTERBAKE.
+- Source Registry (repo) oraz Runtime Registry (`07_RUNTIME_REGISTRY.json`, `external_sources`) — wpis konfliktu STATUS_ALTERBAKE.
 
 ## WARUNEK PONOWNEGO OTWARCIA
 

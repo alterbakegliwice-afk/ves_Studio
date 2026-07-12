@@ -3,7 +3,12 @@ id: VES-ROUTING-001
 version: 1.1.0
 status: ACTIVE
 owner: Ves
-approved_by: Piotrek
+authored_by: Ves
+review_status: REVIEWED
+reviewed_by: Ves
+approved_by: null
+approval_date: null
+approval_scope: content
 updated: "2026-07-11"
 source_type: normative
 scope: governance
@@ -25,7 +30,7 @@ Router nie tworzy treści projektu. Kieruje wykonaniem.
 
 Router opisuje **cechy zadania i role**. Nie zapisuje na stałe nazw ani wersji
 modeli. Bieżący, najlepszy model dla danej roli wskazuje AI Command Center
-(patrz `registries/MODEL_CAPABILITY_POINTER.json`).
+(w Runtime Packu: `07_RUNTIME_REGISTRY.json`, sekcja `model_routing_pointer`).
 
 ## 2. Algorytm
 
@@ -59,6 +64,10 @@ Warunkowo: właściwy plik marki, `VISUAL_LANGUAGE.md`, odpowiedni Document
 System, odpowiednie komponenty, status projektu, jedna checklista review.
 
 Limit domyślny: **maksymalnie 7 plików źródłowych na jedno zadanie**.
+
+> Runtime Pack (8 plików) to prekompilowany kontekst bazowy, ładowany zawsze.
+> Limit 7 dotyczy **dodatkowych** źródeł projektowych ładowanych do konkretnego
+> zadania ponad Runtime Pack, nie liczby plików samego Runtime Packa.
 
 ### Krok 5 — wybierz rolę wykonawczą
 
