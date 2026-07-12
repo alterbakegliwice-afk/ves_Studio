@@ -10,8 +10,8 @@ venv/
 .DS_Store
 *.swp
 
-# Local review archive output
-VES_STUDIO_SOURCE_v1.1_REVIEW.zip
+# Local review / handoff archive outputs (build artifacts, not versioned)
+*.zip
 
 # Never commit secrets or asset binaries
 *.env

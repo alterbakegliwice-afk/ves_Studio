@@ -1,5 +1,6 @@
 # VES STUDIO — CORE (runtime)
 
+<!-- SOURCE id=VES-MASTER-CONTEXT-001 path=sources/01_MASTER_CONTEXT/MASTER_CONTEXT.md status=ACTIVE version=1.0.0 -->
 # VES STUDIO 2.0 — MASTER CONTEXT
 
 **Wersja:** 1.0  
@@ -187,6 +188,7 @@ Projekt może zostać oznaczony jako `DONE`, gdy:
 
 ---
 
+<!-- SOURCE id=VES-ROUTING-001 path=sources/01_MASTER_CONTEXT/ROUTING.md status=ACTIVE version=1.1.0 -->
 # VES STUDIO 2.0 — ROUTING
 
 **Wersja:** 1.1
@@ -301,6 +303,7 @@ rolą zamiast orkiestracji — wybierz prostszy wariant.
 
 ---
 
+<!-- SOURCE id=VES-SOURCE-OF-TRUTH-001 path=sources/01_MASTER_CONTEXT/SOURCE_OF_TRUTH.md status=ACTIVE version=1.0.0 -->
 # VES STUDIO 2.0 — SOURCE OF TRUTH
 
 **Wersja:** 1.0  
@@ -452,6 +455,7 @@ Zmiana trwała wymaga:
 
 ---
 
+<!-- SOURCE id=VES-QUALITY-GATE-001 path=sources/01_MASTER_CONTEXT/QUALITY_GATE.md status=ACTIVE version=1.1.0 -->
 # VES STUDIO 2.0 — QUALITY GATE
 
 **Wersja:** 1.0  
@@ -575,6 +579,7 @@ Dla rezultatów wizualnych raportuj (patrz `09_REVIEW_SYSTEM/FINAL_REVIEW.md`):
 
 ---
 
+<!-- SOURCE id=VES-PRIVACY-001 path=sources/01_MASTER_CONTEXT/DATA_AND_PRIVACY_POLICY.md status=ACTIVE version=1.0.0 -->
 # DATA AND PRIVACY POLICY v1
 
 ## 1. Cel

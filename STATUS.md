@@ -2,51 +2,63 @@
 
 **Projekt:** VES Studio 2.0 — Source Repository & Runtime Pack
 **Wersja:** 1.1.0
+**Release:** VES Studio Core Beta v1.1 (`release_status: CORE_BETA`)
 **Aktualizacja:** 2026-07-11
 **Właściciel:** Piotrek (system) / Ves (kreatywny)
-**Status:** REVIEW
+
+Statusy (rozdzielone, patrz `ves-studio.manifest.json`):
+
+- `repository_status: ACTIVE` — repo działa i jest utrzymywane,
+- `release_status: CORE_BETA` — rdzeń gotowy, moduły rozszerzone poza zakresem,
+- `runtime_status: BETA` — Runtime Pack kompiluje wyłącznie źródła ACTIVE.
 
 ## TERAZ
 
-Kanoniczne repo źródeł, walidatory, testy i Runtime Pack (8 plików) są gotowe;
-draft PR #1 czeka na review Piotrka/Ves, CI zielone.
+Rdzeń governance, walidatory semantyczne, testy regresyjne i Runtime Pack
+(ACTIVE-only, 8 plików) są gotowe jako **Core Beta**. Fix pack red-team (P0-01…07)
+zamknięty; system nie jest opisywany jako production-ready.
 
 ## OSTATNIA DELTA
 
-- znormalizowano 67 źródeł (frontmatter, pełne ścieżki zależności),
-- usunięto cykl `PROJECT_TEMPLATE ↔ BRIEF_SYSTEM`,
-- scalono `VES_VISUAL_STUDIO.md` i oznaczono SUPERSEDED,
-- dodano rejestry, schematy, walidatory, testy i CI,
-- zbudowano Runtime Pack i utworzono draft PR #1 (CI: success).
+- fix pack red-team: zamknięto P0-01…P0-07 i P1-01…P1-04,
+- runtime kompiluje wyłącznie `ACTIVE` (DRAFT/PARTIAL wykluczone), kompozycja
+  jako dane w `registries/RUNTIME_COMPOSITION.json`,
+- decyzja typografii ma strukturalne `decision_status`/`external_sync_status`,
+- fonty Signage Grotesk / Google Sans przeniesione na `PROVISIONAL` + fallback,
+- AI Command Center oznaczony `BLOCKED` (brak URI),
+- rozdzielono statusy repo/release/runtime; wersja runtime z manifestu + checksum,
+- dodano walidatory `validate_registries.py`, `validate_policies.py`,
+  `verify_runtime_freshness.py` i policy stage w CI.
 
 ## ZATWIERDZONE
 
 - architektura source-first i REPO ≠ RUNTIME,
-- decyzja typografii AlterBake (`DEC-ALTERBAKE-TYPOGRAPHY-001`),
+- runtime ACTIVE-only z jawną kompozycją i rozliczeniem źródeł,
 - rola `VES CREATIVE DIRECTOR` zamiast konkretnej nazwy modelu.
 
 ## OTWARTE
 
-- synchronizacja `STATUS_ALTERBAKE` (Drive) z decyzją typografii,
+- synchronizacja `STATUS_ALTERBAKE` (Drive) z decyzją typografii (external_sync PENDING),
 - zatwierdzenie tokenów produkcyjnych (dziś DRAFT),
 - warsztat i awans marki Dietanka do ACTIVE,
-- potwierdzenie URL repo AI Command Center (`TO_BE_CONFIRMED`),
-- licencje fontów Signage Grotesk / Google Sans.
+- potwierdzenie URL repo AI Command Center (dziś BLOCKED),
+- weryfikacja licencji fontów Signage Grotesk / Google Sans (dziś PROVISIONAL).
 
 ## BLOCKERY
 
-- brak (żaden blocker nie wstrzymuje review).
+- routing modeli zależny od AI Command Center jest `BLOCKED` do czasu potwierdzenia URI
+  (nie blokuje release Core Beta; blokuje workflow `model-routing`).
 
 ## ARTEFAKTY AKTYWNE
 
-- draft PR #1: https://github.com/alterbakegliwice-afk/ves_Studio/pull/1
-- `runtime/` — Runtime Pack v1.1.0 (8 plików),
-- `VES_STUDIO_SOURCE_v1.1_REVIEW.zip` — paczka review,
+- `runtime/` — Runtime Pack v1.1.0 Core Beta (8 plików, ACTIVE-only),
+- `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` — raport fix packa,
 - `VALIDATION_REPORT.md`, `MIGRATION_REPORT.md`.
 
 ## NASTĘPNY RUCH
 
-- **działanie:** review draft PR #1 przez Ves / Piotrka; decyzja o merge do `main`,
+- **działanie:** review fix packa (Core Beta) i decyzja o merge do `main`,
 - **właściciel:** Piotrek (zatwierdzenie) + Ves (review kreatywny),
 - **termin:** do ustalenia,
-- **definicja wykonania:** PR zmergowany lub zwrócony z listą zmian; decyzje z sekcji OTWARTE rozstrzygnięte lub zapisane jako Decision Records.
+- **definicja wykonania:** merge gate zielony, wszystkie P0 DONE, decyzje z sekcji
+  OTWARTE rozstrzygnięte lub zapisane jako Decision Records.

@@ -20,20 +20,32 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
+      # --- structural validation ---
       - name: Validate sources
         run: python scripts/validate_sources.py
 
       - name: Validate dependencies
         run: python scripts/validate_dependencies.py
 
-      - name: Detect duplicate rules (report)
+      # --- semantic policy stage ---
+      - name: Validate registries (licenses, external truth, model pointer)
+        run: python scripts/validate_registries.py
+
+      - name: Validate policies (eligibility, decision sync, status, accounting)
+        run: python scripts/validate_policies.py
+
+      - name: Detect duplicate rules (blocks unexempted normative duplicates)
         run: python scripts/detect_duplicate_rules.py
 
+      # --- build + runtime checks ---
       - name: Build runtime pack
         run: python scripts/build_runtime_pack.py
 
       - name: Validate runtime
         run: python scripts/validate_runtime.py
+
+      - name: Verify runtime freshness
+        run: python scripts/verify_runtime_freshness.py
 
       - name: Run tests
         run: pytest -q

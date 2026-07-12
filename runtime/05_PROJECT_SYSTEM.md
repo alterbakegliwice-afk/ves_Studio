@@ -1,5 +1,6 @@
 # VES STUDIO — PROJECT SYSTEM (runtime)
 
+<!-- SOURCE id=VES-TEMPLATE-PROJECT-001 path=sources/08_PROJECT_TEMPLATE/PROJECT_TEMPLATE.md status=ACTIVE version=1.0.0 -->
 # PROJECT TEMPLATE
 
 ## METADATA
@@ -87,6 +88,7 @@ Jeden konkretny ruch wraz z właścicielem.
 
 ---
 
+<!-- SOURCE id=VES-TEMPLATE-STATUS-001 path=sources/08_PROJECT_TEMPLATE/STATUS.md status=ACTIVE version=1.0.0 -->
 # PROJECT STATUS
 
 **Projekt:**  
@@ -128,6 +130,7 @@ Co zmieniło się od poprzedniej aktualizacji?
 
 ---
 
+<!-- SOURCE id=VES-TEMPLATE-DECISION-001 path=sources/08_PROJECT_TEMPLATE/DECISION_RECORD.md status=ACTIVE version=1.0.0 -->
 # DECISION RECORD
 
 - ID:

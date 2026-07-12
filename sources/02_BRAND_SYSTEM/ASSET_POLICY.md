@@ -56,6 +56,19 @@ Asset AI musi mieć zapisane:
 - zapisuj nazwę, licencję i źródło zakupu/pobrania,
 - finalny plik musi używać legalnej licencji dla danego medium.
 
+### 4.1. Polityka licencji i fallback
+
+- font o statusie `license_status: UNKNOWN` nie może być `ACTIVE` w
+  `ASSET_REGISTRY.json`; pozostaje `PROVISIONAL` lub `BLOCKED`,
+- font `PROVISIONAL`/`BLOCKED` wolno stosować wyłącznie do makiet i eksploracji,
+  nigdy do finalnego druku ani publikacji,
+- do czasu potwierdzenia licencji materiały produkcyjne używają **fallbacku**
+  z jawnie otwartą licencją (np. krój OFL/Apache),
+- awans do `ACTIVE` wymaga potwierdzonej licencji zgodnej z deklarowanym użyciem.
+
+Bieżące fallbacki są zapisane w `registries/ASSET_REGISTRY.json` (pole
+`fallback`). Walidator rejestrów blokuje `ACTIVE + UNKNOWN license`.
+
 ## 5. Logo
 
 - kanoniczne logo istnieje jako plik wektorowy,

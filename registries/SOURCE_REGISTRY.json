@@ -9,12 +9,18 @@
       "domain": "alterbake",
       "owner": "Piotrek",
       "status": "EXTERNAL",
+      "criticality": "high",
+      "state": "STALE",
       "uri": "https://drive.google.com/file/d/13MxzoNH4VDyb7eDgN8bFtZuXmP_kxyaQUvbvfPXffRQ",
       "last_verified": "2026-07-11",
       "refresh_policy": "before strategic work",
       "write_access": "manual-or-connector",
       "known_conflicts": [
-        "Typography Signage Grotesk vs Google Sans: repo przyjął decyzję DEC-ALTERBAKE-TYPOGRAPHY-001 (Signage Grotesk = szyld/ekspresja, Google Sans = UI/system); dokument Drive nadal pokazuje konflikt i wymaga synchronizacji."
+        {
+          "summary": "Typografia Signage Grotesk vs Google Sans: repo przyjął DEC-ALTERBAKE-TYPOGRAPHY-001 (Signage Grotesk = szyld/ekspresja, Google Sans = UI/system); dokument Drive nadal pokazuje konflikt i wymaga synchronizacji.",
+          "severity": "WARNING",
+          "blocks_workflow": "alterbake-brand-finalization"
+        }
       ]
     },
     {
@@ -24,11 +30,19 @@
       "domain": "ves-studio",
       "owner": "Piotrek",
       "status": "EXTERNAL",
+      "criticality": "critical",
+      "state": "BLOCKED",
       "uri": null,
       "last_verified": null,
       "refresh_policy": "before model routing",
       "write_access": "external",
-      "known_conflicts": []
+      "known_conflicts": [
+        {
+          "summary": "Brak potwierdzonego URI repozytorium AI Command Center; routing modeli nie może polegać na tym źródle do czasu potwierdzenia wskaźnika.",
+          "severity": "BLOCKING",
+          "blocks_workflow": "model-routing"
+        }
+      ]
     },
     {
       "id": "SRC-DIETANKA-BRAND",
@@ -37,12 +51,18 @@
       "domain": "dietanka",
       "owner": "właścicielka marki + Piotrek",
       "status": "MISSING",
+      "criticality": "medium",
+      "state": "MISSING",
       "uri": null,
       "last_verified": null,
       "refresh_policy": "after brand workshop",
       "write_access": "manual",
       "known_conflicts": [
-        "Brak zatwierdzonego brandbooka; repo utrzymuje wyłącznie DIETANKA_BRAND_HYPOTHESES.md."
+        {
+          "summary": "Brak zatwierdzonego brandbooka; repo utrzymuje wyłącznie DIETANKA_BRAND_HYPOTHESES.md.",
+          "severity": "INFO",
+          "blocks_workflow": "dietanka-brand-activation"
+        }
       ]
     }
   ]

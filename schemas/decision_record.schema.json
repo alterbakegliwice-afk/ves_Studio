@@ -41,6 +41,12 @@
     "decision": {
       "type": "string"
     },
+    "decision_status": {
+      "enum": ["PROPOSED", "ACCEPTED", "SUPERSEDED", "REJECTED"]
+    },
+    "external_sync_status": {
+      "enum": ["NOT_REQUIRED", "PENDING", "SYNCED"]
+    },
     "supersedes": {
       "type": "string"
     },

@@ -74,6 +74,13 @@ def main() -> int:
         if stype not in ALLOWED_TYPES:
             errors.append(f"{s.rel}: source_type '{stype}' not in {sorted(ALLOWED_TYPES)}")
 
+        # decision sources must carry structured lifecycle + external sync state
+        if stype == "decision":
+            if m.get("decision_status") not in {"PROPOSED", "ACCEPTED", "SUPERSEDED", "REJECTED"}:
+                errors.append(f"{s.rel}: decision source needs valid decision_status")
+            if m.get("external_sync_status") not in {"NOT_REQUIRED", "PENDING", "SYNCED"}:
+                errors.append(f"{s.rel}: decision source needs valid external_sync_status")
+
         if not str(m.get("owner", "")).strip():
             errors.append(f"{s.rel}: owner is empty")
         if not str(m.get("approved_by", "")).strip():

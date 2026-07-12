@@ -39,13 +39,33 @@ checklista review, aktualny status projektu. Nie ładuje się całego repozytori
 - **Operator Workspace (Gemini)** prowadzi natywne przepływy Google Workspace
   i operacje masowe na dokumentach.
 
+## Statusy (rozdzielone)
+
+Dojrzałość opisują trzy niezależne pola w `ves-studio.manifest.json`:
+
+- `repository_status` — czy repo działa i jest utrzymywane,
+- `release_status` — dojrzałość wydania (obecnie `CORE_BETA`),
+- `runtime_status` — dojrzałość Runtime Pack (obecnie `BETA`, ACTIVE-only).
+
+Jedno pole nie opisuje trzech różnych rzeczy.
+
 ## Warstwa kompilacji
 
-- `scripts/validate_sources.py` — frontmatter i metadane,
+- `scripts/validate_sources.py` — frontmatter, metadane, stany decyzji,
 - `scripts/validate_dependencies.py` — graf zależności i cykle,
-- `scripts/detect_duplicate_rules.py` — sygnał duplikacji (report only),
-- `scripts/build_runtime_pack.py` — kompilacja Runtime Pack ze źródeł,
-- `scripts/validate_runtime.py` — kontrola Runtime Pack.
+- `scripts/validate_registries.py` — licencje assetów, prawda źródeł zewnętrznych,
+  wskaźnik modeli,
+- `scripts/validate_policies.py` — semantyka: eligibility runtime, sync decyzji,
+  spójność statusów, rozliczenie źródeł, jedna wersja,
+- `scripts/detect_duplicate_rules.py` — blokada zduplikowanych reguł normatywnych,
+- `scripts/build_runtime_pack.py` — kompilacja Runtime Pack (ACTIVE-only, dane
+  w `registries/RUNTIME_COMPOSITION.json`),
+- `scripts/validate_runtime.py` — kontrola Runtime Pack (markery, wersja, checksum),
+- `scripts/verify_runtime_freshness.py` — czy runtime = bieżące źródła.
+
+Runtime kompiluje wyłącznie źródła `ACTIVE`. Każde `ACTIVE + canonical` źródło
+jest albo skompilowane, albo jawnie wykluczone (z powodem i właścicielem) w
+`registries/RUNTIME_COMPOSITION.json`.
 
 ## Cykl zmiany
 

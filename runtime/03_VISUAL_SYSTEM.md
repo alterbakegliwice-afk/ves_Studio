@@ -1,5 +1,6 @@
 # VES STUDIO — VISUAL SYSTEM (runtime)
 
+<!-- SOURCE id=VES-VISUAL-LANGUAGE-001 path=sources/03_VISUAL_LANGUAGE/VISUAL_LANGUAGE.md status=ACTIVE version=1.0.0 -->
 # VES STUDIO — VISUAL LANGUAGE v1
 
 ## 1. Cel
@@ -188,6 +189,7 @@ po zmniejszeniu do typowego realnego rozmiaru.
 
 ---
 
+<!-- SOURCE id=VES-LAYOUT-001 path=sources/03_VISUAL_LANGUAGE/LAYOUT_SYSTEM.md status=ACTIVE version=1.0.0 -->
 # LAYOUT SYSTEM v1
 
 ## Metryki podstawowe
@@ -220,6 +222,7 @@ Najpierw ustaw layout w czerni, bieli i szarości. Kolor nie może naprawiać z�
 
 ---
 
+<!-- SOURCE id=VES-PHOTO-001 path=sources/03_VISUAL_LANGUAGE/PHOTO_SYSTEM.md status=ACTIVE version=1.0.0 -->
 # PHOTO SYSTEM v1
 
 ## Cel
@@ -286,6 +289,7 @@ Zmienna powinna być jawna: produkt, kolor tła, gest albo kadr.
 
 ---
 
+<!-- SOURCE id=VES-STUDIO-WORKFLOW-001 path=sources/03_VISUAL_LANGUAGE/STUDIO_WORKFLOW.md status=ACTIVE version=1.0.0 -->
 # STUDIO WORKFLOW — PASS 0–6
 
 Migrowane z `VES_VISUAL_STUDIO.md` (v1, SUPERSEDED). Kanoniczny proces
@@ -351,6 +355,7 @@ skala typograficzna 1,20–1,333 zależnie od medium.
 
 ---
 
+<!-- SOURCE id=VES-PROMPT-FRAME12-001 path=sources/06_PROMPT_LIBRARY/FRAME_12.md status=ACTIVE version=1.0.0 -->
 # FRAME-12 — SZKIELET PROMPTU PRODUKCYJNEGO
 
 Migrowane z `VES_VISUAL_STUDIO.md` (v1, SUPERSEDED). Kanoniczny szkielet

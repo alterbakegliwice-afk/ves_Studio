@@ -14,6 +14,8 @@
         "Finalny znak wyłącznie wektorowy; bitmapa AI nie jest masterem.",
         "Wordmark pozostaje otwartą decyzją (patrz ALTERBAKE_BRAND.md sekcja 11)."
       ],
+      "fallback": null,
+      "next_step": "Ustalić finalny wordmark i zarejestrować plik wektorowy z licencją.",
       "status": "MISSING"
     },
     {
@@ -30,9 +32,12 @@
       ],
       "restrictions": [
         "Plik fontu nie jest commitowany do repo.",
-        "Licencja wymaga potwierdzenia dla druku i digital."
+        "Licencja NIEPOTWIERDZONA — nie używać w materiałach produkcyjnych do czasu weryfikacji.",
+        "Dozwolone wyłącznie makiety/eksploracja, nie finalny druk ani publikacja."
       ],
-      "status": "ACTIVE"
+      "fallback": "system grotesk display (np. bezpieczny bezszeryfowy krój systemowy) do czasu potwierdzenia licencji",
+      "next_step": "Piotrek potwierdza licencję Signage Grotesk dla druku i digital; wtedy status -> ACTIVE.",
+      "status": "PROVISIONAL"
     },
     {
       "id": "ASSET-ALTERBAKE-FONT-GOOGLE-SANS",
@@ -50,9 +55,12 @@
       ],
       "restrictions": [
         "Plik fontu nie jest commitowany do repo.",
-        "Zweryfikować prawo do użycia poza produktami Google."
+        "Google Sans jest ograniczony licencyjnie do produktów Google — prawo do użycia poza nimi NIEPOTWIERDZONE.",
+        "Nie używać w materiałach produkcyjnych do czasu weryfikacji licencji."
       ],
-      "status": "ACTIVE"
+      "fallback": "Roboto / Inter lub inny krój z jawnie otwartą licencją (OFL/Apache) jako font systemowy UI",
+      "next_step": "Piotrek potwierdza prawo do użycia Google Sans poza produktami Google lub wybiera fallback z otwartą licencją.",
+      "status": "PROVISIONAL"
     }
   ]
 }

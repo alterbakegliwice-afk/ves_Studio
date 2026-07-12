@@ -25,7 +25,9 @@
           "type",
           "domain",
           "owner",
-          "status"
+          "status",
+          "criticality",
+          "state"
         ],
         "properties": {
           "id": {
@@ -52,6 +54,12 @@
               "EXTERNAL"
             ]
           },
+          "criticality": {
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "state": {
+            "enum": ["AVAILABLE", "STALE", "BLOCKED", "MISSING"]
+          },
           "uri": {
             "type": [
               "string",
@@ -73,7 +81,13 @@
           "known_conflicts": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "object",
+              "required": ["summary", "severity"],
+              "properties": {
+                "summary": {"type": "string"},
+                "severity": {"enum": ["INFO", "WARNING", "BLOCKING"]},
+                "blocks_workflow": {"type": "string"}
+              }
             }
           }
         }

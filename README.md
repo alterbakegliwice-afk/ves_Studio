@@ -2,6 +2,12 @@
 
 Kanoniczne, prywatne repozytorium źródeł systemu **VES Studio 2.0**.
 
+**Release:** VES Studio Core Beta v1.1 — rdzeń governance, brand AlterBake,
+visual system, document/project/review systems i Runtime Pack są gotowe.
+To **nie jest** system production-ready: część modułów (Component/Prompt/
+Reference Library, Automation) pozostaje `ARCHITECTURE_ONLY` i poza runtime.
+Statusy repo/release/runtime są rozdzielone w `ves-studio.manifest.json`.
+
 To repozytorium **nie jest aplikacją ani dashboardem**. Przechowuje zasady,
 źródła, komponenty, decyzje, checklisty review, schematy, rejestry, walidatory,
 testy regresji i changelog. Projekt ChatGPT otrzymuje wyłącznie skompilowany
@@ -33,16 +39,26 @@ tests/        testy pytest
 pip install -r requirements-dev.txt
 python scripts/validate_sources.py
 python scripts/validate_dependencies.py
+python scripts/validate_registries.py
+python scripts/validate_policies.py
+python scripts/detect_duplicate_rules.py
 python scripts/build_runtime_pack.py
 python scripts/validate_runtime.py
-pytest
+pytest -q
 ```
 
 ## Runtime Pack
 
-`runtime/` jest **generowane** ze źródeł przez `scripts/build_runtime_pack.py`.
-Nie edytuj plików w `runtime/` ręcznie. Każdy runtime file ma sekcję
-`## SOURCE MAP` wskazującą kanoniczne źródło każdej reguły.
+`runtime/` jest **generowane** ze źródeł przez `scripts/build_runtime_pack.py`
+na podstawie danych w `registries/RUNTIME_COMPOSITION.json`. Nie edytuj plików
+w `runtime/` ręcznie.
+
+- domyślnie kompilowane są **wyłącznie źródła `ACTIVE`**; DRAFT/PARTIAL są
+  wykluczone (wyjątek wymaga jawnego wpisu z ostrzeżeniem),
+- każda sekcja ma marker `<!-- SOURCE ... -->` (śledzenie reguły do źródła),
+- `00_RUNTIME_INDEX.md` zawiera wersję (z manifestu), commit i checksum źródeł,
+- świeżość sprawdza `python scripts/verify_runtime_freshness.py` — po zmianie
+  źródła przebuduj pack i wgraj go ponownie do projektu ChatGPT.
 
 ## Modele i routing
 

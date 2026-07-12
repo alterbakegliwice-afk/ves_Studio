@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VES Studio Runtime Composition v1",
+  "type": "object",
+  "required": ["default_allowed_status", "targets", "exceptions", "exclusions"],
+  "properties": {
+    "version_source": {"type": "string"},
+    "runtime_status": {"type": "string"},
+    "default_allowed_status": {
+      "type": "array",
+      "items": {"enum": ["ACTIVE", "PARTIAL", "DRAFT", "BLOCKED", "ARCHITECTURE_ONLY", "SUPERSEDED", "ARCHIVED"]},
+      "minItems": 1
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "title", "sources"],
+        "properties": {
+          "file": {"type": "string", "pattern": "^[0-9]{2}_[A-Z0-9_]+\\.md$"},
+          "title": {"type": "string"},
+          "sources": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+        }
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "allowed_status", "purpose", "warning", "owner"],
+        "properties": {
+          "id": {"type": "string"},
+          "allowed_status": {"enum": ["DRAFT", "PARTIAL", "BLOCKED"]},
+          "purpose": {"type": "string"},
+          "warning": {"type": "string"},
+          "owner": {"type": "string"}
+        }
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "owner", "reason"],
+        "properties": {
+          "id": {"type": "string"},
+          "owner": {"type": "string"},
+          "reason": {"type": "string"}
+        }
+      }
+    }
+  }
+}
