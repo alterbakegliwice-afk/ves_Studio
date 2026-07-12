@@ -1,0 +1,103 @@
+{
+  "runtime_version": "1.1.0",
+  "generated": "runtime",
+  "external_sources": [
+    {
+      "id": "SRC-STATUS-ALTERBAKE",
+      "name": "STATUS_ALTERBAKE",
+      "domain": "alterbake",
+      "availability_state": "AVAILABLE",
+      "freshness_state": "CURRENT",
+      "integrity_state": "CONFLICTED",
+      "criticality": "high",
+      "conflicts": [
+        {
+          "summary": "Typografia Signage Grotesk vs Google Sans: repo przyjął DEC-ALTERBAKE-TYPOGRAPHY-001 (Signage Grotesk = szyld/ekspresja, Google Sans = UI/system); dokument Drive nadal pokazuje konflikt i wymaga synchronizacji.",
+          "severity": "WARNING"
+        }
+      ]
+    },
+    {
+      "id": "SRC-AI-COMMAND-CENTER",
+      "name": "AI Command Center",
+      "domain": "ves-studio",
+      "availability_state": "BLOCKED",
+      "freshness_state": "UNKNOWN",
+      "integrity_state": "CONFLICTED",
+      "criticality": "critical",
+      "conflicts": [
+        {
+          "summary": "Brak potwierdzonego URI repozytorium AI Command Center; routing modeli nie może polegać na tym źródle do czasu potwierdzenia wskaźnika.",
+          "severity": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "id": "SRC-DIETANKA-BRAND",
+      "name": "Dietanka brandbook (kanoniczny)",
+      "domain": "dietanka",
+      "availability_state": "MISSING",
+      "freshness_state": "UNKNOWN",
+      "integrity_state": "CONFLICTED",
+      "criticality": "medium",
+      "conflicts": [
+        {
+          "summary": "Brak zatwierdzonego brandbooka; repo utrzymuje wyłącznie DIETANKA_BRAND_HYPOTHESES.md.",
+          "severity": "INFO"
+        }
+      ]
+    }
+  ],
+  "asset_constraints": [
+    {
+      "id": "ASSET-ALTERBAKE-LOGO",
+      "name": "AlterBake wordmark / znak",
+      "type": "logo",
+      "license_status": "UNKNOWN",
+      "status": "MISSING",
+      "approved_fallback": "NO_APPROVED_FALLBACK",
+      "restriction": "Finalny znak wyłącznie wektorowy; bitmapa AI nie jest masterem."
+    },
+    {
+      "id": "ASSET-ALTERBAKE-FONT-SIGNAGE",
+      "name": "Signage Grotesk",
+      "type": "font",
+      "license_status": "UNKNOWN",
+      "status": "PROVISIONAL",
+      "approved_fallback": "system grotesk display (np. bezpieczny bezszeryfowy krój systemowy) do czasu potwierdzenia licencji",
+      "restriction": "Plik fontu nie jest commitowany do repo."
+    },
+    {
+      "id": "ASSET-ALTERBAKE-FONT-GOOGLE-SANS",
+      "name": "Google Sans",
+      "type": "font",
+      "license_status": "UNKNOWN",
+      "status": "PROVISIONAL",
+      "approved_fallback": "Roboto / Inter lub inny krój z jawnie otwartą licencją (OFL/Apache) jako font systemowy UI",
+      "restriction": "Plik fontu nie jest commitowany do repo."
+    }
+  ],
+  "model_routing_pointer": {
+    "state": "BLOCKED",
+    "usable": false,
+    "rule": "VES Studio defines task requirements; AI Command Center selects the current model.",
+    "blocked_reason": "Brak potwierdzonego URI repozytorium AI Command Center. Do czasu potwierdzenia routing modeli używa cech zadania i ról, bez rozstrzygania konkretnej nazwy modelu."
+  },
+  "domain_capabilities": [
+    {
+      "domain": "alterbake",
+      "state": "ACTIVE",
+      "rule": "Kanoniczny kontekst marki dostępny; stosuj bezpośrednio."
+    },
+    {
+      "domain": "dietanka",
+      "state": "HYPOTHESES_ONLY",
+      "rule": "Brak zatwierdzonego brandbooka. Nie przedstawiaj wyniku jako zgodnego z finalnym brandbookiem; oznacz założenia."
+    },
+    {
+      "domain": "personal-os",
+      "state": "DRAFT",
+      "rule": "Użyj zasad ogólnych Personal OS i oznacz założenia jako robocze."
+    }
+  ]
+}

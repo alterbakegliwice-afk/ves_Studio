@@ -4,8 +4,8 @@
 - **Runtime status:** BETA
 - **Release:** VES Studio Core Beta v1.1
 - **Build date:** 2026-07-11
-- **Source commit:** 27fedacf388596d9b61ce9bb94640d623491e740
-- **Source checksum:** sha256:106444e2e21b6cc7b26a1350bdf531430f7076c86c063482c6cdab05a09ed7fb
+- **Source commit:** n/a (nie stemplowany; użyj SOURCE_COMMIT w release/handoff)
+- **Source checksum:** sha256:01915260635ca2f0b797b62236ef94868902c40617c75ed772c2aee365cc069b  (kanoniczna identyfikacja runtime)
 
 ## Files
 
@@ -16,19 +16,28 @@
 - `04_DOCUMENT_SYSTEM.md`
 - `05_PROJECT_SYSTEM.md`
 - `06_REVIEW_SYSTEM.md`
-- `07_SOURCE_REGISTRY.json`
+- `07_RUNTIME_REGISTRY.json`
 
 ## Runtime eligibility
 
-- Kompilowane statusy: ['ACTIVE'] (ACTIVE-only default).
+- Kompilowane statusy: ['ACTIVE'] (ACTIVE-only default), review_status ∈ {REVIEWED, APPROVED}.
 - Brak wyjątków: żadne źródło DRAFT/PARTIAL nie trafia do runtime.
+
+### Decyzje obowiązujące z ostrzeżeniem (external sync PENDING)
+
+- `DEC-ALTERBAKE-TYPOGRAPHY-001`: external_sync PENDING (obowiązuje z ostrzeżeniem)
+
+## Domain capabilities
+
+- `alterbake` — ACTIVE: Kanoniczny kontekst marki dostępny; stosuj bezpośrednio.
+- `dietanka` — HYPOTHESES_ONLY: Brak zatwierdzonego brandbooka. Nie przedstawiaj wyniku jako zgodnego z finalnym brandbookiem; oznacz założenia.
+- `personal-os` — DRAFT: Użyj zasad ogólnych Personal OS i oznacz założenia jako robocze.
 
 ## Explicitly excluded ACTIVE canonical sources
 
 - `VES-BRAND-INDEX-001` (owner: Ves) — Indeks nawigacyjny Brand System, nie reguła runtime.
 - `VES-CHANGELOG-001` (owner: Piotrek) — Systemowy changelog (historia), nie instrukcja dla modelu.
 - `VES-ROLLBACK-001` (owner: Piotrek) — Polityka rollbacku repo, poza runtime projektu ChatGPT.
-- `DEC-ALTERBAKE-TYPOGRAPHY-001` (owner: Piotrek) — Decyzja z external_sync_status=PENDING; nie może być bezwarunkową regułą runtime do czasu synchronizacji Drive.
 - `VES-GOLDEN-CASES-001` (owner: Ves) — Materiał testowy/regresyjny, nie reguła runtime.
 - `VES-TEST-MATRIX-001` (owner: Ves) — Macierz testów, nie reguła runtime.
 - `VES-HANDOFF-CLAUDE-001` (owner: Piotrek) — Handoff międzymodelowy, poza rdzeniem runtime STUDIO.

@@ -4,6 +4,9 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -37,15 +40,17 @@ jobs:
       - name: Detect duplicate rules (blocks unexempted normative duplicates)
         run: python scripts/detect_duplicate_rules.py
 
-      # --- build + runtime checks ---
-      - name: Build runtime pack
-        run: python scripts/build_runtime_pack.py
+      # --- runtime checks: verify BEFORE build so a stale committed pack fails ---
+      - name: Verify committed runtime is fresh
+        run: python scripts/verify_runtime_freshness.py
 
       - name: Validate runtime
         run: python scripts/validate_runtime.py
 
-      - name: Verify runtime freshness
-        run: python scripts/verify_runtime_freshness.py
+      - name: Rebuild runtime and assert no diff
+        run: |
+          python scripts/build_runtime_pack.py
+          git diff --exit-code -- runtime/
 
       - name: Run tests
         run: pytest -q

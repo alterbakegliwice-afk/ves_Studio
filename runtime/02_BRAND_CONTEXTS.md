@@ -209,6 +209,70 @@ Do zamknięcia tych decyzji wymagany jest osobny Project Manifest i Brand Review
 
 ---
 
+> ⚠️ EXTERNAL SYNC PENDING — `DEC-ALTERBAKE-TYPOGRAPHY-001`: decyzja obowiązuje (latest Piotrek decision wins), ale źródło zewnętrzne nie jest zsynchronizowane. Traktuj jako obowiązującą regułę, oznaczając ryzyko rozjazdu z Drive.
+
+<!-- SOURCE id=DEC-ALTERBAKE-TYPOGRAPHY-001 path=sources/10_CHANGELOG/decisions/DEC-ALTERBAKE-TYPOGRAPHY-001.md status=ACTIVE version=1.0.0 -->
+# DEC-ALTERBAKE-TYPOGRAPHY-001
+
+- **ID:** DEC-ALTERBAKE-TYPOGRAPHY-001
+- **Projekt:** AlterBake — Brand System
+- **Data:** 2026-07-11
+- **Status:** ACCEPTED_PENDING_SOURCE_SYNC
+- **Decydent:** Piotrek
+- **Autor rekomendacji:** Ves
+
+## PROBLEM
+
+Źródła AlterBake w Google Drive (STATUS_ALTERBAKE) wskazują nierozstrzygnięty
+konflikt typografii: Signage Grotesk vs Google Sans.
+
+## ROZWAŻONE WARIANTY
+
+### A — Signage Grotesk jako jedyny krój
+Silna ekspresja, ale słaba czytelność w UI, cennikach i długich treściach.
+
+### B — podział ról krojów
+Signage Grotesk do ekspresji miejsca, Google Sans do warstwy systemowej.
+
+## DECYZJA
+
+Przyjęto wariant B:
+
+- **Signage Grotesk:** szyld, ekspresja marki, display, elementy o wysokiej
+  rozpoznawalności.
+- **Google Sans:** UI, menu, cenniki, etykiety systemowe, dłuższe treści,
+  zastosowania pomocnicze i operacyjne.
+
+## UZASADNIENIE
+
+Rozdzielenie ról usuwa konflikt bez utraty charakteru marki i zapewnia
+czytelność w zastosowaniach systemowych.
+
+## KOSZT I RYZYKO
+
+Do czasu synchronizacji dokumentu Drive źródło zewnętrzne nadal pokazuje
+konflikt. Ryzyko rozbieżności między repo a Drive.
+
+## WPŁYW NA ŹRÓDŁA
+
+- `sources/02_BRAND_SYSTEM/ALTERBAKE_BRAND.md` — sekcja Typografia (kanoniczna),
+- Source Registry (repo) oraz Runtime Registry (`07_RUNTIME_REGISTRY.json`, `external_sources`) — wpis konfliktu STATUS_ALTERBAKE.
+
+## WARUNEK PONOWNEGO OTWARCIA
+
+Nowa decyzja Piotrka lub zmiana strategii marki.
+
+## ROLLBACK
+
+Przywrócić oznaczenie konfliktu i wstrzymać finalizację materiałów zależnych od
+typografii.
+
+## ZASTĘPUJE / ZASTĄPIONA PRZEZ
+
+Pierwsza decyzja w tym obszarze. Nie zastępuje wcześniejszego Decision Record.
+
+---
+
 <!-- SOURCE id=VES-ASSET-POLICY-001 path=sources/02_BRAND_SYSTEM/ASSET_POLICY.md status=ACTIVE version=1.0.0 -->
 # ASSET POLICY v1
 
@@ -264,8 +328,10 @@ Asset AI musi mieć zapisane:
   z jawnie otwartą licencją (np. krój OFL/Apache),
 - awans do `ACTIVE` wymaga potwierdzonej licencji zgodnej z deklarowanym użyciem.
 
-Bieżące fallbacki są zapisane w `registries/ASSET_REGISTRY.json` (pole
-`fallback`). Walidator rejestrów blokuje `ACTIVE + UNKNOWN license`.
+Bieżące ograniczenia i fallbacki assetów są w Runtime Packu w
+`07_RUNTIME_REGISTRY.json` (`asset_constraints`, pole `approved_fallback`;
+wartość `NO_APPROVED_FALLBACK` oznacza brak zatwierdzonego fallbacku). Walidator
+rejestrów blokuje `ACTIVE + UNKNOWN license`.
 
 ## 5. Logo
 
@@ -278,4 +344,5 @@ Bieżące fallbacki są zapisane w `registries/ASSET_REGISTRY.json` (pole
 ## SOURCE MAP
 
 - `VES-BRAND-ALTERBAKE-001` — `sources/02_BRAND_SYSTEM/ALTERBAKE_BRAND.md` (status: ACTIVE)
+- `DEC-ALTERBAKE-TYPOGRAPHY-001` — `sources/10_CHANGELOG/decisions/DEC-ALTERBAKE-TYPOGRAPHY-001.md` (status: ACTIVE)
 - `VES-ASSET-POLICY-001` — `sources/02_BRAND_SYSTEM/ASSET_POLICY.md` (status: ACTIVE)

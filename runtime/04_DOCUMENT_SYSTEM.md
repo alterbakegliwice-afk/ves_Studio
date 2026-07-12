@@ -123,7 +123,7 @@ Przykład:
 ## 4. Relacja do changelogu
 
 Wersja artefaktu należy do **project delta**, nie do systemowego changelogu
-(patrz `sources/10_CHANGELOG/CHANGELOG.md` i `REVIEW_CHANGELOG_SYSTEM.md`).
+(project delta, nie systemowy changelog; zasada rozdziału w `REVIEW_CHANGELOG_SYSTEM.md`).
 
 ---
 

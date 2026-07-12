@@ -26,7 +26,10 @@ from vlib import REPO_ROOT
 
 
 def runtime_eligibility_errors(by_id, comp) -> list:
-    """Composition may compile only default_allowed_status (or listed exceptions)."""
+    """Composition may compile only sources that are:
+    - default_allowed_status (or a listed exception), AND
+    - review_status REVIEWED or APPROVED (P0-04), AND
+    - if a decision, decision_status ACCEPTED (P0-02; PROPOSED/REJECTED blocked)."""
     allowed = set(comp.get("default_allowed_status", ["ACTIVE"]))
     exceptions = {e["id"] for e in comp.get("exceptions", [])}
     errors = []
@@ -35,9 +38,17 @@ def runtime_eligibility_errors(by_id, comp) -> list:
             s = by_id.get(sid)
             if s is None:
                 errors.append(f"unknown source id {sid}")
-            elif s.status not in allowed and sid not in exceptions:
+                continue
+            if s.status not in allowed and sid not in exceptions:
                 errors.append(f"{sid} status {s.status} compiled without exception "
                               f"(allowed={sorted(allowed)})")
+            if s.meta.get("review_status") not in ("REVIEWED", "APPROVED"):
+                errors.append(f"{sid} review_status {s.meta.get('review_status')} "
+                              f"not runtime-eligible (need REVIEWED/APPROVED)")
+            if s.meta.get("source_type") == "decision" \
+                    and s.meta.get("decision_status") != "ACCEPTED":
+                errors.append(f"decision {sid} decision_status "
+                              f"{s.meta.get('decision_status')} must be ACCEPTED to compile")
     return errors
 
 
@@ -68,18 +79,34 @@ def main() -> int:
     compiled_ids = {sid for t in comp["targets"] for sid in t["sources"]}
     errors += [f"runtime eligibility: {e}" for e in runtime_eligibility_errors(by_id, comp)]
 
-    # decision sync policy
+    # decision sync policy (P0-02): a decision pending external sync MAY compile
+    # into runtime (latest Piotrek decision wins), but the pack must carry a
+    # warning and the external conflict must stay visible in the registry.
+    src_registry = vlib.load_json(os.path.join(vlib.REGISTRIES_DIR, "SOURCE_REGISTRY.json"))
+    registry_conflicts = " ".join(
+        c.get("summary", "") for s in src_registry.get("sources", [])
+        for c in s.get("known_conflicts", []))
+    index_txt = ""
+    idx_path = os.path.join(vlib.RUNTIME_DIR, "00_RUNTIME_INDEX.md")
+    if os.path.isfile(idx_path):
+        index_txt = open(idx_path, encoding="utf-8").read()
     for s in by_id.values():
         if s.meta.get("source_type") == "decision":
             sync = s.meta.get("external_sync_status")
-            if sync and sync != "SYNCED" and s.sid in compiled_ids:
-                errors.append(f"decision sync: {s.sid} has external_sync_status "
-                              f"{sync} but is compiled into runtime")
             # prose/metadata consistency
             body_pending = bool(re.search(r"PENDING[_ ]?(SOURCE[_ ])?SYNC", s.body, re.I))
             if body_pending and sync != "PENDING":
                 errors.append(f"decision sync: {s.sid} prose says pending sync but "
                               f"external_sync_status={sync}")
+            # a compiled pending-sync decision must be flagged and its conflict visible
+            if s.sid in compiled_ids and sync == "PENDING":
+                if index_txt and s.sid not in index_txt:
+                    errors.append(f"decision sync: {s.sid} compiled with PENDING sync "
+                                  f"but runtime index has no warning for it")
+                if "typograf" not in registry_conflicts.lower() \
+                        and "signage" not in registry_conflicts.lower():
+                    errors.append(f"decision sync: {s.sid} compiled with PENDING sync "
+                                  f"but SOURCE_REGISTRY no longer shows the conflict")
 
     # status coherence
     for field in ("repository_status", "release_status", "runtime_status"):

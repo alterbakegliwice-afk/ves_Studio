@@ -81,7 +81,7 @@ VES CREATIVE DIRECTOR działa równocześnie jako:
 5. **Redaktor systemu** — wykrywa sprzeczności, duplikaty i nadmiar.
 6. **Recenzent końcowy** — ocenia rezultat bez bronienia wcześniejszej koncepcji.
 
-> Konkretny model wykonawczy dla roli VES CREATIVE DIRECTOR nie jest trwałą częścią tego źródła. Bieżący model wskazuje AI Command Center (patrz `registries/MODEL_CAPABILITY_POINTER.json`).
+> Konkretny model wykonawczy dla roli VES CREATIVE DIRECTOR nie jest trwałą częścią tego źródła. Bieżący model wskazuje AI Command Center (w Runtime Packu: `07_RUNTIME_REGISTRY.json`, sekcja `model_routing_pointer`).
 
 
 ## 5. Zasady nadrzędne
@@ -183,7 +183,7 @@ Projekt może zostać oznaczony jako `DONE`, gdy:
 - przeszedł właściwy Review System,
 - nie ma hard fail,
 - decyzje trwałe są zapisane,
-- status i changelog są aktualne,
+- status i project delta są aktualne (systemowy changelog tylko przy zmianie źródła, reguły lub komponentu),
 - wskazano ryzyka pozostałe po publikacji.
 
 ---
@@ -202,7 +202,7 @@ Router nie tworzy treści projektu. Kieruje wykonaniem.
 
 Router opisuje **cechy zadania i role**. Nie zapisuje na stałe nazw ani wersji
 modeli. Bieżący, najlepszy model dla danej roli wskazuje AI Command Center
-(patrz `registries/MODEL_CAPABILITY_POINTER.json`).
+(w Runtime Packu: `07_RUNTIME_REGISTRY.json`, sekcja `model_routing_pointer`).
 
 ## 2. Algorytm
 
@@ -236,6 +236,10 @@ Warunkowo: właściwy plik marki, `VISUAL_LANGUAGE.md`, odpowiedni Document
 System, odpowiednie komponenty, status projektu, jedna checklista review.
 
 Limit domyślny: **maksymalnie 7 plików źródłowych na jedno zadanie**.
+
+> Runtime Pack (8 plików) to prekompilowany kontekst bazowy, ładowany zawsze.
+> Limit 7 dotyczy **dodatkowych** źródeł projektowych ładowanych do konkretnego
+> zadania ponad Runtime Pack, nie liczby plików samego Runtime Packa.
 
 ### Krok 5 — wybierz rolę wykonawczą
 
@@ -458,7 +462,7 @@ Zmiana trwała wymaga:
 <!-- SOURCE id=VES-QUALITY-GATE-001 path=sources/01_MASTER_CONTEXT/QUALITY_GATE.md status=ACTIVE version=1.1.0 -->
 # VES STUDIO 2.0 — QUALITY GATE
 
-**Wersja:** 1.0  
+**Wersja:** 1.1  
 **Status:** obowiązujący
 
 ## 1. Zasada
@@ -564,7 +568,7 @@ Projekt można zamknąć wyłącznie, gdy:
 - wynik wynosi minimum 82,
 - zapisano trwałe decyzje,
 - status wskazuje finalny artefakt,
-- changelog zawiera zmianę,
+- status i project delta są aktualne; systemowy changelog tylko przy zmianie źródła, reguły lub komponentu,
 - ryzyka pozostałe są jawne.
 
 ## 10. Metryki jakości wizualnej

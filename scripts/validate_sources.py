@@ -23,8 +23,8 @@ ALLOWED_TYPES = {
     "normative", "state", "decision", "evidence", "template", "registry",
     "generated-runtime",
 }
-REQUIRED = ["id", "version", "status", "owner", "approved_by", "updated",
-            "source_type", "scope", "canonical", "dependencies"]
+REQUIRED = ["id", "version", "status", "owner", "authored_by", "review_status",
+            "updated", "source_type", "scope", "canonical", "dependencies"]
 SEMVER = __import__("re").compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
 
 
@@ -83,8 +83,20 @@ def main() -> int:
 
         if not str(m.get("owner", "")).strip():
             errors.append(f"{s.rel}: owner is empty")
-        if not str(m.get("approved_by", "")).strip():
-            errors.append(f"{s.rel}: approved_by is empty")
+
+        # honest approval model (P0-04)
+        review = m.get("review_status")
+        if review not in {"UNREVIEWED", "REVIEWED", "APPROVED"}:
+            errors.append(f"{s.rel}: review_status '{review}' invalid")
+        if status in {"DRAFT", "PARTIAL", "ARCHITECTURE_ONLY"} and review == "APPROVED":
+            errors.append(f"{s.rel}: {status} source must not be review_status APPROVED")
+        if review == "APPROVED" and not m.get("approved_by"):
+            errors.append(f"{s.rel}: review_status APPROVED requires approved_by")
+        if m.get("approved_by") and review != "APPROVED":
+            errors.append(f"{s.rel}: approved_by set but review_status is {review}")
+        if stype == "decision" and m.get("decision_status") == "ACCEPTED" \
+                and m.get("approved_by") != "Piotrek":
+            errors.append(f"{s.rel}: ACCEPTED decision requires approved_by: Piotrek")
 
         if not isinstance(m.get("canonical"), bool):
             errors.append(f"{s.rel}: canonical must be a boolean")
@@ -95,6 +107,14 @@ def main() -> int:
         # placeholders must never be ACTIVE
         if status == "ARCHITECTURE_ONLY" and m.get("canonical") is True:
             errors.append(f"{s.rel}: ARCHITECTURE_ONLY placeholder must not be canonical:true")
+
+        # body vs frontmatter version consistency (P1-07)
+        bm = __import__("re").search(r"\*\*Wersja:\*\*\s*([0-9]+\.[0-9]+)", s.body)
+        if bm and ver:
+            fm_mm = ".".join(str(ver).split(".")[:2])
+            if bm.group(1) != fm_mm:
+                errors.append(f"{s.rel}: body version {bm.group(1)} != frontmatter "
+                              f"{ver} (major.minor must match)")
 
         if validator is not None:
             for err in sorted(validator.iter_errors(m), key=lambda e: e.path):
