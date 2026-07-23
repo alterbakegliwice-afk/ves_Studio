@@ -2,7 +2,7 @@
 
 Kanoniczne, prywatne repozytorium źródeł systemu **VES Studio 2.0**.
 
-**Release:** VES Studio Core Beta v1.1 — rdzeń governance, brand AlterBake,
+**Release:** VES Studio Core Beta v1.1.1 — rdzeń governance, brand AlterBake,
 visual system, document/project/review systems i Runtime Pack są gotowe.
 To **nie jest** system production-ready: część modułów (Component/Prompt/
 Reference Library, Automation) pozostaje `ARCHITECTURE_ONLY` i poza runtime.
@@ -35,16 +35,19 @@ tests/        testy pytest
 
 ## Szybki start
 
+Pełny merge gate (weryfikuje świeżość runtime **przed** buildem, więc nie maskuje
+starego commitowanego runtime):
+
 ```bash
 pip install -r requirements-dev.txt
-python scripts/validate_sources.py
-python scripts/validate_dependencies.py
-python scripts/validate_registries.py
-python scripts/validate_policies.py
-python scripts/detect_duplicate_rules.py
+bash scripts/run_merge_gate.sh
+```
+
+Świadoma aktualizacja runtime po zmianie źródeł (osobno):
+
+```bash
 python scripts/build_runtime_pack.py
-python scripts/validate_runtime.py
-pytest -q
+bash scripts/run_merge_gate.sh
 ```
 
 ## Runtime Pack
@@ -56,7 +59,9 @@ w `runtime/` ręcznie.
 - domyślnie kompilowane są **wyłącznie źródła `ACTIVE`**; DRAFT/PARTIAL są
   wykluczone (wyjątek wymaga jawnego wpisu z ostrzeżeniem),
 - każda sekcja ma marker `<!-- SOURCE ... -->` (śledzenie reguły do źródła),
-- `00_RUNTIME_INDEX.md` zawiera wersję (z manifestu), commit i checksum źródeł,
+- `00_RUNTIME_INDEX.md` zawiera wersję (z manifestu) i **checksum źródeł**
+  (kanoniczna identyfikacja runtime); `Source commit` jest stemplowany tylko w
+  artefakcie release/handoff (`$SOURCE_COMMIT`), inaczej `n/a`,
 - świeżość sprawdza `python scripts/verify_runtime_freshness.py` — po zmianie
   źródła przebuduj pack i wgraj go ponownie do projektu ChatGPT.
 

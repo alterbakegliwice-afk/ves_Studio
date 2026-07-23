@@ -48,6 +48,19 @@
           "reason": {"type": "string"}
         }
       }
+    },
+    "domain_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["domain", "state", "rule"],
+        "properties": {
+          "domain": {"type": "string"},
+          "state": {"enum": ["ACTIVE", "HYPOTHESES_ONLY", "DRAFT", "BLOCKED",
+                             "SOURCE_NOT_LOADED"]},
+          "rule": {"type": "string"}
+        }
+      }
     }
   }
 }

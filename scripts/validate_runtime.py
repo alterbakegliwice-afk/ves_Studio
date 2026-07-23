@@ -45,6 +45,7 @@ SECRET_PATTERNS = [
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
 ]
 MARKER_RE = re.compile(r"<!--\s*SOURCE\s+id=(\S+)\s+path=(\S+)\s+status=(\S+)\s+version=(\S+)\s*-->")
+PATH_REF_RE = re.compile(r"(?:registries|sources|schemas|scripts|tests)/[\w./-]+\.(?:md|json|py)")
 SOURCEMAP_ID_RE = re.compile(r"^-\s+`([A-Z0-9-]+)`\s+—", re.M)
 CHECKSUM_RE = re.compile(r"Source checksum:\*\*\s*(sha256:[0-9a-f]+)")
 VERSION_RE = re.compile(r"Runtime version:\*\*\s*([0-9]+\.[0-9]+\.[0-9]+)")
@@ -59,6 +60,14 @@ def main() -> int:
     max_files = manifest["runtime_pack"]["max_files"]
     comp = vlib.composition()
     target_files = {t["file"] for t in comp["targets"]}
+    by_id = vlib.sources_by_id()
+    # a runtime reference is in-pack if it resolves to a compiled source (its
+    # content is present) or to a runtime file itself.
+    compiled_basenames = {os.path.basename(by_id[sid].rel)
+                          for t in comp["targets"] for sid in t["sources"]
+                          if sid in by_id}
+    runtime_filenames = set(target_files) | {"00_RUNTIME_INDEX.md",
+                                             "07_RUNTIME_REGISTRY.json"}
 
     files = sorted(f for f in os.listdir(RUNTIME_DIR)
                    if os.path.isfile(os.path.join(RUNTIME_DIR, f)))
@@ -100,6 +109,15 @@ def main() -> int:
                 if set(marker_ids) != set(map_ids):
                     errors.append(f"{name}: marker ids {set(marker_ids)} do not "
                                   f"match SOURCE MAP ids {set(map_ids)}")
+                # P0-03: no operational reference to a file outside the pack
+                for line in text.splitlines():
+                    if line.lstrip().startswith("<!-- SOURCE") or line.lstrip().startswith("- `"):
+                        continue  # provenance markers / SOURCE MAP entries
+                    for ref in PATH_REF_RE.findall(line):
+                        base = os.path.basename(ref)
+                        if base not in compiled_basenames and base not in runtime_filenames:
+                            errors.append(f"{name}: dangling runtime reference '{ref}' "
+                                          f"(file not shipped in the pack)")
         if name.endswith(".json"):
             try:
                 json.loads(text)

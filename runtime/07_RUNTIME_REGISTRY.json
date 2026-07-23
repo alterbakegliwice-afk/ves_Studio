@@ -1,0 +1,99 @@
+{
+  "runtime_version": "1.1.1",
+  "generated": "runtime",
+  "external_sources": [
+    {
+      "id": "SRC-STATUS-ALTERBAKE",
+      "name": "STATUS_ALTERBAKE",
+      "domain": "alterbake",
+      "availability_state": "AVAILABLE",
+      "freshness_state": "CURRENT",
+      "integrity_state": "CONFLICTED",
+      "criticality": "high",
+      "conflicts": [
+        {
+          "summary": "Typografia Signage Grotesk vs Google Sans: repo przyjął DEC-ALTERBAKE-TYPOGRAPHY-001 (Signage Grotesk = szyld/ekspresja, Google Sans = UI/system); dokument Drive nadal pokazuje konflikt i wymaga synchronizacji.",
+          "severity": "WARNING"
+        }
+      ]
+    },
+    {
+      "id": "SRC-AI-COMMAND-CENTER",
+      "name": "AI Command Center",
+      "domain": "ves-studio",
+      "availability_state": "BLOCKED",
+      "freshness_state": "UNKNOWN",
+      "integrity_state": "UNKNOWN",
+      "criticality": "critical",
+      "conflicts": []
+    },
+    {
+      "id": "SRC-DIETANKA-BRAND",
+      "name": "Dietanka brandbook (kanoniczny)",
+      "domain": "dietanka",
+      "availability_state": "MISSING",
+      "freshness_state": "UNKNOWN",
+      "integrity_state": "NOT_APPLICABLE",
+      "criticality": "medium",
+      "conflicts": []
+    }
+  ],
+  "asset_constraints": [
+    {
+      "id": "ASSET-ALTERBAKE-LOGO",
+      "name": "AlterBake wordmark / znak",
+      "type": "logo",
+      "license_status": "UNKNOWN",
+      "status": "MISSING",
+      "approved_fallback": "NO_APPROVED_FALLBACK",
+      "fallback_candidate": null,
+      "fallback_status": "NONE",
+      "restriction": "Finalny znak wyłącznie wektorowy; bitmapa AI nie jest masterem."
+    },
+    {
+      "id": "ASSET-ALTERBAKE-FONT-SIGNAGE",
+      "name": "Signage Grotesk",
+      "type": "font",
+      "license_status": "UNKNOWN",
+      "status": "PROVISIONAL",
+      "approved_fallback": "NO_APPROVED_FALLBACK",
+      "fallback_candidate": "Archivo (OFL) lub Anton (OFL) jako display grotesk",
+      "fallback_status": "PROPOSED",
+      "restriction": "Plik fontu nie jest commitowany do repo."
+    },
+    {
+      "id": "ASSET-ALTERBAKE-FONT-GOOGLE-SANS",
+      "name": "Google Sans",
+      "type": "font",
+      "license_status": "UNKNOWN",
+      "status": "PROVISIONAL",
+      "approved_fallback": "NO_APPROVED_FALLBACK",
+      "fallback_candidate": "Inter (OFL)",
+      "fallback_status": "PROPOSED",
+      "restriction": "Plik fontu nie jest commitowany do repo."
+    }
+  ],
+  "model_routing_pointer": {
+    "state": "BLOCKED",
+    "usable": false,
+    "rule": "VES Studio defines task requirements; AI Command Center selects the current model.",
+    "blocked_reason": "Brak potwierdzonego URI repozytorium AI Command Center. Do czasu potwierdzenia routing modeli używa cech zadania i ról, bez rozstrzygania konkretnej nazwy modelu."
+  },
+  "domain_capabilities": [
+    {
+      "domain": "alterbake",
+      "state": "ACTIVE",
+      "rule": "Kanoniczny kontekst marki dostępny; stosuj bezpośrednio."
+    },
+    {
+      "domain": "dietanka",
+      "state": "HYPOTHESES_ONLY",
+      "rule": "Brak zatwierdzonego brandbooka. Nie przedstawiaj wyniku jako zgodnego z finalnym brandbookiem; oznacz założenia."
+    },
+    {
+      "domain": "personal-os",
+      "state": "SOURCE_NOT_LOADED",
+      "rule": "Kontekst Personal OS nie jest załadowany do Runtime Packa. Nie deklaruj zgodności z Personal OS; załaduj dodatkowe źródło albo oznacz wynik jako roboczy."
+    }
+  ]
+}

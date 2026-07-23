@@ -3,7 +3,20 @@ id: DEC-ALTERBAKE-TYPOGRAPHY-001
 version: 1.0.0
 status: ACTIVE
 owner: Ves
+authored_by: Ves
+review_status: APPROVED
+reviewed_by: Ves
 approved_by: Piotrek
+record_created: "2026-07-11"
+decision_date: null
+approval_date: null
+approval_evidence:
+  type: user_statement
+  date: null
+  quote: null
+  source_ref: "AI Baton VES Studio — polecenie Piotrka (poza repo; dokładny cytat i data niepotwierdzone)"
+  verification_status: PENDING
+approval_scope: decision
 updated: "2026-07-11"
 source_type: decision
 scope: brand-alterbake
@@ -17,7 +30,8 @@ dependencies: []
 
 - **ID:** DEC-ALTERBAKE-TYPOGRAPHY-001
 - **Projekt:** AlterBake — Brand System
-- **Data:** 2026-07-11
+- **Data utworzenia rekordu:** 2026-07-11
+- **Data decyzji / akceptacji:** niepotwierdzona (patrz `approval_evidence`)
 - **Status:** ACCEPTED_PENDING_SOURCE_SYNC
 - **Decydent:** Piotrek
 - **Autor rekomendacji:** Ves
@@ -57,7 +71,7 @@ konflikt. Ryzyko rozbieżności między repo a Drive.
 ## WPŁYW NA ŹRÓDŁA
 
 - `sources/02_BRAND_SYSTEM/ALTERBAKE_BRAND.md` — sekcja Typografia (kanoniczna),
-- `registries/SOURCE_REGISTRY.json` — wpis konfliktu STATUS_ALTERBAKE.
+- Source Registry (repo) oraz Runtime Registry (`07_RUNTIME_REGISTRY.json`, `external_sources`) — wpis konfliktu STATUS_ALTERBAKE.
 
 ## WARUNEK PONOWNEGO OTWARCIA
 

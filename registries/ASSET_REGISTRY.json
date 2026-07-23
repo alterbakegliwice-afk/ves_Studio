@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "updated": "2026-07-11",
   "assets": [
     {
@@ -14,7 +14,10 @@
         "Finalny znak wyłącznie wektorowy; bitmapa AI nie jest masterem.",
         "Wordmark pozostaje otwartą decyzją (patrz ALTERBAKE_BRAND.md sekcja 11)."
       ],
-      "fallback": null,
+      "fallback_candidate": null,
+      "fallback_status": "NONE",
+      "fallback_approved_by": null,
+      "fallback_approval_date": null,
       "next_step": "Ustalić finalny wordmark i zarejestrować plik wektorowy z licencją.",
       "status": "MISSING"
     },
@@ -35,8 +38,11 @@
         "Licencja NIEPOTWIERDZONA — nie używać w materiałach produkcyjnych do czasu weryfikacji.",
         "Dozwolone wyłącznie makiety/eksploracja, nie finalny druk ani publikacja."
       ],
-      "fallback": "system grotesk display (np. bezpieczny bezszeryfowy krój systemowy) do czasu potwierdzenia licencji",
-      "next_step": "Piotrek potwierdza licencję Signage Grotesk dla druku i digital; wtedy status -> ACTIVE.",
+      "fallback_candidate": "Archivo (OFL) lub Anton (OFL) jako display grotesk",
+      "fallback_status": "PROPOSED",
+      "fallback_approved_by": null,
+      "fallback_approval_date": null,
+      "next_step": "Piotrek potwierdza licencję Signage Grotesk albo zatwierdza konkretny fallback display.",
       "status": "PROVISIONAL"
     },
     {
@@ -58,8 +64,11 @@
         "Google Sans jest ograniczony licencyjnie do produktów Google — prawo do użycia poza nimi NIEPOTWIERDZONE.",
         "Nie używać w materiałach produkcyjnych do czasu weryfikacji licencji."
       ],
-      "fallback": "Roboto / Inter lub inny krój z jawnie otwartą licencją (OFL/Apache) jako font systemowy UI",
-      "next_step": "Piotrek potwierdza prawo do użycia Google Sans poza produktami Google lub wybiera fallback z otwartą licencją.",
+      "fallback_candidate": "Inter (OFL)",
+      "fallback_status": "PROPOSED",
+      "fallback_approved_by": null,
+      "fallback_approval_date": null,
+      "next_step": "Piotrek zatwierdza font systemowy UI z jawnie otwartą licencją.",
       "status": "PROVISIONAL"
     }
   ]

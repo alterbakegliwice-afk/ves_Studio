@@ -42,22 +42,42 @@ def test_all_current_active_canonical_accounted():
     assert vp.source_accounting_errors(by_id, comp) == []
 
 
-def test_pending_decision_not_compiled():
-    """P0-02: a decision with external_sync_status != SYNCED is excluded."""
+def test_accepted_pending_decision_is_runtime_eligible_with_warning():
+    """P0-02: ACCEPTED + PENDING decision compiles (latest Piotrek decision wins)
+    but the runtime index must warn and the registry must still show the conflict."""
     comp = vlib.composition()
+    by_id = vlib.sources_by_id()
     compiled = {sid for t in comp["targets"] for sid in t["sources"]}
-    by_id = vlib.sources_by_id()
-    for s in by_id.values():
-        if s.meta.get("source_type") == "decision":
-            if s.meta.get("external_sync_status") != "SYNCED":
-                assert s.sid not in compiled, s.sid
-
-
-def test_typography_decision_has_structured_sync_state():
-    by_id = vlib.sources_by_id()
     dec = by_id["DEC-ALTERBAKE-TYPOGRAPHY-001"]
     assert dec.meta.get("decision_status") == "ACCEPTED"
     assert dec.meta.get("external_sync_status") == "PENDING"
+    assert dec.sid in compiled, "ACCEPTED decision should be runtime-eligible"
+    # runtime index warns about the pending sync
+    import os
+    idx = os.path.join(vlib.RUNTIME_DIR, "00_RUNTIME_INDEX.md")
+    if os.path.isfile(idx):
+        assert dec.sid in open(idx, encoding="utf-8").read()
+    # SOURCE_REGISTRY still exposes the conflict
+    reg = vlib.load_json(os.path.join(vlib.REGISTRIES_DIR, "SOURCE_REGISTRY.json"))
+    summaries = " ".join(c["summary"] for s in reg["sources"]
+                         for c in s.get("known_conflicts", [])).lower()
+    assert "signage" in summaries or "typograf" in summaries
+
+
+def test_proposed_or_rejected_decision_is_not_runtime_eligible():
+    """P0-02: only ACCEPTED decisions may compile."""
+    comp = vlib.composition()
+    by_id = dict(vlib.sources_by_id())
+
+    class D:
+        sid = "DEC-FAKE-PROPOSED"
+        status = "ACTIVE"
+        meta = {"source_type": "decision", "decision_status": "PROPOSED",
+                "review_status": "REVIEWED"}
+    by_id[D.sid] = D()
+    comp2 = copy.deepcopy(comp)
+    comp2["targets"][0]["sources"].append("DEC-FAKE-PROPOSED")
+    assert vp.runtime_eligibility_errors(by_id, comp2)
 
 
 def test_manifest_has_split_status():

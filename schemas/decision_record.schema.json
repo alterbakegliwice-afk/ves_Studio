@@ -1,57 +1,37 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "VES Studio Decision Record v1",
+  "title": "VES Studio Decision Record frontmatter v1.1.1",
+  "description": "Decision Records are Markdown sources validated at build time by source.schema.json + validate_sources.py. This schema documents and validates the decision-specific frontmatter fields (source_type: decision). It is the single decision contract; the old id/project/decider shape is retired.",
   "type": "object",
   "required": [
     "id",
-    "project",
-    "date",
-    "status",
-    "decider",
-    "problem",
-    "decision"
+    "source_type",
+    "decision_status",
+    "external_sync_status",
+    "review_status"
   ],
   "properties": {
-    "id": {
-      "type": "string",
-      "pattern": "^DEC-[A-Z0-9-]+$"
+    "id": {"type": "string", "pattern": "^DEC-[A-Z0-9-]+$"},
+    "source_type": {"const": "decision"},
+    "decision_status": {"enum": ["PROPOSED", "ACCEPTED", "SUPERSEDED", "REJECTED"]},
+    "external_sync_status": {"enum": ["NOT_REQUIRED", "PENDING", "SYNCED"]},
+    "review_status": {"enum": ["UNREVIEWED", "REVIEWED", "APPROVED"]},
+    "approved_by": {"type": ["string", "null"]},
+    "record_created": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "decision_date": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "approval_date": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "approval_scope": {"const": "decision"},
+    "approval_evidence": {
+      "type": ["object", "null"],
+      "properties": {
+        "type": {"type": "string"},
+        "date": {"type": ["string", "null"]},
+        "quote": {"type": ["string", "null"]},
+        "source_ref": {"type": ["string", "null"]},
+        "verification_status": {"enum": ["PENDING", "VERIFIED", "UNVERIFIABLE"]}
+      }
     },
-    "project": {
-      "type": "string"
-    },
-    "date": {
-      "type": "string",
-      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
-    },
-    "status": {
-      "enum": [
-        "PROPOSED",
-        "ACCEPTED",
-        "ACCEPTED_PENDING_SOURCE_SYNC",
-        "SUPERSEDED",
-        "REJECTED"
-      ]
-    },
-    "decider": {
-      "type": "string"
-    },
-    "problem": {
-      "type": "string"
-    },
-    "decision": {
-      "type": "string"
-    },
-    "decision_status": {
-      "enum": ["PROPOSED", "ACCEPTED", "SUPERSEDED", "REJECTED"]
-    },
-    "external_sync_status": {
-      "enum": ["NOT_REQUIRED", "PENDING", "SYNCED"]
-    },
-    "supersedes": {
-      "type": "string"
-    },
-    "superseded_by": {
-      "type": "string"
-    }
+    "supersedes": {"type": ["string", "null"]},
+    "superseded_by": {"type": ["string", "array", "null"]}
   }
 }

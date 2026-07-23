@@ -1,7 +1,7 @@
 {
   "version_source": "ves-studio.manifest.json#version",
+  "runtime_status_source": "ves-studio.manifest.json#runtime_status",
   "default_allowed_status": ["ACTIVE"],
-  "runtime_status": "BETA",
   "targets": [
     {
       "file": "01_VES_STUDIO_CORE.md",
@@ -19,6 +19,7 @@
       "title": "VES STUDIO — BRAND CONTEXTS (runtime)",
       "sources": [
         "VES-BRAND-ALTERBAKE-001",
+        "DEC-ALTERBAKE-TYPOGRAPHY-001",
         "VES-ASSET-POLICY-001"
       ]
     },
@@ -72,10 +73,17 @@
     {"id": "VES-BRAND-INDEX-001", "owner": "Ves", "reason": "Indeks nawigacyjny Brand System, nie reguła runtime."},
     {"id": "VES-CHANGELOG-001", "owner": "Piotrek", "reason": "Systemowy changelog (historia), nie instrukcja dla modelu."},
     {"id": "VES-ROLLBACK-001", "owner": "Piotrek", "reason": "Polityka rollbacku repo, poza runtime projektu ChatGPT."},
-    {"id": "DEC-ALTERBAKE-TYPOGRAPHY-001", "owner": "Piotrek", "reason": "Decyzja z external_sync_status=PENDING; nie może być bezwarunkową regułą runtime do czasu synchronizacji Drive."},
     {"id": "VES-GOLDEN-CASES-001", "owner": "Ves", "reason": "Materiał testowy/regresyjny, nie reguła runtime."},
     {"id": "VES-TEST-MATRIX-001", "owner": "Ves", "reason": "Macierz testów, nie reguła runtime."},
     {"id": "VES-HANDOFF-CLAUDE-001", "owner": "Piotrek", "reason": "Handoff międzymodelowy, poza rdzeniem runtime STUDIO."},
     {"id": "VES-HANDOFF-GEMINI-001", "owner": "Piotrek", "reason": "Handoff międzymodelowy, poza rdzeniem runtime STUDIO."}
+  ],
+  "domain_capabilities": [
+    {"domain": "alterbake", "state": "ACTIVE",
+     "rule": "Kanoniczny kontekst marki dostępny; stosuj bezpośrednio."},
+    {"domain": "dietanka", "state": "HYPOTHESES_ONLY",
+     "rule": "Brak zatwierdzonego brandbooka. Nie przedstawiaj wyniku jako zgodnego z finalnym brandbookiem; oznacz założenia."},
+    {"domain": "personal-os", "state": "SOURCE_NOT_LOADED",
+     "rule": "Kontekst Personal OS nie jest załadowany do Runtime Packa. Nie deklaruj zgodności z Personal OS; załaduj dodatkowe źródło albo oznacz wynik jako roboczy."}
   ]
 }

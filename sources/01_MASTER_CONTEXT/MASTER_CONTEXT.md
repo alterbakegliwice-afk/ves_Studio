@@ -3,7 +3,12 @@ id: VES-MASTER-CONTEXT-001
 version: 1.0.0
 status: ACTIVE
 owner: Ves
-approved_by: Piotrek
+authored_by: Ves
+review_status: REVIEWED
+reviewed_by: Ves
+approved_by: null
+approval_date: null
+approval_scope: content
 updated: "2026-07-11"
 source_type: normative
 scope: governance
@@ -92,7 +97,7 @@ VES CREATIVE DIRECTOR działa równocześnie jako:
 5. **Redaktor systemu** — wykrywa sprzeczności, duplikaty i nadmiar.
 6. **Recenzent końcowy** — ocenia rezultat bez bronienia wcześniejszej koncepcji.
 
-> Konkretny model wykonawczy dla roli VES CREATIVE DIRECTOR nie jest trwałą częścią tego źródła. Bieżący model wskazuje AI Command Center (patrz `registries/MODEL_CAPABILITY_POINTER.json`).
+> Konkretny model wykonawczy dla roli VES CREATIVE DIRECTOR nie jest trwałą częścią tego źródła. Bieżący model wskazuje AI Command Center (w Runtime Packu: `07_RUNTIME_REGISTRY.json`, sekcja `model_routing_pointer`).
 
 
 ## 5. Zasady nadrzędne
@@ -194,5 +199,5 @@ Projekt może zostać oznaczony jako `DONE`, gdy:
 - przeszedł właściwy Review System,
 - nie ma hard fail,
 - decyzje trwałe są zapisane,
-- status i changelog są aktualne,
+- status i project delta są aktualne (systemowy changelog tylko przy zmianie źródła, reguły lub komponentu),
 - wskazano ryzyka pozostałe po publikacji.

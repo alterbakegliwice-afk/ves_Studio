@@ -27,7 +27,9 @@
           "owner",
           "status",
           "criticality",
-          "state"
+          "availability_state",
+          "freshness_state",
+          "integrity_state"
         ],
         "properties": {
           "id": {
@@ -57,9 +59,16 @@
           "criticality": {
             "enum": ["low", "medium", "high", "critical"]
           },
-          "state": {
-            "enum": ["AVAILABLE", "STALE", "BLOCKED", "MISSING"]
+          "availability_state": {
+            "enum": ["AVAILABLE", "BLOCKED", "MISSING"]
           },
+          "freshness_state": {
+            "enum": ["CURRENT", "STALE", "UNKNOWN"]
+          },
+          "integrity_state": {
+            "enum": ["CONSISTENT", "CONFLICTED", "UNKNOWN", "NOT_APPLICABLE"]
+          },
+          "blocked_reason": {"type": "string"},
           "uri": {
             "type": [
               "string",

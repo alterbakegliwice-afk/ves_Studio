@@ -12,13 +12,15 @@ Composition, exclusions and non-ACTIVE exceptions live in
   constant), and the index records a deterministic source checksum.
 
 Build date comes from $BUILD_DATE (fallback: manifest date, then today) so CI
-stays reproducible; source commit comes from $SOURCE_COMMIT or `git rev-parse`.
+stays reproducible. The committed runtime is deterministic: source commit is
+stamped only from $SOURCE_COMMIT (release/handoff); otherwise it is left "n/a"
+and the source checksum is the canonical runtime identity (never a live
+`git rev-parse`, which would make the tracked file self-referential).
 """
 from __future__ import annotations
 
 import json
 import os
-import subprocess
 import sys
 
 import vlib
@@ -35,19 +37,62 @@ def _today() -> str:
 
 
 def source_commit() -> str:
-    c = os.environ.get("SOURCE_COMMIT")
-    if c:
-        return c
-    try:
-        return subprocess.check_output(
-            ["git", "-C", REPO_ROOT, "rev-parse", "HEAD"], text=True,
-            stderr=subprocess.DEVNULL).strip()
-    except Exception:
-        return "UNKNOWN"
+    # Only stamp an explicit commit (release/handoff via $SOURCE_COMMIT). The
+    # committed runtime stays deterministic — its canonical identity is the
+    # source checksum, not a self-referential git SHA (P1-03).
+    return os.environ.get("SOURCE_COMMIT", "").strip() or "UNKNOWN"
+
+
+def _commit_line() -> str:
+    c = source_commit()
+    return c if c != "UNKNOWN" else "n/a (nie stemplowany; użyj SOURCE_COMMIT w release/handoff)"
 
 
 def marker(sid, rel, status, version) -> str:
     return f"<!-- SOURCE id={sid} path={rel} status={status} version={version} -->"
+
+
+def build_runtime_registry(manifest, comp, version) -> dict:
+    """Compile the minimal operational registry shipped as 07_RUNTIME_REGISTRY.json.
+
+    The runtime pack is self-contained: the model gets asset constraints,
+    fallbacks, external-source states and the model routing pointer here, so no
+    runtime instruction has to reference a file outside the pack (P0-03)."""
+    src = vlib.load_json(os.path.join(vlib.REGISTRIES_DIR, "SOURCE_REGISTRY.json"))
+    assets = vlib.load_json(os.path.join(vlib.REGISTRIES_DIR, "ASSET_REGISTRY.json"))
+    pointer = vlib.load_json(os.path.join(vlib.REGISTRIES_DIR,
+                                          "MODEL_CAPABILITY_POINTER.json"))
+    external_sources = [{
+        "id": s["id"], "name": s["name"], "domain": s.get("domain"),
+        "availability_state": s.get("availability_state"),
+        "freshness_state": s.get("freshness_state"),
+        "integrity_state": s.get("integrity_state"),
+        "criticality": s.get("criticality"),
+        "conflicts": [{"summary": c["summary"], "severity": c["severity"]}
+                      for c in s.get("known_conflicts", [])],
+    } for s in src.get("sources", [])]
+    asset_constraints = [{
+        "id": a["id"], "name": a["name"], "type": a["type"],
+        "license_status": a["license_status"], "status": a["status"],
+        # only a genuinely APPROVED fallback is published as approved (P0-07)
+        "approved_fallback": (a.get("fallback_candidate")
+                              if a.get("fallback_status") == "APPROVED"
+                              else "NO_APPROVED_FALLBACK"),
+        "fallback_candidate": a.get("fallback_candidate"),
+        "fallback_status": a.get("fallback_status", "NONE"),
+        "restriction": (a.get("restrictions") or [None])[0],
+    } for a in assets.get("assets", [])]
+    return {
+        "runtime_version": version,
+        "generated": "runtime",
+        "external_sources": external_sources,
+        "asset_constraints": asset_constraints,
+        "model_routing_pointer": {
+            "state": pointer.get("state"), "usable": pointer.get("usable"),
+            "rule": pointer.get("rule"), "blocked_reason": pointer.get("blocked_reason"),
+        },
+        "domain_capabilities": comp.get("domain_capabilities", []),
+    }
 
 
 def main() -> int:
@@ -57,7 +102,7 @@ def main() -> int:
     allowed = set(comp.get("default_allowed_status", ["ACTIVE"]))
     exceptions = {e["id"]: e for e in comp.get("exceptions", [])}
     version = manifest["version"]
-    runtime_status = comp.get("runtime_status") or manifest.get("runtime_status", "")
+    runtime_status = manifest.get("runtime_status", "")  # single owner: manifest (P1-06)
 
     os.makedirs(RUNTIME_DIR, exist_ok=True)
     exception_warnings = []
@@ -73,7 +118,17 @@ def main() -> int:
                 print(f"ERROR: {sid} status {s.status} is not runtime-eligible "
                       f"(allowed={sorted(allowed)}) and has no exception entry")
                 return 1
+            if s.meta.get("review_status") not in ("REVIEWED", "APPROVED"):
+                print(f"ERROR: {sid} review_status {s.meta.get('review_status')} "
+                      f"is not runtime-eligible (need REVIEWED or APPROVED)")
+                return 1
+            if s.meta.get("source_type") == "decision" \
+                    and s.meta.get("decision_status") != "ACCEPTED":
+                print(f"ERROR: decision {sid} decision_status "
+                      f"{s.meta.get('decision_status')} must be ACCEPTED to compile")
+                return 1
 
+    sync_warnings = []
     written = []
     for target in comp["targets"]:
         parts = [f"# {target['title']}", ""]
@@ -88,6 +143,15 @@ def main() -> int:
                 parts.append(warn)
                 parts.append("")
                 exception_warnings.append(f"- `{sid}` ({s.status}): {exc['warning']}")
+            # decision obowiązuje w runtime, ale sygnalizuj brak synchronizacji
+            if s.meta.get("external_sync_status") == "PENDING":
+                w = (f"> ⚠️ EXTERNAL SYNC PENDING — `{sid}`: decyzja obowiązuje "
+                     f"(latest Piotrek decision wins), ale źródło zewnętrzne nie "
+                     f"jest zsynchronizowane. Traktuj jako obowiązującą regułę, "
+                     f"oznaczając ryzyko rozjazdu z Drive.")
+                parts.append(w)
+                parts.append("")
+                sync_warnings.append(f"- `{sid}`: external_sync PENDING (obowiązuje z ostrzeżeniem)")
             parts.append(marker(sid, s.rel, s.status, ver))
             parts.append(s.body.strip())
             parts.append("\n---\n")
@@ -105,15 +169,14 @@ def main() -> int:
     # deterministic checksum over compiled sources (composition order)
     checksum = vlib.runtime_checksum(vlib.compiled_items())
 
-    # 07 source registry (runtime copy) — preserve blocking state
-    registry = vlib.load_json(os.path.join(vlib.REGISTRIES_DIR, "SOURCE_REGISTRY.json"))
-    registry["generated"] = "runtime"
-    with open(os.path.join(RUNTIME_DIR, "07_SOURCE_REGISTRY.json"), "w",
+    # 07 runtime registry — compiled minimal operational data the model needs
+    reg = build_runtime_registry(manifest, comp, version)
+    with open(os.path.join(RUNTIME_DIR, "07_RUNTIME_REGISTRY.json"), "w",
               encoding="utf-8") as f:
-        json.dump(registry, f, ensure_ascii=False, indent=2)
+        json.dump(reg, f, ensure_ascii=False, indent=2)
         f.write("\n")
-    written.append("07_SOURCE_REGISTRY.json")
-    print("built runtime/07_SOURCE_REGISTRY.json")
+    written.append("07_RUNTIME_REGISTRY.json")
+    print("built runtime/07_RUNTIME_REGISTRY.json")
 
     # 00 runtime index
     excluded = comp.get("exclusions", [])
@@ -124,8 +187,8 @@ def main() -> int:
         f"- **Runtime status:** {runtime_status}",
         f"- **Release:** {manifest.get('release_label', '')}",
         f"- **Build date:** {build_date(manifest)}",
-        f"- **Source commit:** {source_commit()}",
-        f"- **Source checksum:** {checksum}",
+        f"- **Source commit:** {_commit_line()}",
+        f"- **Source checksum:** {checksum}  (kanoniczna identyfikacja runtime)",
         "",
         "## Files",
         "",
@@ -133,14 +196,22 @@ def main() -> int:
     ]
     for t in comp["targets"]:
         idx.append(f"- `{t['file']}`")
-    idx.append("- `07_SOURCE_REGISTRY.json`")
+    idx.append("- `07_RUNTIME_REGISTRY.json`")
     idx += ["", "## Runtime eligibility", "",
-            f"- Kompilowane statusy: {sorted(allowed)} (ACTIVE-only default)."]
+            f"- Kompilowane statusy: {sorted(allowed)} (ACTIVE-only default), "
+            f"review_status ∈ {{REVIEWED, APPROVED}}."]
     if exception_warnings:
         idx += ["", "### Wyjątki (źródła nie-ACTIVE dopuszczone jawnie)", ""]
         idx.extend(exception_warnings)
     else:
         idx.append("- Brak wyjątków: żadne źródło DRAFT/PARTIAL nie trafia do runtime.")
+    if sync_warnings:
+        idx += ["", "### Decyzje obowiązujące z ostrzeżeniem (external sync PENDING)", ""]
+        idx.extend(sync_warnings)
+    dom = comp.get("domain_capabilities", [])
+    if dom:
+        idx += ["", "## Domain capabilities", ""]
+        idx.extend(f"- `{d['domain']}` — {d['state']}: {d['rule']}" for d in dom)
     idx += ["", "## Explicitly excluded ACTIVE canonical sources", ""]
     if excluded:
         idx.extend(f"- `{e['id']}` (owner: {e['owner']}) — {e['reason']}"
@@ -165,6 +236,13 @@ def main() -> int:
         f.write("\n".join(idx).rstrip() + "\n")
     written.insert(0, "00_RUNTIME_INDEX.md")
     print("built runtime/00_RUNTIME_INDEX.md")
+
+    # prune stale runtime files no longer produced by the composition
+    for existing in os.listdir(RUNTIME_DIR):
+        p = os.path.join(RUNTIME_DIR, existing)
+        if os.path.isfile(p) and existing not in written:
+            os.remove(p)
+            print(f"pruned stale runtime/{existing}")
 
     print(f"\nRuntime pack: {len(written)} files, version {version}, {checksum}")
     if len(written) > manifest["runtime_pack"]["max_files"]:

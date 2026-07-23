@@ -3,7 +3,12 @@ id: VES-ARTIFACT-NAMING-001
 version: 1.0.0
 status: ACTIVE
 owner: Ves
-approved_by: Piotrek
+authored_by: Claude Code
+review_status: REVIEWED
+reviewed_by: Ves
+approved_by: null
+approval_date: null
+approval_scope: content
 updated: "2026-07-11"
 source_type: normative
 scope: document-system
@@ -46,4 +51,4 @@ Przykład:
 ## 4. Relacja do changelogu
 
 Wersja artefaktu należy do **project delta**, nie do systemowego changelogu
-(patrz `sources/10_CHANGELOG/CHANGELOG.md` i `REVIEW_CHANGELOG_SYSTEM.md`).
+(project delta, nie systemowy changelog; zasada rozdziału w `REVIEW_CHANGELOG_SYSTEM.md`).

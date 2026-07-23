@@ -3,7 +3,12 @@ id: VES-QUALITY-GATE-001
 version: 1.1.0
 status: ACTIVE
 owner: Ves
-approved_by: Piotrek
+authored_by: Ves
+review_status: REVIEWED
+reviewed_by: Ves
+approved_by: null
+approval_date: null
+approval_scope: content
 updated: "2026-07-11"
 source_type: normative
 scope: governance
@@ -13,7 +18,7 @@ dependencies: []
 
 # VES STUDIO 2.0 — QUALITY GATE
 
-**Wersja:** 1.0  
+**Wersja:** 1.1  
 **Status:** obowiązujący
 
 ## 1. Zasada
@@ -119,7 +124,7 @@ Projekt można zamknąć wyłącznie, gdy:
 - wynik wynosi minimum 82,
 - zapisano trwałe decyzje,
 - status wskazuje finalny artefakt,
-- changelog zawiera zmianę,
+- status i project delta są aktualne; systemowy changelog tylko przy zmianie źródła, reguły lub komponentu,
 - ryzyka pozostałe są jawne.
 
 ## 10. Metryki jakości wizualnej

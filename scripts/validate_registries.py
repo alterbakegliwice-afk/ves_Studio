@@ -25,28 +25,46 @@ def asset_policy_errors(data) -> list:
     """Pure policy check for ASSET_REGISTRY data. Returns error strings."""
     errors = []
     for a in data.get("assets", []):
+        aid = a.get("id")
         if a.get("status") == "ACTIVE" and a.get("license_status") != "CONFIRMED":
-            errors.append(f"asset {a.get('id')} is ACTIVE with license_status "
+            errors.append(f"asset {aid} is ACTIVE with license_status "
                           f"{a.get('license_status')} (must be CONFIRMED)")
+        # fallback approval provenance (P0-07)
+        fs = a.get("fallback_status", "NONE")
+        if fs == "APPROVED" and not a.get("fallback_approved_by"):
+            errors.append(f"asset {aid} fallback_status APPROVED without fallback_approved_by")
+        if a.get("fallback_approved_by") and fs != "APPROVED":
+            errors.append(f"asset {aid} fallback_approved_by set but fallback_status {fs}")
+        if fs in ("PROPOSED", "APPROVED") and not a.get("fallback_candidate"):
+            errors.append(f"asset {aid} fallback_status {fs} without fallback_candidate")
     return errors
 
 
 def source_registry_errors(data) -> list:
-    """Pure policy check for SOURCE_REGISTRY data. Returns error strings."""
+    """Pure policy check for SOURCE_REGISTRY data (split state model, P1-05)."""
     errors = []
     for s in data.get("sources", []):
         sid = s.get("id")
-        state = s.get("state")
+        avail = s.get("availability_state")
+        fresh = s.get("freshness_state")
+        integ = s.get("integrity_state")
+        conflicts = s.get("known_conflicts", [])
         if s.get("status") == "EXTERNAL" and s.get("uri") in (None, ""):
-            if state not in ("BLOCKED", "MISSING"):
-                errors.append(f"{sid} is EXTERNAL with null URI but state {state} "
-                              f"(must be BLOCKED or MISSING)")
-        if state == "AVAILABLE":
-            if s.get("last_verified") in (None, ""):
-                errors.append(f"{sid} is AVAILABLE without last_verified")
-            for c in s.get("known_conflicts", []):
+            if avail not in ("BLOCKED", "MISSING"):
+                errors.append(f"{sid} is EXTERNAL with null URI but availability_state "
+                              f"{avail} (must be BLOCKED or MISSING)")
+        if avail == "AVAILABLE":
+            for c in conflicts:
                 if c.get("severity") == "BLOCKING":
-                    errors.append(f"{sid} is AVAILABLE but has a BLOCKING conflict")
+                    errors.append(f"{sid} is AVAILABLE but has a BLOCKING conflict "
+                                  f"(availability_state should be BLOCKED)")
+        if fresh == "CURRENT" and s.get("last_verified") in (None, ""):
+            errors.append(f"{sid} freshness_state CURRENT but no last_verified")
+        # integrity must reflect whether conflicts exist
+        if conflicts and integ != "CONFLICTED":
+            errors.append(f"{sid} has conflicts but integrity_state is {integ}")
+        if not conflicts and integ == "CONFLICTED":
+            errors.append(f"{sid} integrity_state CONFLICTED but no conflicts listed")
     return errors
 
 

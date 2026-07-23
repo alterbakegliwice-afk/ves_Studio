@@ -1,8 +1,8 @@
 # PROJECT STATUS
 
 **Projekt:** VES Studio 2.0 — Source Repository & Runtime Pack
-**Wersja:** 1.1.0
-**Release:** VES Studio Core Beta v1.1 (`release_status: CORE_BETA`)
+**Wersja:** 1.1.1
+**Release:** VES Studio Core Beta v1.1.1 (`release_status: CORE_BETA`)
 **Aktualizacja:** 2026-07-11
 **Właściciel:** Piotrek (system) / Ves (kreatywny)
 
@@ -15,8 +15,9 @@ Statusy (rozdzielone, patrz `ves-studio.manifest.json`):
 ## TERAZ
 
 Rdzeń governance, walidatory semantyczne, testy regresyjne i Runtime Pack
-(ACTIVE-only, 8 plików) są gotowe jako **Core Beta**. Fix pack red-team (P0-01…07)
-zamknięty; system nie jest opisywany jako production-ready.
+(ACTIVE-only, 8 plików) są gotowe jako **Core Beta**. Zamknięto fix pack red-team
+oraz VES review PR #2 (`REQUEST_CHANGES` → P0-01…04, P1-01…08). System nie jest
+opisywany jako production-ready.
 
 ## OSTATNIA DELTA
 
@@ -51,8 +52,8 @@ zamknięty; system nie jest opisywany jako production-ready.
 
 ## ARTEFAKTY AKTYWNE
 
-- `runtime/` — Runtime Pack v1.1.0 Core Beta (8 plików, ACTIVE-only),
-- `CLAUDE_CODE_IMPLEMENTATION_REPORT.md` — raport fix packa,
+- `runtime/` — Runtime Pack v1.1.1 Core Beta (8 plików, ACTIVE-only),
+- `CLAUDE_CODE_IMPLEMENTATION_REPORT_v1.1.1.md` — aktualny raport implementacyjny,
 - `VALIDATION_REPORT.md`, `MIGRATION_REPORT.md`.
 
 ## NASTĘPNY RUCH
