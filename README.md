@@ -1,5 +1,12 @@
 # VES Studio — Source Repository
 
+> **⚠️ ZMIGROWANO DO MONOREPO ALTERBAKE OS (2026-07-24).**
+> Kod tego repozytorium żyje teraz w `alterbake-ai-dashboard` w katalogu `apps/studio/`
+> (gałąź konsolidacyjna `claude/alterbake-routing-consolidation-lfze3v`; po scaleniu — `main`),
+> pod wspólną powłoką z routingiem `#/`. Tam prowadź dalszy rozwój — to repozytorium
+> pozostaje archiwum historii sprzed konsolidacji.
+
+
 Kanoniczne, prywatne repozytorium źródeł systemu **VES Studio 2.0**.
 
 **Release:** VES Studio Core Beta v1.1.1 — rdzeń governance, brand AlterBake,
