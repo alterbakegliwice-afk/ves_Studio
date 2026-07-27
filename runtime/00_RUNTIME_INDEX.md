@@ -42,6 +42,7 @@
 - `VES-TEST-MATRIX-001` (owner: Ves) — Macierz testów, nie reguła runtime.
 - `VES-HANDOFF-CLAUDE-001` (owner: Piotrek) — Handoff międzymodelowy, poza rdzeniem runtime STUDIO.
 - `VES-HANDOFF-GEMINI-001` (owner: Piotrek) — Handoff międzymodelowy, poza rdzeniem runtime STUDIO.
+- `VES-PROMPT-LOGO-ENGINE-001` (owner: Ves) — Silnik logo AlterBake — ładowany na żądanie do zadania logo (plik projektowy ≤7), nie reguła always-on runtime; review_status UNREVIEWED (czeka na Ves/Piotrka).
 
 ## Known limitations
 

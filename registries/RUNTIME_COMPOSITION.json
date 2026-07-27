@@ -76,7 +76,8 @@
     {"id": "VES-GOLDEN-CASES-001", "owner": "Ves", "reason": "Materiał testowy/regresyjny, nie reguła runtime."},
     {"id": "VES-TEST-MATRIX-001", "owner": "Ves", "reason": "Macierz testów, nie reguła runtime."},
     {"id": "VES-HANDOFF-CLAUDE-001", "owner": "Piotrek", "reason": "Handoff międzymodelowy, poza rdzeniem runtime STUDIO."},
-    {"id": "VES-HANDOFF-GEMINI-001", "owner": "Piotrek", "reason": "Handoff międzymodelowy, poza rdzeniem runtime STUDIO."}
+    {"id": "VES-HANDOFF-GEMINI-001", "owner": "Piotrek", "reason": "Handoff międzymodelowy, poza rdzeniem runtime STUDIO."},
+    {"id": "VES-PROMPT-LOGO-ENGINE-001", "owner": "Ves", "reason": "Silnik logo AlterBake — ładowany na żądanie do zadania logo (plik projektowy ≤7), nie reguła always-on runtime; review_status UNREVIEWED (czeka na Ves/Piotrka)."}
   ],
   "domain_capabilities": [
     {"domain": "alterbake", "state": "ACTIVE",
