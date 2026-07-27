@@ -53,26 +53,36 @@ scoring 100 pkt → wybór → refine → konstrukcja → stress-test → bramka
 zlecenie wektorowe → pakiet akceptacyjny → lock). Ten Decision Record to pole
 S8/S11 silnika — wypełniane danymi z rzeczywistego biegu przed akceptacją.
 
-## ROZWAŻONE WARIANTY (do uzupełnienia po biegu S2–S5)
+## ROZWAŻONE WARIANTY (wynik biegu S2–S5, 2026-07-27)
 
-- **Terytorium A — Ciągłość** (znak = ciągła linia / ślad trwania miejsca).
-- **Terytorium B — Metoda** (znak = gest rzemiosła, „na oko", czytanie ciasta).
-- **Terytorium C — Rytuał wieczorny** (znak = wieczorny hak, jedyna otwarta wieczorem).
+Monogram „AB"-kłos w trzech konstrukcjach; scoring rubryką §6 (100 pkt):
 
-Zwycięskie terytorium, wynik rubryki i uzasadnienie wpisać tutaj po S5/S8.
+- **T1 — Ciągłość (88/100):** A i B na wspólnej pionowej osi (jeden słupek);
+  kłos jako 3–4 ukośne nacięcia (ości) ze wspólnego słupka. Najlepszy w mono i
+  skali, „znikające" ości = darmowy tier responsywny.
+- **T2 — Metoda (79/100):** monogram z jednego gestu o stałej grubości; grigne
+  (nacięcie rzemieślnicze) na brzuchu B. Wnosi 1 gen do T1.
+- **T3 — Rytuał wieczorny (dyskwalifikacja):** kłos w kontrformie A/B
+  (figure-ground). Hard-fail: pada w hafcie i mono w min. skali. Idea przechodzi
+  do systemu (motion/witryna/foto), nie do znaku.
 
 ## DECYZJA
 
-DO UZUPEŁNIENIA. Po locku (S12) wpisać: wybrany kierunek monogramu „AB"-kłos +
-jeden wordmark, konstrukcja (siatka, pole ochronne = wys. litery wordmarku,
-min. rozmiary: monogram ≥ ~10 mm, wordmark ≥ ~25 mm), wersje obowiązkowe (pełny
-kolor / mono / biała-odwrócona), tiery responsywne, font logo (po potwierdzeniu
-z grafikiem — patrz nota konfliktu).
+**Rekomendacja (PROPOSED, czeka na Piotrka): kierunek T1 „Ciągłość" + gen grigne
+z T2.** Domknięcie wg `INSTRUKCJA_WYKONCZENIA_LOGO` (kroki S6–S12): 2 warianty
+finalne (z grigne / bez) → stress-test → bramka ≥85 → zlecenie wektorowe
+(komplet SVG/EPS/PNG: pełny kolor / mono / odwrócony / tier uproszczony /
+lockup) → pakiet dla Piotrka (1 pytanie: wariant A czy B) → lock. Konstrukcja:
+pole ochronne = wys. litery wordmarku; monogram ≥ ~10 mm, wordmark ≥ ~25 mm;
+jeden wordmark, geometryczna groteska wersalik; font wordmarku = osobna decyzja
+(patrz nota konfliktu).
 
 ## UZASADNIENIE
 
-DO UZUPEŁNIENIA — wynik scoringu (rubryka 100 pkt, §6 silnika) + testy
-dystynktywności i stress-testów (§7).
+T1 najlepiej niesie rdzeń marki (nieprzerwane trwanie miejsca = STARA), jest
+najczystszy w mono/hafcie i najlepiej się skaluje; „znikające" ości dają
+naturalny tier responsywny (pełny → uproszczony → samo „AB"). Wygrywa w
+kryteriach strategii, redukcji i skalowalności; hard-fail wykluczył T3.
 
 ## KOSZT I RYZYKO
 
